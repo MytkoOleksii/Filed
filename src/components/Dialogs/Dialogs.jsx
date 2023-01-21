@@ -1,24 +1,21 @@
 import React from 'react';
 import  teg from './Dialogs.module.css'
+import {NavLink} from "react-router-dom";
 const Dialogs = (props) => {
     return (
         <div className={teg.dialogs} >
 
             <div className={teg.dialogsItems}>
                 <div className={teg.dialog}>
-                    Dimon
-                </div>
+                    <NavLink to='/dialogs/1'>Dimon</NavLink>                </div>
                 <div className={teg.dialog}>
-                    Alex
-                </div>
+                    <NavLink to='/dialogs/2'>Alex</NavLink>               </div>
                 <div className={teg.dialog}>
-                    Bob
-                </div>
+                    <NavLink to='/dialogs/3'>Bob</NavLink>              </div>
                 <div className={teg.dialog}>
-                    Jek
-                </div>
+                    <NavLink to='/dialogs/4'>Jek</NavLink>              </div>
                 <div className={teg.dialog}>
-                    Andrey
+                    <NavLink to='/dialogs/5'>Andrey</NavLink>
                 </div>
 
             </div>
@@ -31,6 +28,6 @@ const Dialogs = (props) => {
 
         </div>
     );
-};
+}
 
 export default Dialogs;
