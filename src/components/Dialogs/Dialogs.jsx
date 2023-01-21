@@ -18,6 +18,7 @@ const Dialogs = (props) => {
                     <NavLink to='/dialogs/5'>Andrey</NavLink>
                 </div>
 
+
             </div>
             <div className={teg.messages}>
                 <div className={teg.message}>Hi</div>
