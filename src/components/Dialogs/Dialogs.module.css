@@ -15,16 +15,24 @@
 
   text-decoration: none;
  }
-
- .item a:focus {
+/* dialog */
+ .dialog a:focus {
   color: gold;
  }
+ .dialog a{
+  display: block;
+ }
+ .dialog a:hover{
+  color: red;
+ }
  .dialog:hover {
-  color: gold;
+  display: block;
+  color: red;
   text-decoration: underline;
   background: aqua;
   text-decoration: none;
  }
+ /*-- end dialog -- */
 
  .messages .message {
   padding: 10px;
