@@ -2,18 +2,31 @@
   display: grid;
   grid-template-columns: 2fr 10fr;
 
+
  }
 
  .dialogsItems .dialog{
-
   padding: 10px;
+  border: black solid 1px;
 
  }
- .messages {
 
+ .dialog2 {
 
+  text-decoration: none;
+ }
+
+ .item a:focus {
+  color: gold;
+ }
+ .dialog:hover {
+  color: gold;
+  text-decoration: underline;
+  background: aqua;
+  text-decoration: none;
  }
 
  .messages .message {
   padding: 10px;
+
  }

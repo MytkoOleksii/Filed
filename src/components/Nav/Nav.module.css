@@ -10,10 +10,11 @@
 .item a.active {
     color: gold;
 }
-.item a.activeLink {
+/*.item a.activeLink {
     color: red;
     cursor: default;
-}
+
+}*/
 
 .item a {
     color: white;
