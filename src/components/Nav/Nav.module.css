@@ -1,0 +1,32 @@
+.nav {
+    grid-area: n;
+    background-color: lightslategrey;
+
+}
+
+.item {
+    color:  white;
+}
+.item.active {
+    color: gold;
+}
+.active-link {
+    color: red;
+    cursor: default;
+}
+
+.active {
+    color: gold;
+}
+
+.link {
+    color: black;
+}
+
+item a {
+    color: white
+}
+
+.item a.activeLink {
+    color: gold
+}
