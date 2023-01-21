@@ -1,19 +1,19 @@
 import React from 'react';
-import  teg from './Dialogs.module.css'
+import teg from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 
 
 const DialogItem = (props) => {
 
-  return (
-      <div className={teg.dialog + ' ' + teg.active} >
-          <NavLink className={teg.dialog2} to={'/dialog/' + props.id}>{props.name}</NavLink>
-      </div>
-  )
+    return (
+        <div className={teg.dialog + ' ' + teg.active}>
+            <NavLink className={teg.dialog2} to={'/dialog/' + props.id}>{props.name}</NavLink>
+        </div>
+    )
 }
 
 const Message = (props) => {
-    return(
+    return (
         <div className={teg.message}>{props.message}</div>
     )
 }
@@ -21,18 +21,37 @@ const Message = (props) => {
 
 const Dialogs = (props) => {
 
+    let dialogsData = [
+        {id: 1, name: 'Dimon'},
+        {id: 2, name: 'Bob'},
+        {id: 3, name: 'Din'},
+        {id: 4, name: 'Ben'},
+        {id: 5, name: 'Alex'},
+        {id: 6, name: 'Djeck'},
+    ];
+
+    let messageData = [
+        {id: 1, messages: 'hi'},
+        {id: 2, messages: 'Are you'},
+        {id: 3, messages: 'Simple pimple'},
+        {id: 4, messages: 'Ben roberts hi hih i'},
+        {id: 5, messages: 'good day'},
+        {id: 6, messages: 'Hello world'},
+    ]
+
+
     return (
-        <div className={teg.dialogs} >
+        <div className={teg.dialogs}>
 
             <div className={teg.dialogsItems}>
 
-                <DialogItem name={'Anna'} id={'1'}/>
-                <DialogItem name={'Dimma'} id={'2'}/>
-                <DialogItem name={'Alex'} id={'3'}/>
-                <DialogItem name={'Bob'} id={'4'}/>
-                <DialogItem name={'Djek'} id={'5'}/>
+                <DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
+                <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
+                <DialogItem name={dialogsData[2].name} id={dialogsData[2].id}/>
+                <DialogItem name={dialogsData[3].name} id={dialogsData[3].id}/>
+                <DialogItem name={dialogsData[4].name} id={dialogsData[4].id}/>
 
-               {/* <div className={teg.dialog}>
+                {/* <div className={teg.dialog}>
                     <NavLink to='/dialogs/1'>Dimon</NavLink>                </div>
                 <div className={teg.dialog}>
                     <NavLink to='/dialogs/2'>Alex</NavLink>               </div>
@@ -46,11 +65,11 @@ const Dialogs = (props) => {
             </div>
             <div className={teg.messages}>
 
-                <Message message={'Hi'} />
-                <Message message={'Hi 2'} />
-                <Message message={'Hi 3'} />
-                <Message message={'Hi 4'} />
-                <Message message={'Hi 5'} />
+                <Message message={messageData[0].messages}/>
+                <Message message={messageData[1].messages}/>
+                <Message message={messageData[2].messages}/>
+                <Message message={messageData[3].messages}/>
+                <Message message={messageData[4].messages}/>
 
 
                 {/*<div className={teg.message}>Hi</div>

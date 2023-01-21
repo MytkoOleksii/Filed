@@ -12,7 +12,7 @@ function Post(props) {
                 {props.message}
 
                 <div>
-                    <div sum={0}>кількість лайків</div>
+                    <div >{props.likesCount}кількість лайків</div>
                     <Like/>
                 </div>
             </div>
