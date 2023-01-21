@@ -7,26 +7,40 @@
 .item {
     color:  white;
 }
-.item.active {
+.item a.active {
     color: gold;
 }
-.active-link {
+.item a.activeLink {
     color: red;
     cursor: default;
 }
 
-.active {
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a:focus {
     color: gold;
 }
+a:hover {
+    color: red;
+    text-decoration: underline;
+    background: limegreen;
+    text-decoration: none;
+}
 
-.link {
+/*a:visited {
+    color: blue; // Цвет посещённой ссылки
+} */
+
+/*
+a:hover {
+    color: gold; !* Цвет ссылки при наведении *!
+    text-decoration: underline; !* Добавляем подчёркивание *!
+    background: limegreen; !* Цвет фона *!
+}
+a:active {
     color: black;
-}
-
-item a {
-    color: white
-}
-
-.item a.activeLink {
-    color: gold
-}
+    text-decoration: underline;
+}*/

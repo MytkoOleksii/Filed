@@ -1,20 +1,46 @@
 import React from 'react';
 import tagName from './Nav.module.css'
+import {NavLink} from "react-router-dom";
 
 
 function Nav() {
     return (
         <nav className={tagName.nav}>
             Menu
+
             <div className={tagName.item}>
+                <NavLink to="/profile">Profile</NavLink>
+            </div>
+            <div className={tagName.item}>
+                <NavLink to="/dialogs">Dialogs</NavLink>
+            </div>
+            <div className={tagName.item}>
+                <NavLink to="/news">News</NavLink>
+            </div>
+            <div className={tagName.item}>
+                <NavLink to="/music">Music</NavLink>
+            </div>
+            <div className={tagName.item}>
+                <NavLink to="/settings">Settings</NavLink>
+            </div>
+
+
+
+            {/*<div className={tagName.item}>
                 <a href="/profile">Profile</a>
             </div>
             <div className={tagName.item}>
-                <a href="/dialog">Dialogs</a>
+                <a href="/dialogs">Dialogs</a>
+            </div>
+            <div className={tagName.item}>
+                <a href="/news">News</a>
+            </div>
+            <div className={tagName.item}>
+                <a href="/music">Music</a>
             </div>
             <div className={tagName.item}>
                 <a href="/setting">Setting</a>
-            </div>
+            </div>*/}
 
            {/*<div className={tagName.item}>*/}
            {/*     <Nav to="/profile" className={navData=>navData.isActive? tagName.activeLink: tagName.item}> Profile1 </Nav>*/}
