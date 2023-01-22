@@ -1,0 +1,27 @@
+
+.dialog{
+  padding: 10px;
+  border: black solid 1px;
+ margin: 1px;
+
+ }
+ .dialog2 {
+
+  text-decoration: none;
+ }
+ .dialog a:focus {
+  color: gold;
+ }
+ .dialog a{
+  display: block;
+ }
+ .dialog a:hover{
+  color: red;
+ }
+ .dialog:hover {
+  display: block;
+  color: red;
+  text-decoration: underline;
+  background: aqua;
+  text-decoration: none;
+ }

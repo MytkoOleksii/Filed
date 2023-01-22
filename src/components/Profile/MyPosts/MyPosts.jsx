@@ -2,18 +2,11 @@ import React from 'react';
 import teg from './MyPosts.module.css'
 import Post from "./Post/Post";
 
-function MyPosts() {
+function MyPosts(props) {
 
-    let postData = [
-        {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
-        {id: 2, likesCount: 12, messages: 'Are you'},
-        {id: 3, likesCount: 45, messages: 'Simple pimple'},
-        {id: 4, likesCount: 2, messages: 'Ben roberts hi hi hi'},
-        {id: 5, likesCount: 8, messages: 'good day'},
-        {id: 6, likesCount: 34, messages: 'Hello world'},
-    ]
 
-    let postsElements = postData.map( (element) => {
+
+    let postsElements = props.items.map( (element) => {
         return (
             <Post likesCount={element.likesCount} message={element.messages}/>
         )

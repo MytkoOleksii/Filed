@@ -1,51 +1,21 @@
 import React from 'react';
 import teg from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
-
-
-const DialogItem = (props) => {
-
-    return (
-        <div className={teg.dialog + ' ' + teg.active}>
-            <NavLink className={teg.dialog2} to={'/dialog/' + props.id}>{props.name}</NavLink>
-        </div>
-    )
-}
-
-const Message = (props) => {
-    return (
-        <div className={teg.message}>{props.message}</div>
-    )
-}
-
+import DialogItem from "./DialogItem/DialogItem";
+import Message from "./Message/Message";
 
 const Dialogs = (props) => {
 
-    let dialogsData = [
-        {id: 1, name: 'Dimon'},
-        {id: 2, name: 'Bob'},
-        {id: 3, name: 'Din'},
-        {id: 4, name: 'Ben'},
-        {id: 5, name: 'Alex'},
-        {id: 6, name: 'Djeck'},
-    ];
 
-    let dialogsElement = dialogsData.map( (element) => {
+
+    let dialogsElement = props.itemsDialogs.map( (element) => {
         return (
             <DialogItem name={element.name} id={element.id} />
         )
     });
 
-    let messageData = [
-        {id: 1, messages: 'hi'},
-        {id: 2, messages: 'Are you'},
-        {id: 3, messages: 'Simple pimple'},
-        {id: 4, messages: 'Ben roberts hi hih i'},
-        {id: 5, messages: 'good day'},
-        {id: 6, messages: 'Hello world'},
-    ]
 
-    let messageElement = messageData.map( function (element) {
+    let messageElement = props.itemsMessages.map( function (element) {
         return (
             <Message message={element.messages} />
         )

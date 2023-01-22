@@ -8,7 +8,22 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-
+let dialogsData = [
+    {id: 1, name: 'Dimon'},
+    {id: 2, name: 'Bob'},
+    {id: 3, name: 'Din'},
+    {id: 4, name: 'Ben'},
+    {id: 5, name: 'Alex'},
+    {id: 6, name: 'Djeck'},
+]
+let messageData = [
+    {id: 1, messages: 'hi'},
+    {id: 2, messages: 'Are you'},
+    {id: 3, messages: 'Simple pimple'},
+    {id: 4, messages: 'Ben roberts hi hih i'},
+    {id: 5, messages: 'good day'},
+    {id: 6, messages: 'Hello world'},
+]
 
 const App = (props) => {
     return (
@@ -24,7 +39,7 @@ const App = (props) => {
                      </Routes>*/}
                     <Routes>
                         <Route path='/profile' element={<Profile/>}/>
-                        <Route path='/dialogs' element={<Dialogs/>}/>
+                        <Route path='/dialogs' element={<Dialogs itemsDialogs={dialogsData} itemsMessages={messageData}/>}/>
                         <Route path='/News' element={<News/>}/>
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
