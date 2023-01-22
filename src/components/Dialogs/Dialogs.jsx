@@ -30,6 +30,12 @@ const Dialogs = (props) => {
         {id: 6, name: 'Djeck'},
     ];
 
+    let dialogsElement = dialogsData.map( (element) => {
+        return (
+            <DialogItem name={element.name} id={element.id} />
+        )
+    });
+
     let messageData = [
         {id: 1, messages: 'hi'},
         {id: 2, messages: 'Are you'},
@@ -39,17 +45,23 @@ const Dialogs = (props) => {
         {id: 6, messages: 'Hello world'},
     ]
 
-
+    let messageElement = messageData.map( function (element) {
+        return (
+            <Message message={element.messages} />
+        )
+    })
     return (
         <div className={teg.dialogs}>
 
             <div className={teg.dialogsItems}>
+                {dialogsElement}
 
-                <DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
+
+                {/*<DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
                 <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
                 <DialogItem name={dialogsData[2].name} id={dialogsData[2].id}/>
                 <DialogItem name={dialogsData[3].name} id={dialogsData[3].id}/>
-                <DialogItem name={dialogsData[4].name} id={dialogsData[4].id}/>
+                <DialogItem name={dialogsData[4].name} id={dialogsData[4].id}/>*/}
 
                 {/* <div className={teg.dialog}>
                     <NavLink to='/dialogs/1'>Dimon</NavLink>                </div>
@@ -65,11 +77,13 @@ const Dialogs = (props) => {
             </div>
             <div className={teg.messages}>
 
-                <Message message={messageData[0].messages}/>
+                {messageElement}
+
+                {/*<Message message={messageData[0].messages}/>
                 <Message message={messageData[1].messages}/>
                 <Message message={messageData[2].messages}/>
                 <Message message={messageData[3].messages}/>
-                <Message message={messageData[4].messages}/>
+                <Message message={messageData[4].messages}/>*/}
 
 
                 {/*<div className={teg.message}>Hi</div>

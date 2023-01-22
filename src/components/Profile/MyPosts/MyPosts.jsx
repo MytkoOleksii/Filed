@@ -8,10 +8,16 @@ function MyPosts() {
         {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
         {id: 2, likesCount: 12, messages: 'Are you'},
         {id: 3, likesCount: 45, messages: 'Simple pimple'},
-        {id: 4, likesCount: 2, messages: 'Ben roberts hi hih i'},
+        {id: 4, likesCount: 2, messages: 'Ben roberts hi hi hi'},
         {id: 5, likesCount: 8, messages: 'good day'},
         {id: 6, likesCount: 34, messages: 'Hello world'},
     ]
+
+    let postsElements = postData.map( (element) => {
+        return (
+            <Post likesCount={element.likesCount} message={element.messages}/>
+        )
+    })
 
 
     return (
@@ -29,8 +35,10 @@ function MyPosts() {
 
             <div className={teg.posts}>
 
-                <Post likesCount={postData[0].likesCount} message={postData[0].messages}/>
-                <Post likesCount={postData[1].likesCount} message={postData[1].messages}/>
+                {postsElements}
+
+                {/*<Post likesCount={postData[0].likesCount} message={postData[0].messages}/>
+                <Post likesCount={postData[1].likesCount} message={postData[1].messages}/>*/}
 
             </div>
         </div>
