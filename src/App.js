@@ -8,6 +8,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import NFriends from "./components/nFriends/NFriends";
 
 const App = (props) => {
 
@@ -16,7 +17,11 @@ const App = (props) => {
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
+                <div>
                 <Nav/>
+                <NFriends/>
+                </div>
+
                 <div className='app-wrapper-content'>
                     main pages
                     {/*  <Routes>
@@ -24,15 +29,17 @@ const App = (props) => {
                     <Route path='/dialogs' element={<Dialogs />}/>
                      </Routes>*/}
                     <Routes>
-                        <Route path='/profile' element={<Profile posts={props.postData}/>}/>
-                        <Route path='/dialogs' element={<Dialogs itemsDialogs={props.dialogsData} itemsMessages={props.messageData}/>}/>
+                        <Route path='/profile' element={<Profile state={props.state.profilePage}/>}/>
+                        <Route path='/dialogs' element={<Dialogs state={props.state.dialogsPage}/>}/>
                         <Route path='/News' element={<News/>}/>
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
                         {/*<Route path='/Music' render={()=>{<Music/>}}/>
                         <Route path='/Settings' render={ () => <Settings/>} />*/}
                     </Routes>
+
                 </div>
+
             </div>
         </BrowserRouter>
     );

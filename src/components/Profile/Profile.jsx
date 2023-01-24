@@ -8,7 +8,7 @@ function Profile(props) {
     return (
         <div className={teg.content}>
            <ProfileInfo />
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.state.posts}/>
             Main content(Profile)
         </div>
     );

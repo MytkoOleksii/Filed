@@ -1,0 +1,27 @@
+.friends {
+    grid-area: f;
+    background-color: lightslategrey;
+    height: 150px;
+    width: 200px;
+    margin-top: 10px;
+    text-align: center;
+}
+.friends a{
+    display: block;
+    text-decoration: none;
+}
+.left {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    margin-top: 20px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 50px;
+}
+.left img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
