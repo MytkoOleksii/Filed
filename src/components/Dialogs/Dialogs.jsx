@@ -22,8 +22,6 @@ const Dialogs = (props) => {
 
             <div className={teg.dialogsItems}>
                 {dialogsElement}
-
-
                 {/*<DialogItem name={dialogsData[0].name} id={dialogsData[0].id}/>
                 <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
                 <DialogItem name={dialogsData[2].name} id={dialogsData[2].id}/>

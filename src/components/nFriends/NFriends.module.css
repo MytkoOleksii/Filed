@@ -25,3 +25,12 @@
     height: 50px;
     border-radius: 50px;
 }
+
+.friends a:hover {
+    display: block;
+    color: red;
+    text-decoration: underline;
+    background: gainsboro;
+    text-decoration: none;
+    border-radius: 50px 50px;
+}

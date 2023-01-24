@@ -19,7 +19,7 @@ const App = (props) => {
                 <Header/>
                 <div>
                 <Nav/>
-                <NFriends/>
+                <NFriends user={props.state.dialogsPage.dialogs}/>
                 </div>
 
                 <div className='app-wrapper-content'>
