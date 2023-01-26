@@ -14,14 +14,15 @@ function MyPosts(props) {
 
     let newPostElement = React.createRef();
     let addPost = function ()  {
+        debugger
         let text = newPostElement.current.value;
-        alert(text)
+        props.addPost(text)
     }
 
     return (
 
         <div className={teg.postsBlock}>
-          <h3> My posts</h3>
+          <h3> My posts </h3>
             <div>
                 <div>
                 <textarea ref={newPostElement}></textarea>

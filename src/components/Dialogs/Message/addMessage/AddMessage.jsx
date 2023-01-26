@@ -7,7 +7,7 @@ function AddMessage(props) {
     let addMessage = function () {
         let text = newMessage.current.value ;
        return (
-           props.state.messages.messages[props.state.messages.messages.length] = text
+           props.state.messages.messages[props.state.messages.messages.length].push(text)
 
        )
     }
