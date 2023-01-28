@@ -4,8 +4,6 @@ import Post from "./Post/Post";
 
 function MyPosts(props) {
 
-
-
     let postsElements = props.posts.map( (element) => {
         return (
             <Post likesCount={element.likesCount} message={element.messages}/>
@@ -14,9 +12,9 @@ function MyPosts(props) {
 
     let newPostElement = React.createRef();
     let addPost = function ()  {
-        debugger
         let text = newPostElement.current.value;
         props.addPost(text)
+        newPostElement.current.value = '';
     }
 
     return (
@@ -31,14 +29,12 @@ function MyPosts(props) {
                 <button onClick={ addPost }>Add post</button>
                 </div>
             </div>
-
             <div className={teg.posts}>
 
                 {postsElements}
 
                 {/*<Post likesCount={postData[0].likesCount} message={postData[0].messages}/>
                 <Post likesCount={postData[1].likesCount} message={postData[1].messages}/>*/}
-
             </div>
         </div>
     );

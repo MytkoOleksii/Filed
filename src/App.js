@@ -12,7 +12,6 @@ import NFriends from "./components/nFriends/NFriends";
 
 const App = (props) => {
 
-
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -24,44 +23,17 @@ const App = (props) => {
 
                 <div className='app-wrapper-content'>
                     main pages
-                    {/*  <Routes>
-                    <Route path='/profile' element={<Profile />}/>
-                    <Route path='/dialogs' element={<Dialogs />}/>
-                     </Routes>*/}
                     <Routes>
-                        <Route path='/profile' element={<Profile state={props.state.profilePage}
-                                                                 addPost={props.addPost}/>}/>
+                        <Route path='/profile' element={<Profile state={props.state.profilePage} addPost={props.addPost}/>}/>
                         <Route path='/dialogs' element={<Dialogs state={props.state.dialogsPage}/>}/>
                         <Route path='/News' element={<News/>}/>
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
-                        {/*<Route path='/Music' render={()=>{<Music/>}}/>
-                        <Route path='/Settings' render={ () => <Settings/>} />*/}
                     </Routes>
-
                 </div>
-
             </div>
         </BrowserRouter>
     );
 }
-
-// function App() {
-//     return (
-//         <BrowserRouter>
-//             <div className="app-wrapper">
-//                 <Header />
-//                 <Nav />
-//                 <div className="app-content">
-//                     <Routes>
-//                         <Route path='/profile' element={<Profile />}/>
-//                         <Route path='/dialogs' element={<Dialogs />}/>
-//                     </Routes>
-//                 </div>
-//             </div>
-//         </BrowserRouter>
-//     );
-// }
-
 
 export default App;
