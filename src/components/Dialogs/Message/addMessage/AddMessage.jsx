@@ -4,18 +4,23 @@ import App from "../../../../App";
 
 function AddMessage(props) {
     let newMessage = React.createRef();
-    let addMessage = function () {
-        let text = newMessage.current.value ;
-       return (
-           props.state.messages.messages[props.state.messages.messages.length].push(text)
 
-       )
+    let addMessage = function () {
+
+        props.addMessage()
+
     }
-    console.log(props)
+
+    let onChangeMessage = () => {
+        let text = newMessage.current.value ;
+        props.writeNewMessage(text)
+
+    }
+
     return (
         <div>
             <div className={tag.item}>
-                <textarea className={tag.ta} ref={newMessage}></textarea>
+                <textarea onChange={onChangeMessage}  className={tag.ta} ref={newMessage} value={props.writeNewMessage} />
                 <button className={tag.btn} onClick={addMessage}>add Message</button>
 
             </div>

@@ -7,6 +7,7 @@ const Message = (props) => {
         <div className={teg.message}>{props.message}</div>
 
 
+
     )
 }
 export default Message;
