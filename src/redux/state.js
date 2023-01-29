@@ -1,5 +1,9 @@
 import React from "react";
-import {rerenderEntireTree} from "../render";
+
+let rerenderEntireTree = function () {
+    console.log('rerender')
+}
+
 
 let state = {
     profilePage: {
@@ -35,7 +39,7 @@ newPostText: 'It-kamasutra.'
     },
 }
 //////////////////////////////////////////////////////
-export  let addPost = (postMessage) => {
+export  const addPost = (postMessage) => {
     let newPost = {
         id: 7 ,//state.profilePage.posts.length
         likesCount:0,
@@ -46,14 +50,14 @@ export  let addPost = (postMessage) => {
     rerenderEntireTree(state);
 }
 
-export  let updateNewPostText = (newText) => {
+export  const updateNewPostText = (newText) => {
 
     state.profilePage.newPostText = newText;
     rerenderEntireTree(state);
 }
 
 //////////////////////////////////////////////////////
-export let addMessage = (getNewMessage) => {
+export const addMessage = (getNewMessage) => {
     let addNewMessage = {
         id: 7,
         messages: state.dialogsPage.writeNewMessage,
@@ -64,11 +68,15 @@ export let addMessage = (getNewMessage) => {
 
 }
 
-export let updateNewMessage = (newText) => {
+export const updateNewMessage = (newText) => {
     state.dialogsPage.writeNewMessage = newText;
     rerenderEntireTree(state)
 }
+/////////////////////////////////////////////////////////
 
+export const subscribe = (observer) => {
+rerenderEntireTree = observer;
+}
 
 
 export  default state;
