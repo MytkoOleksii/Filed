@@ -1,6 +1,6 @@
 import React from 'react';
 import teg from './Post.module.css'
-import Like from "../Like";
+import Like from "./Like/Like";
 
 function Post(props) {
     return (
