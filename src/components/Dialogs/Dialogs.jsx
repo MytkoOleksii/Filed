@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import AddMessage from "./Message/addMessage/AddMessage";
+import {updateNewMessage} from "../../redux/state";
 
 const Dialogs = (props) => {
 
@@ -31,7 +32,9 @@ const Dialogs = (props) => {
             </div>
 
          </div>
-           <AddMessage  addMessage={props.addMessage} writeNewMessage={props.dialogsPage.writeNewMessage}/>
+           <AddMessage  addMessage={props.addMessage}
+                        writeNewMessage={props.dialogsPage.writeNewMessage}
+                        updateNewMessage={props.updateNewMessage}/>
         </div>
     );
 }

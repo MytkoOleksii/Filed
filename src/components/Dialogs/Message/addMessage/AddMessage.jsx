@@ -1,6 +1,7 @@
 import React from 'react';
 import tag from  './AddMessage.module.css'
 import App from "../../../../App";
+import {updateNewMessage} from "../../../../redux/state";
 
 function AddMessage(props) {
     let newMessage = React.createRef();
@@ -13,7 +14,7 @@ function AddMessage(props) {
 
     let onChangeMessage = () => {
         let text = newMessage.current.value ;
-        props.writeNewMessage(text)
+        props.updateNewMessage(text)
 
     }
 

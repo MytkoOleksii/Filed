@@ -14,7 +14,7 @@ let state = {
 newPostText: 'It-kamasutra.'
     },
     dialogsPage: {
-        writeNewMessage: 'Hello ',
+        writeNewMessage: 'Hello2 ',
         messages: [
             {id: 1, messages: 'hi'},
             {id: 2, messages: 'Are you'},
@@ -34,7 +34,7 @@ newPostText: 'It-kamasutra.'
 
     },
 }
-
+//////////////////////////////////////////////////////
 export  let addPost = (postMessage) => {
     let newPost = {
         id: 7 ,//state.profilePage.posts.length
@@ -52,16 +52,21 @@ export  let updateNewPostText = (newText) => {
     rerenderEntireTree(state);
 }
 
-
+//////////////////////////////////////////////////////
 export let addMessage = (getNewMessage) => {
     let addNewMessage = {
         id: 7,
-        messages: getNewMessage,
+        messages: state.dialogsPage.writeNewMessage,
     }
     state.dialogsPage.messages.push(addNewMessage);
-state.dialogsPage.writeNewMessage = '';
+    state.dialogsPage.writeNewMessage = '';
     rerenderEntireTree(state);
 
+}
+
+export let updateNewMessage = (newText) => {
+    state.dialogsPage.writeNewMessage = newText;
+    rerenderEntireTree(state)
 }
 
 
