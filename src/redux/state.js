@@ -38,6 +38,13 @@ newPostText: 'It-kamasutra.'
 
     },
 }
+///////////////////////////////////////////////////////
+/* обрабатывает лайки */
+/* а- id поста , б- текст поста */
+export  let addLikes = (a,b) => {
+    state.profilePage.posts[a].likesCount = b
+    rerenderEntireTree(state)
+}
 //////////////////////////////////////////////////////
 export  const addPost = (postMessage) => {
     let newPost = {

@@ -13,7 +13,7 @@ function Post(props) {
 
                 <div>
                     <div >{props.likesCount}кількість лайків</div>
-                    <Like/>
+                    <Like id={props.id} likesCount={props.likesCount} addLikes={props.addLikes} />
                 </div>
             </div>
         </div>
