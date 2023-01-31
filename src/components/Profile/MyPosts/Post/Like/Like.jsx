@@ -13,7 +13,7 @@ function Like(props) {
         let a = props.id - 1;
         let b = () => {plus(like += 1)} /* +1 лайк */
         b()
-        props.addLikes(a, like) /* id номера поста , количество лайков */
+        props.addLikes(a, like) /* id номера поста, количество лайков */
     }
 
     return (
