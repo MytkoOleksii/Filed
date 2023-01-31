@@ -3,7 +3,7 @@ import React from "react";
 let store = {
     _state: {
         profilePage: {
-            posts:  [
+            posts: [
                 {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
                 {id: 2, likesCount: 12, messages: 'Are you'},
                 {id: 3, likesCount: 45, messages: 'Simple pimple'},
@@ -23,7 +23,7 @@ let store = {
                 {id: 5, messages: 'good day'},
                 {id: 6, messages: 'Hello world'},
             ],
-            dialogs:  [
+            dialogs: [
                 {id: 1, name: 'Dimon'},
                 {id: 2, name: 'Bob'},
                 {id: 3, name: 'Din'},
@@ -37,28 +37,49 @@ let store = {
     getState() {
         return this._state
     },
+    subscribe(observer) {
+        this.callSubscriber = observer;
+    },
 
-    callSubscriber () {
-        console.log('rerender');
-        },
-///////////////////////////////////////////////
-        addPost (postMessage)  {
+    dispatch (action) { // { type: 'ADD-POST' }
+        if (action.type === 'ADD-POST') {
             let newPost = {
-                id: 7 ,//state.profilePage.posts.length
-                likesCount:0,
+                id: 7,//state.profilePage.posts.length
+                likesCount: 0,
                 messages: this._state.profilePage.newPostText,
             };
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this.callSubscriber(this._state);
-        },
-        updateNewPostText  (newText)  {
+        } else  if (action.type === 'UPDATE-NEW-POST-TEXT') {
 
-            this._state.profilePage.newPostText = newText;
+            this._state.profilePage.newPostText = action.newText;
             this.callSubscriber(this._state);
-        },
-    //////////////////////////////////////////////
-    addMessage  (getNewMessage)  {
+        }
+
+    },
+
+    callSubscriber() {
+        console.log('rerender');
+    },
+///////////////////////////////////////
+  /*  addPost(postMessage) {
+        let newPost = {
+            id: 7,//state.profilePage.posts.length
+            likesCount: 0,
+            messages: this._state.profilePage.newPostText,
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this.callSubscriber(this._state);
+    },*/
+ /*   updateNewPostText(newText) {
+
+        this._state.profilePage.newPostText = newText;
+        this.callSubscriber(this._state);
+    },*/
+////////////////////////////////////////
+    addMessage(getNewMessage) {
         let addNewMessage = {
             id: 7,
             messages: this._state.dialogsPage.writeNewMessage,
@@ -68,23 +89,19 @@ let store = {
         this.callSubscriber(this._state);
 
     },
-    updateNewMessage  (newText) {
+    updateNewMessage(newText) {
         this._state.dialogsPage.writeNewMessage = newText;
         this.callSubscriber(this._state)
     },
     //////////////////////////////////////////////
-    subscribe  (observer)  {
-        this.callSubscriber = observer;
-    },
-    ///////////////////////////////////////////////////////
     /* обрабатывает лайки */
     /* а- id поста, б-текст поста */
-     addLikes (a,b)  {
+    addLikes(a, b) {
         this._state.profilePage.posts[a].likesCount = b
         this.callSubscriber(this._state)
     },
     //////////////////////////////////////////////////////
 }
 
-export  default store;
-window.store= store;
+export default store;
+window.store = store;
