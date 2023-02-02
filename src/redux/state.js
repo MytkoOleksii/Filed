@@ -1,7 +1,9 @@
 import React from "react";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
 
 let store = {
     _state: {
@@ -17,7 +19,7 @@ let store = {
             newPostText: 'It-kamasutra.'
         },
         dialogsPage: {
-            writeNewMessage: 'Hello',
+          //  writeNewMessage: 'Hello', // newMessageBody
             messages: [
                 {id: 1, messages: 'hi'},
                 {id: 2, messages: 'Are you'},
@@ -34,6 +36,7 @@ let store = {
                 {id: 5, name: 'Alex'},
                 {id: 6, name: 'Djeck'},
             ],
+            newMessageBody:'',
 
         },
     },
@@ -59,6 +62,14 @@ let store = {
 
             this._state.profilePage.newPostText = action.newText;
             this.callSubscriber(this._state);
+        } else if ( action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogsPage.newMessageBody = action.body;
+            this.callSubscriber(this._state);
+        } else if ( action.type === SEND_MESSAGE) {
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messages.push({id: 6, messages: body});
+            this.callSubscriber(this._state)
         }
 
     },
@@ -83,7 +94,7 @@ let store = {
         this.callSubscriber(this._state);
     },*/
 ////////////////////////////////////////
-    addMessage(getNewMessage) {
+ /*   addMessage(getNewMessage) {
         let addNewMessage = {
             id: 7,
             messages: this._state.dialogsPage.writeNewMessage,
@@ -96,7 +107,7 @@ let store = {
     updateNewMessage(newText) {
         this._state.dialogsPage.writeNewMessage = newText;
         this.callSubscriber(this._state)
-    },
+    },*/
     //////////////////////////////////////////////
     /* обрабатывает лайки */
     /* а- id поста, б-текст поста */
@@ -112,6 +123,14 @@ export const addPostActionCreator = () => {return({type: ADD_POST})}
 export const updateNewPostTextActionCreator = (text) =>
 {return ({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
 }
+
+export const sendMessageCreator = () => ({ type:SEND_MESSAGE });
+export const updateNewMessageBodyCreator = (text) => {
+    return(
+    { type: UPDATE_NEW_MESSAGE_BODY , body: text}
+    )};
+
+
 
 
 export default store;

@@ -14,7 +14,7 @@ import {updateNewMessage} from "./redux/state";
 const App = (props) => {
 
     return (
-        <BrowserRouter>
+
             <div className='app-wrapper'>
                 <Header/>
                 <div>
@@ -29,14 +29,15 @@ const App = (props) => {
                                                                  profilePage={props.state.profilePage}
                                                                 dispatch={props.dispatch}
                         />}/>
-                        <Route path='/dialogs' element={<Dialogs dialogsPage={props.state.dialogsPage} addMessage={props.addMessage} updateNewMessage={props.updateNewMessage}/>}/>
-                        <Route path='/News' element={<News/>}/>
+                        <Route path='/dialogs' element={<Dialogs store={props.store} dialogsPage={props.state.dialogsPage} addMessage={props.addMessage} updateNewMessage={props.updateNewMessage}/>}/>
+                     <Route path='/news' render={ () => <News/>} />
+                        {/*  <Route path='/News' element={<News/>}/>*/}
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
                     </Routes>
                 </div>
             </div>
-        </BrowserRouter>
+
     );
 }
 
