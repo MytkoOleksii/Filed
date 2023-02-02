@@ -1,5 +1,8 @@
 import React from "react";
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
 let store = {
     _state: {
         profilePage: {
@@ -14,7 +17,7 @@ let store = {
             newPostText: 'It-kamasutra.'
         },
         dialogsPage: {
-            writeNewMessage: 'Hello2 ',
+            writeNewMessage: 'Hello',
             messages: [
                 {id: 1, messages: 'hi'},
                 {id: 2, messages: 'Are you'},
@@ -42,7 +45,8 @@ let store = {
     },
 
     dispatch (action) { // { type: 'ADD-POST' }
-        if (action.type === 'ADD-POST') {
+
+        if (action.type === ADD_POST) {
             let newPost = {
                 id: 7,//state.profilePage.posts.length
                 likesCount: 0,
@@ -51,7 +55,7 @@ let store = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this.callSubscriber(this._state);
-        } else  if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else  if (action.type === UPDATE_NEW_POST_TEXT) {
 
             this._state.profilePage.newPostText = action.newText;
             this.callSubscriber(this._state);
@@ -83,7 +87,7 @@ let store = {
         let addNewMessage = {
             id: 7,
             messages: this._state.dialogsPage.writeNewMessage,
-        }
+        };
         this._state.dialogsPage.messages.push(addNewMessage);
         this._state.dialogsPage.writeNewMessage = '';
         this.callSubscriber(this._state);
@@ -102,6 +106,13 @@ let store = {
     },
     //////////////////////////////////////////////////////
 }
+
+export const addPostActionCreator = () => {return({type: ADD_POST})}
+
+export const updateNewPostTextActionCreator = (text) =>
+{return ({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
+}
+
 
 export default store;
 window.store = store;
