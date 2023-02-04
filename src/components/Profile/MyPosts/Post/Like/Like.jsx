@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import t from './Like.module.css'
+import {returnTypeActionCreator} from "../../../../../redux/Profile-reducer";
 
 function Like(props) {
     /*
@@ -13,7 +14,7 @@ function Like(props) {
         let a = props.id - 1;
         let b = () => {plus(like += 1)} /* +1 лайк */
         b()
-        props.addLikes(a, like) /* id номера поста, количество лайков */
+        props.addLikes(returnTypeActionCreator(a,like)) /* id номера поста, количество лайков */
     }
 
     return (

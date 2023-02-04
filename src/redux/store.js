@@ -47,7 +47,6 @@ let store = {
     },
 
     dispatch (action) { // { type: 'ADD-POST' }
-        debugger
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
@@ -86,12 +85,22 @@ let store = {
         this.callSubscriber(this._state)
     },*/
     //////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
     /* обрабатывает лайки */
     /* а- id поста, б-текст поста */
-    addLikes(a, b) {
+   /* addLikes(a, b) {
         this._state.profilePage.posts[a].likesCount = b
         this.callSubscriber(this._state)
-    },
+    },*/
     //////////////////////////////////////////////////////
 }
 

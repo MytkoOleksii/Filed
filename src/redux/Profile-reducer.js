@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const LIKE = "LIKE";
 
 let initialState =   {
     posts: [
@@ -13,7 +14,7 @@ let initialState =   {
         newPostText: 'It-kamasutra.'
 };
 
-const profileReducer = (state = initialState,action) => {
+export const profileReducer = (state = initialState,action) => {
 
     switch (action.type) {
         case ADD_POST:
@@ -24,7 +25,6 @@ const profileReducer = (state = initialState,action) => {
             };
             state.posts.push(newPost);
             state.newPostText = '';
-            this.callSubscriber(this._state);
             break;
         case UPDATE_NEW_POST_TEXT:
             state.newPostText = action.newText;
@@ -32,15 +32,23 @@ const profileReducer = (state = initialState,action) => {
         default:
             return state;
     }
-
     return state;
 }
-
-
 export const addPostActionCreator = () => {return({type: ADD_POST})}
 export const updateNewPostTextActionCreator = (text) =>
 {return ({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
 }
 
+export let addLikes = (state = initialState,action) => {
+    switch (action.type) {
+        case LIKE :
+             state.posts[action.id].last = action.like;
+             break;
+        default:
+            return state;
+    }
+    return state;
+};
+export let returnTypeActionCreator = (a,like) => {({type: LIKE ,id:a , like: like})}
 
-export default profileReducer;
+

@@ -13,7 +13,7 @@ export let rerenderEntireTree = (state) => {
     root.render(
         <React.StrictMode>
         <BrowserRouter>
-            <App state={store.getState()} dispatch={store.dispatch.bind(store) } store={store} />
+            <App state={state} dispatch={store.dispatch.bind(store) } store={store} />
 
 {/*
             <App state={store.getState()} addLikes={store.addLikes.bind(store)} addPost={store.addPost.bind(store)} updateNewPostText={store.updateNewPostText.bind(store)} addMessage={store.addMessage.bind(store)} updateNewMessage={store.updateNewMessage.bind(store)} />
@@ -24,6 +24,9 @@ export let rerenderEntireTree = (state) => {
 
 rerenderEntireTree(store.getState());
 
-store.subscribe(rerenderEntireTree);
+store.subscribe(() => {
+    let state = store.getState();
+    rerenderEntireTree(state);
+});
 
 reportWebVitals();
