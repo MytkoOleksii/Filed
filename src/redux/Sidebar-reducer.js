@@ -1,8 +1,12 @@
-export const sitebarReducer  = (state, action) => {
+
+
+let initialState = {};
+
+export const sidebarReducer  = (state = initialState, action) => {
 
 
 
   return state;
 }
 
-export default  sitebarReducer;
+export default  sidebarReducer;

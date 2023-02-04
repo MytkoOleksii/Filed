@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import AddMessage from "./Message/addMessage/AddMessage";
-import {sendMessageCreator, updateNewMessage, updateNewMessageBodyCreator} from "../../redux/state";
+import {sendMessageCreator, updateNewMessage, updateNewMessageBodyCreator} from "../../redux/Dialogs-reducer";
 
 const Dialogs = (props) => {
     let state = props.store.getState().dialogsPage;

@@ -1,7 +1,7 @@
 import React from 'react';
 import tag from  './AddMessage.module.css'
 import App from "../../../../App";
-import {updateNewMessage} from "../../../../redux/state";
+import {updateNewMessage} from "../../../../redux/store";
 
 function AddMessage(props) {
     let newMessage = React.createRef();
