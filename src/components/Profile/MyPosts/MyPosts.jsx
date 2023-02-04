@@ -7,13 +7,12 @@ function MyPosts(props) {
 
     let postsElements = props.posts.map( (element) => {
         return (
-            <Post id={element.id} likesCount={element.likesCount} message={element.messages} addLikes={props.addLikes} />
+            <Post id={element.id} likesCount={element.likesCount} message={element.messages} dispatch={props.dispatch} />
         )
     })
 
     let newPostElement = React.createRef();
     let addPost = function ()  {
-
        // props.addPost()
       //  props.dispatch({ type: 'ADD-POST'});
         props.dispatch(addPostActionCreator());

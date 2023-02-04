@@ -1,8 +1,8 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const LIKE = "LIKE";
 
-let initialState =   {
+
+export let initialState =   {
     posts: [
         {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
         {id: 2, likesCount: 12, messages: 'Are you'},
@@ -14,12 +14,11 @@ let initialState =   {
         newPostText: 'It-kamasutra.'
 };
 
-export const profileReducer = (state = initialState,action) => {
-
+ const profileReducer = (state = initialState,action) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
-                id: 7,//state.profilePage.posts.length
+                id: state.posts.length + 1,
                 likesCount: 0,
                 messages: state.newPostText,
             };
@@ -34,21 +33,27 @@ export const profileReducer = (state = initialState,action) => {
     }
     return state;
 }
+
 export const addPostActionCreator = () => {return({type: ADD_POST})}
 export const updateNewPostTextActionCreator = (text) =>
 {return ({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
 }
 
+export default profileReducer;
+/*
+
 export let addLikes = (state = initialState,action) => {
     switch (action.type) {
         case LIKE :
-             state.posts[action.id].last = action.like;
-             break;
+            state.posts[action.id].likesCount = action.like
+            break;
         default:
             return state;
     }
     return state;
 };
-export let returnTypeActionCreator = (a,like) => {({type: LIKE ,id:a , like: like})}
+export let returnTypeActionCreator = (id,like) => {
+    return ({type: LIKE ,id:id , like:like})}
+*/
 
 
