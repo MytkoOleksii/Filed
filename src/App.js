@@ -3,13 +3,13 @@ import './App.css';
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import NFriends from "./components/nFriends/NFriends";
-import {updateNewMessage} from "./redux/store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+//import {updateNewMessage} from "./redux/OLD-store";
 
 const App = (props) => {
 
@@ -25,11 +25,8 @@ const App = (props) => {
                 <div className='app-wrapper-content'>
                     main pages
                     <Routes>
-                        <Route path='/profile' element={<Profile addLikes={props.addLikes}
-                                                                 profilePage={props.state.profilePage}
-                                                                dispatch={props.dispatch}
-                        />}/>
-                        <Route path='/dialogs' element={<Dialogs store={props.store} dialogsPage={props.state.dialogsPage} addMessage={props.addMessage} updateNewMessage={props.updateNewMessage}/>}/>
+                        <Route path='/profile' element={<Profile store={props.store} />}/>
+                        <Route path='/dialogs' element={<DialogsContainer store={props.store} dialogsPage={props.state.dialogsPage} addMessage={props.addMessage} updateNewMessage={props.updateNewMessage}/>}/>
                      <Route path='/news' render={ () => <News/>} />
                         {/*  <Route path='/News' element={<News/>}/>*/}
                         <Route path='/Music' element={<Music/>}/>

@@ -1,18 +1,13 @@
 import React from 'react';
 import teg from './Profile.module.css'
-import MyPosts from "./MyPosts/MyPosts";
-  import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 function Profile(props) {
     return (
         <div className={teg.content}>
            <ProfileInfo />
-            <MyPosts
-                     posts={props.profilePage.posts}
-                     newPostText={props.profilePage.newPostText}
-                     dispatch={props.dispatch}
-                     addLikes={props.addLikes}
-            />
+            <MyPostsContainer store={props.store} />
             Main content(Profile)
         </div>
     );

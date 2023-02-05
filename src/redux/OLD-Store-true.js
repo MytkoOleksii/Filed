@@ -3,7 +3,7 @@ import profileReducer from "./Profile-reducer";
 import dialogsReducer from "./Dialogs-reducer";
 import sidebarReducer from "./Sidebar-reducer";
 
-let store = {
+let OLDStore = {
     _state: {
         profilePage: {
             posts: [
@@ -17,7 +17,7 @@ let store = {
             newPostText: 'It-kamasutra.'
         },
         dialogsPage: {
-          //  writeNewMessage: 'Hello', // newMessageBody
+            //  writeNewMessage: 'Hello', // newMessageBody
             messages: [
                 {id: 1, messages: 'hi'},
                 {id: 2, messages: 'Are you'},
@@ -51,39 +51,39 @@ let store = {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-            this.callSubscriber(this._state)
-        },
-///////////////////////////////////////
-  /*  addPost(postMessage) {
-        let newPost = {
-            id: 7,//state.profilePage.posts.length
-            likesCount: 0,
-            messages: this._state.profilePage.newPostText,
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this.callSubscriber(this._state);
-    },*/
- /*   updateNewPostText(newText) {
-
-        this._state.profilePage.newPostText = newText;
-        this.callSubscriber(this._state);
-    },*/
-////////////////////////////////////////
- /*   addMessage(getNewMessage) {
-        let addNewMessage = {
-            id: 7,
-            messages: this._state.dialogsPage.writeNewMessage,
-        };
-        this._state.dialogsPage.messages.push(addNewMessage);
-        this._state.dialogsPage.writeNewMessage = '';
-        this.callSubscriber(this._state);
-
-    },
-    updateNewMessage(newText) {
-        this._state.dialogsPage.writeNewMessage = newText;
         this.callSubscriber(this._state)
-    },*/
+    },
+///////////////////////////////////////
+    /*  addPost(postMessage) {
+          let newPost = {
+              id: 7,//state.profilePage.posts.length
+              likesCount: 0,
+              messages: this._state.profilePage.newPostText,
+          };
+          this._state.profilePage.posts.push(newPost);
+          this._state.profilePage.newPostText = '';
+          this.callSubscriber(this._state);
+      },*/
+    /*   updateNewPostText(newText) {
+
+           this._state.profilePage.newPostText = newText;
+           this.callSubscriber(this._state);
+       },*/
+////////////////////////////////////////
+    /*   addMessage(getNewMessage) {
+           let addNewMessage = {
+               id: 7,
+               messages: this._state.dialogsPage.writeNewMessage,
+           };
+           this._state.dialogsPage.messages.push(addNewMessage);
+           this._state.dialogsPage.writeNewMessage = '';
+           this.callSubscriber(this._state);
+
+       },
+       updateNewMessage(newText) {
+           this._state.dialogsPage.writeNewMessage = newText;
+           this.callSubscriber(this._state)
+       },*/
     //////////////////////////////////////////////
 
 
@@ -97,13 +97,15 @@ let store = {
 
     /* обрабатывает лайки */
     /* а- id поста, б-текст поста */
-   /* addLikes(a, b) {
-        this._state.profilePage.posts[a].likesCount = b
-        this.callSubscriber(this._state)
-    },*/
+    /* addLikes(a, b) {
+         this._state.profilePage.posts[a].likesCount = b
+         this.callSubscriber(this._state)
+     },*/
     //////////////////////////////////////////////////////
 }
 
 /*
-export default store;
-window.store = store;*/
+
+export default OLDStore;
+window.OLDStore = OLDStore;
+*/

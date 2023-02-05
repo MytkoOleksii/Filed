@@ -1,10 +1,13 @@
 import React from 'react';
 import teg from './Dialogs.module.css'
+import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import AddMessage from "./Message/addMessage/AddMessage";
+import {sendMessageCreator, updateNewMessage, updateNewMessageBodyCreator} from "../../redux/Dialogs-reducer";
 
 const Dialogs = (props) => {
-    let state = props.dialogsPage;
+    let state = props.store.getState().dialogsPage;
 
     let dialogsElement = state.dialogs.map( (element) => {
         return (
@@ -21,17 +24,17 @@ const Dialogs = (props) => {
     let newMessageBody = state.newMessageBody;
 
     let onSendMessageClick = () => {
-        props.sendMessage()
+        props.store.dispatch(sendMessageCreator())
     }
 
     let onNewMessageChange = (e) => {
-       let body = e.target.value;
-        props.updateNewMessageBody(body);
+        let body = e.target.value;
+        props.store.dispatch(updateNewMessageBodyCreator(body))
     }
 
     return (
 
-         <div className={teg.dialogs}>
+        <div className={teg.dialogs}>
 
             <div className={teg.dialogsItems}>
                 {dialogsElement}
@@ -43,7 +46,7 @@ const Dialogs = (props) => {
                 <div>
                     <div>
                         <textarea onChange={onNewMessageChange}
-                        value={newMessageBody}
+                                  value={newMessageBody}
                                   placeholder={'Enter your message'}></textarea>
                     </div>
                     <div>
@@ -51,7 +54,7 @@ const Dialogs = (props) => {
                     </div>
                 </div>
             </div>
-         </div>
+        </div>
     );
 }
 
