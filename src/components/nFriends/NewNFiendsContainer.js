@@ -1,16 +1,12 @@
 import React from 'react';
-import StoreContext from "../../StoreContext";
 import NFriends from "./NFriends";
+import {connect} from "react-redux";
 
-function NewNFriends() {
-
-    return (
-        <StoreContext.Consumer>
-            {(store) => (
-                <NFriends store={store.getState().dialogsPage.dialogs}/>
-            )}
-        </StoreContext.Consumer>
-    )
+let store = (store) => {
+    return {
+        store: store.dialogsPage.dialogs
+    }
 }
 
-export default NewNFriends;
+let NewNFriendsContainer = connect(store) (NFriends);
+export default NewNFriendsContainer;

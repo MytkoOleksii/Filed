@@ -20,9 +20,7 @@ const App = (props) => {
                 <Header/>
                 <div>
                 <Nav/>
-
                 <NewNFiends />
-
                 </div>
 
                 <div className='app-wrapper-content'>

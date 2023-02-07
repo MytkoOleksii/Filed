@@ -22,12 +22,18 @@ export let initialState =   {
                 likesCount: 0,
                 messages: state.newPostText,
             };
-            state.posts.push(newPost);
-            state.newPostText = '';
-            break;
-        case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            break;
+            let stateCopy = {...state};
+            stateCopy.posts = [...state.posts]
+            stateCopy.posts.push(newPost);
+            stateCopy.newPostText = '';
+            return stateCopy;
+        case UPDATE_NEW_POST_TEXT: {
+            let stateCopy = {...state};
+            stateCopy.posts = [...state.posts]
+
+            stateCopy.newPostText = action.newText;
+            return stateCopy;
+        }
         default:
             return state;
     }

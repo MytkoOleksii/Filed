@@ -6,7 +6,7 @@ const addLikes = (state = initialState,action) => {
     switch (action.type) {
         case LIKE :
             state.posts[action.id].likesCount = action.like
-            break;
+            return state;
         default:
             return state;
     }
