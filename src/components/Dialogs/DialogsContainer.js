@@ -11,13 +11,16 @@ const DialogsContainer = (props) => {
 
     return (
         <StoreContext.Consumer>
-            { ( store )=>(
+            { ( store )=> (
 
                 <Dialogs updateNewMessageBody={(body) => {
-                store.dispatch(updateNewMessageBodyCreator(body))}}
-                         sendMessage={() => {store.dispatch(sendMessageCreator())}}
+                    store.dispatch(updateNewMessageBodyCreator(body))
+                }}
+                         sendMessage={() => {
+                             store.dispatch(sendMessageCreator())
+                         }}
                          dialogsPage={store.getState().dialogsPage}/>
-                )}
+            )}
         </StoreContext.Consumer>
     );
 }

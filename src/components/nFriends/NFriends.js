@@ -10,7 +10,7 @@ let img =  <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAA
 
 
 function NFriends(props) {
-    let user = props.user.map( (element) => {
+    let user = props.store.map( (element) => {
         return{ name: element.name ,
                id: element.id }
     });
@@ -18,13 +18,9 @@ function NFriends(props) {
         <div className={tag.friends}>
             <div>
               <div>  <span> friends</span></div>
-
                 <div className={tag.left} > <NavLink className={tag.left +''+ tag.friends} to={'/dialog/' + user[3].id}>{img}{user[user[3].id].name}</NavLink> </div>
                 <div className={tag.left} > <NavLink className={tag.left +''+ tag.friends} to={'/dialog/' + user[2].id}>{img}{user[user[2].id].name}</NavLink> </div>
                 <div className={tag.left} > <NavLink className={tag.left +''+ tag.friends} to={'/dialog/' + user[1].id}>{img}{user[1].name}</NavLink> </div>
-          {/*  <div className={tag.left} > <a href='#'>{img}</a></div>
-            <div className={tag.left} > <a href='#'>{img}</a></div>
-            <div className={tag.left} > <a href='#'>{img}</a></div>*/}
             </div>
         </div>
     );
