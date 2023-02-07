@@ -19,14 +19,16 @@ const App = (props) => {
                 <Header/>
                 <div>
                 <Nav/>
+{/*
                 <NFriends user={props.state.dialogsPage.dialogs}/>
+*/}
                 </div>
 
                 <div className='app-wrapper-content'>
                     main pages
                     <Routes>
                         <Route path='/profile' element={<Profile store={props.store} />}/>
-                        <Route path='/dialogs' element={<DialogsContainer store={props.store} dialogsPage={props.state.dialogsPage} addMessage={props.addMessage} updateNewMessage={props.updateNewMessage}/>}/>
+                        <Route path='/dialogs' element={<DialogsContainer />}/>
                      <Route path='/news' render={ () => <News/>} />
                         {/*  <Route path='/News' element={<News/>}/>*/}
                         <Route path='/Music' element={<Music/>}/>
