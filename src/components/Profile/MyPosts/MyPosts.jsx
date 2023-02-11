@@ -6,7 +6,7 @@ function MyPosts(props) {
 
     let postsElements = props.posts.map( (element) => {
         return (
-            <Post id={element.id} likesCount={element.likesCount} message={element.messages} dispatch={props.dispatch} />
+            <Post id={element.id} key={element.id} likesCount={element.likesCount} message={element.messages} dispatch={props.dispatch} />
         )
     })
 
