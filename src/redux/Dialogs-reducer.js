@@ -1,7 +1,7 @@
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-let initialState =  {
+export let initialState =  {
     //  writeNewMessage: 'Hello', // newMessageBody
     messages: [
         {id: 1, messages: 'hi'},
@@ -27,13 +27,26 @@ let initialState =  {
 
      switch (action.type) {
          case UPDATE_NEW_MESSAGE_BODY :
-             state.newMessageBody = action.body;
+             let stateCopy = {...state};
+             stateCopy.newMessageBody = action.body;
              break;
-         case SEND_MESSAGE :
-             let body = state.newMessageBody;
-             state.newMessageBody = '';
-             state.messages.push({id: 6, messages: body});
-             break;
+         case SEND_MESSAGE : {
+
+             let stateCopy = {...state};
+             stateCopy.messages = {...state.messages};
+
+             let body = stateCopy.newMessageBody;
+             let newMessage = {
+                 id: 6,
+                 messages: body,
+             };
+             stateCopy.messages.push(newMessage);
+             stateCopy.newMessageBody = '';
+
+             return  stateCopy;
+
+
+         }
          default:
              return state;
      }
