@@ -1,20 +1,36 @@
 import React, {useState} from 'react';
 import t from './Like.module.css'
 import {returnTypeActionCreator} from "../../../../../redux/addLike-reducer";
+import Post from "../Post";
 
 function Like(props) {
+   /* let Elements = props.state.profilePage.posts.map( (element) => {
+        return {
+            id: element.id,
+            key: element.id,
+            likesCount: element.likesCount,
+        }
+    })*/
+
+
     /*
          let arr = useState(0);
          let like = arr[0];
          let plus = arr[1];
  */
+
     let [like, plus] = useState(props.likesCount) /* количество существующих лайков */
 
     let addLikes = function () {
-        let a = props.id - 1;
-        let b = () => {plus(like += 1)} /* +1 лайк */
+
+        let id = props.id - 1;
+        function b ()  {plus(like += 1)} /* +1 лайк */
         b()
-      props.dispatch(returnTypeActionCreator(a,like)) /* id номера поста, количество лайков */
+        console.log(id)
+        props.returnTypeActionCreator(id,like) /* id номера поста, количество лайков */
+       // props.returnType()
+       // props.updateNewPostText()
+
     }
 
     return (

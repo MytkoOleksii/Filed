@@ -6,7 +6,8 @@ function MyPosts(props) {
 
     let postsElements = props.posts.map( (element) => {
         return (
-            <Post id={element.id} key={element.id} likesCount={element.likesCount} message={element.messages} dispatch={props.dispatch} />
+            <Post id={element.id} key={element.id} likesCount={element.likesCount} message={element.messages}
+                  dispatch={props.dispatch} returnType={props.returnType} updateNewPostText={props.updateNewPostText}/>
         )
     })
 
@@ -17,6 +18,7 @@ function MyPosts(props) {
     }
 
     let onPostChange = () => {
+
         let text = newPostElement.current.value;
             props.updateNewPostText(text);
     }

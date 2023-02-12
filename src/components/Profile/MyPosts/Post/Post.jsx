@@ -1,6 +1,7 @@
 import React from 'react';
 import teg from './Post.module.css'
 import Like from "./Like/Like";
+import LikeContainer from "./Like/LikeContainer";
 
 function Post(props) {
     return (
@@ -13,7 +14,10 @@ function Post(props) {
 
                 <div>
                     <div >{props.likesCount}кількість лайків</div>
-                    <Like id={props.id} likesCount={props.likesCount} dispatch={props.dispatch} />
+                    <LikeContainer id={props.id} likesCount={props.likesCount}
+                          /*dispatch={props.dispatch} returnType={props.returnType}
+                          updateNewPostText={props.updateNewPostText}*/
+                    />
                 </div>
             </div>
         </div>

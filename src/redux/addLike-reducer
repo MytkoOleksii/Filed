@@ -1,0 +1,29 @@
+import {initialState} from "./Profile-reducer";
+
+const LIKE = "LIKE";
+
+const addLikes = (state = initialState,action) => {
+
+    let stateCopy = Object.assign({}, state)
+
+   // let stateCopy = {...state,post:[...state.posts]}
+    switch (action.type) {
+
+        case LIKE :
+            stateCopy.posts[action.id].likesCount = action.like
+            return stateCopy;
+        case 'RETURN' :
+            stateCopy.posts = [...state.posts];
+            stateCopy.posts = stateCopy.posts
+
+            return stateCopy;
+        default:
+            return stateCopy;
+    }
+
+};
+export let returnType = ()=> {return({type: 'RETURN'})};
+export let returnTypeActionCreator = (id,like) => {
+    return ({type: LIKE ,id:id , like:like})}
+
+export default addLikes;
