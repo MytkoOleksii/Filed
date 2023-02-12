@@ -3,6 +3,7 @@ import sidebarReducer from "./Sidebar-reducer";
 import profileReducer from "./Profile-reducer";
 import dialogsReducer from "./Dialogs-reducer";
 import addLikes from "./addLike-reducer";
+import usersReducer from "./Useres-reducer";
 
 
 let reducers = combineReducers({
@@ -10,6 +11,7 @@ let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     addLikes: addLikes,
+    usersPage: usersReducer,
 });
 
 let store = createStore(reducers);

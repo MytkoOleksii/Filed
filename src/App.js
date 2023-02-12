@@ -10,6 +10,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import NFriends from "./components/nFriends/NFriends";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import NewNFiends from "./components/nFriends/NewNFiendsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 //import {updateNewMessage} from "./redux/OLD-store";
 
 const App = (props) => {
@@ -28,9 +29,9 @@ const App = (props) => {
                     <Routes>
                         <Route path='/profile' element={<Profile store={props.store} />}/>
                         <Route path='/dialogs' element={<DialogsContainer />}/>
+                        <Route path='/users' element={<UsersContainer/>} />
                   {/*   <Route path='/news' render={ () => <News/>} />*/}
                          <Route path='/News' element={<News/>}/>
-                        <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
                     </Routes>
                 </div>
