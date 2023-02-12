@@ -39,11 +39,20 @@ const LIKE = "LIKE";
              }
 
          case LIKE :
-
+             return {
+                 ...state,
+                 posts: state.posts.map( u => {
+                     if (u.id === action.id) {
+                         return{ ...u, likesCount: action.like}
+                     }
+                     return u;
+                 })
+             }
+/*
         let stateCopy = {...state,}
              stateCopy.posts[action.id].likesCount = action.like
 
-             return stateCopy;
+             return stateCopy;*/
 
              default:
              return state;

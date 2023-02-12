@@ -23,7 +23,7 @@ function Like(props) {
 
     let addLikes = function () {
 
-        let id = props.id - 1;
+        let id = props.id;
         function b ()  {plus(like += 1)} /* +1 лайк */
         b()
         console.log(id)
