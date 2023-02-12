@@ -3,7 +3,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const LIKE = "LIKE";
 
 
- let initialState =   {
+export let initialState =   {
     posts: [
         {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
         {id: 2, likesCount: 12, messages: 'Are you'},
@@ -16,6 +16,8 @@ const LIKE = "LIKE";
 };
 
  const profileReducer = (state = initialState,action) => {
+    // console.log('в Profile')
+    // console.log( state.posts)
 
 
      switch (action.type) {
@@ -86,9 +88,7 @@ const LIKE = "LIKE";
     return state;
 }*/
 
-export let returnTypeActionCreator = (id,like) => {
-
-    return ({type: LIKE ,id:id , like:like})}
+export let returnTypeActionCreator = (id,like) => {return ({type: LIKE ,id:id , like:like})}
 
 export const addPostActionCreator = () => {return({type: ADD_POST})}
 export const updateNewPostTextActionCreator = (text) =>

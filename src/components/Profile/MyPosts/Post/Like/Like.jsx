@@ -11,8 +11,6 @@ function Like(props) {
             likesCount: element.likesCount,
         }
     })*/
-
-
     /*
          let arr = useState(0);
          let like = arr[0];
@@ -24,10 +22,11 @@ function Like(props) {
     let addLikes = function () {
 
         let id = props.id;
+
         function b ()  {plus(like += 1)} /* +1 лайк */
         b()
-        console.log(id)
-        props.returnTypeActionCreator(id,like) /* id номера поста, количество лайков */
+       // console.log('в лайк' + like)
+        props.returnTypeAC(id,like) /* id номера поста, количество лайков */
        // props.returnType()
        // props.updateNewPostText()
 
