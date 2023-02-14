@@ -1,6 +1,7 @@
 import React from 'react';
 import  styles from  './users.module.css'
 import axios from "axios";
+import  userPhoto from '../../assets/images/user.png'
 
 function Users(props) {
 
@@ -26,7 +27,7 @@ function Users(props) {
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photoUrl} className={styles} />
+                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles} />
                     </div>
                     <div>
                         {u.followed ? <button onClick={() => {props.unfollow(u.id)}} >Unfollow</button>
