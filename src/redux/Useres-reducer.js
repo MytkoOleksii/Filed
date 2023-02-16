@@ -8,7 +8,7 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 
 let initialState = {
     users: [],
-    pageSize: 100,       // відображае кількість користувачів на сторінці (яку порцію отримувати)
+    pageSize: 10,       // відображае кількість користувачів на сторінці (яку порцію отримувати)
     totalUsersCount:0,// скільки пришло юзерів
     currentPage: 1,    // номер сторінки
 }
