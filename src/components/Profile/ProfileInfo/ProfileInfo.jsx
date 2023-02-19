@@ -1,6 +1,11 @@
 import React from 'react';
 import teg from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
+import {NavLink, Route, Routes} from "react-router-dom";
+
+function FontAwesomeIcon(props: { size: string, fixedWidth: boolean, icon: * }) {
+    return null;
+}
 
 function ProfileInfo (props) {
     if (!props.profile) {
@@ -16,12 +21,12 @@ function ProfileInfo (props) {
                 <h3>{props.profile.fullName}</h3>
                <p> <b>О бо мне:</b> {props.profile.aboutMe}</p>
                 <p><b>Мои соц.сети:</b>
-                    <li><a href={props.profile.contacts.facebook}>Facebook:</a></li>
-                    <li><a href={props.profile.contacts.vk}>Vk</a></li>
-                    <li>Twitter:</li>
-                    <li>Instagram:</li>
+                    <li><a href="https://www.facebook.com/">Facebook</a></li>
+                    <li><a href={"http://www." + props.profile.contacts.vk}>Vk</a></li>
+                    <li><a href={props.profile.contacts.twitter}>Twitter</a></li>
+                    <li><a href={"http://www.instagram.com/sdc"}>Instagram</a></li>
                     <li>Youtube:</li>
-                </p>
+            </p>
             avatar + description
             </div>
         </div>
