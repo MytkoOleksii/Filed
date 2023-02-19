@@ -8,7 +8,9 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import NewNFiends from "./components/nFriends/NewNFiendsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+import ProfileContainer  from "./components/Profile/ProfileContainer";
+import ProductContainer from "./components/Product/ProductContainer";
+import ProductHOOK from "./components/Product/ProductHOOK";
 
 const App = (props) => {
 
@@ -25,6 +27,8 @@ const App = (props) => {
                     main pages
                     <Routes>
                         <Route path='/profile/:userId?' element={<ProfileContainer />}/>
+                       <Route path="/product" element={<ProductContainer />} />
+                        <Route path="/productHOOK/:id?" element={<ProductHOOK />} />
                         <Route path='/dialogs' element={<DialogsContainer />}/>
                         <Route path='/users' element={<UsersContainer/>} />
                   {/*   <Route path='/news' render={ () => <News/>} />*/}

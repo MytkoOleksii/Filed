@@ -26,6 +26,12 @@ function Nav() {
             <div className={tagName.item}>
                 <NavLink to="/settings">Settings</NavLink>
             </div>
+            <div className={tagName.item}>
+                <NavLink to="/product">Product</NavLink>
+            </div>
+            <div className={tagName.item}>
+                <NavLink to="/productHOOK">ProductHOOK</NavLink>
+            </div>
 
 
 
