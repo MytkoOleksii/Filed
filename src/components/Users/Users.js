@@ -8,13 +8,13 @@ function Users(props) {
     return (
         <div>
             <div>
-                <div>
+                <div className={styles.block}>
                     {props.slicedPages.map(p => {
-                        return ( <span  className={props.currentPage === p && styles.selectedPage }
+                        return ( <span   className={props.currentPage === p && styles.selectedPage || props.currentPage !== p && styles.page }
                                         onClick={(e)=>{props.onPageChanged(p)}}>{p}</span>
                         )})}
                 </div>
-                {props.users.map(u => <div key={u.id}>
+                {props.users.map(u => <div key={u.id} className={styles.us}>
                 <span>
                     <div>
                         <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles} />

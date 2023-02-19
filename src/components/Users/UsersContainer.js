@@ -42,9 +42,9 @@ class UsersClassContainer extends React.Component {
         let pages = [];
         for (let i=1; i < pagesCount; i++) {
             pages.push(i)}
-        let curP = this.props.currentPage;
-        let curPF = ((curP - 5) < 0) ?  0  : curP - 5 ;
-        let curPL = curP + 5;
+        let curP = this.props.currentPage;// номер сторінки
+        let curPF = ((curP - 3) < 0) ?  0  : curP - 3 ;
+        let curPL = curP + 2;
         let slicedPages = pages.slice( curPF, curPL);
         return ( <>
                 {this.props.isFetching ? <Preloader/> : null}
