@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/Profile-reducer";
@@ -20,9 +20,8 @@ function ProductHOOK (props) {
         const prodName = params.name;
         console.log(params)
 
-
-
-let pusk = () =>{
+// Варіант 1
+/*let pusk = () =>{
     let prodId = params.id;
     if (!prodId) {
         prodId = 2
@@ -32,16 +31,45 @@ let pusk = () =>{
             .then(response => {
                 props.setUserProfile(response.data);
 
-            })}
+            })}*/
+//Варіант 2
+  /*  useEffect(() => {
+        function pusk () {
+            let prodId = params.id;
+            if (!prodId) {
+                prodId = 2
+            }
+
+            return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + prodId)
+                .then(response => {
+                    props.setUserProfile(response.data);
+
+                })
+        }
+        pusk()
+    },[]);
+*/
+
+    //Варіант 3
+    useEffect(() => {
+            let prodId = params.id;
+            if (!prodId) {
+                prodId = 2
+            }
+             axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + prodId)
+                .then(response => {
+                    props.setUserProfile(response.data);
+                })
+    },[]);
 
 
-
-
-        return (
+    return (
             <div>
                 ProductHOOK
+{/*
                 <div><button onClick={pusk}>pusk</button> </div>
-                <Hook {...props} prodId={prodId} profile={props.profile} pusk={pusk} />
+*/}
+                <Hook {...props} prodId={prodId} profile={props.profile}  />
 
             </div>
         );

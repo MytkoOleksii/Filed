@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {
     follow,
     setCurrentPage,
@@ -16,7 +16,7 @@ import {useParams} from "react-router-dom";
 
 
 function ProductContainer  (props) {
-   let getProduct = () => {
+/*   let getProduct = () => {
        props.toggleIsFetching(true);
        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
            .then(response => {
@@ -24,7 +24,28 @@ function ProductContainer  (props) {
                props.setUsers(response.data.items);
                props.setTotalCount(response.data.totalCount)
            })
-   }
+   }*/
+    //Варіант 2
+/*    useEffect(() => {
+        props.toggleIsFetching(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
+            .then(response => {
+                props.toggleIsFetching(false);
+                props.setUsers(response.data.items);
+                props.setTotalCount(response.data.totalCount)
+            });
+    },[])*/
+//Варіант 3
+    useLayoutEffect(() => {
+        props.toggleIsFetching(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
+            .then(response => {
+                props.toggleIsFetching(false);
+                props.setUsers(response.data.items);
+                props.setTotalCount(response.data.totalCount)
+            });
+    }, []);
+
     let onPageChanged = (pageNumber) => {
         props.setCurrentPage(pageNumber);
         props.toggleIsFetching(true);
@@ -32,7 +53,7 @@ function ProductContainer  (props) {
             .then(response => {
                 props.toggleIsFetching(false);
                 props.setUsers(response.data.items);
-            })}
+            })};
 
 
 
@@ -63,7 +84,7 @@ function ProductContainer  (props) {
                        follow={props.follow}
                        unfollow={props.unfollow}
                        slicedPages={slicedPages}
-                         getProduct={getProduct}
+                      /*   getProduct={getProduct}*/
                          prodId={prodId}
                          prodName={prodName}
                 />
