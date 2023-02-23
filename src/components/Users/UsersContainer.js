@@ -12,6 +12,7 @@ import axios from "axios";
 import Users from "./Users";
 import preloader from '../../assets/images/Loading.gif';
 import Preloader from "../common/Preloader/Preloader";
+import { usersAPI} from "../../API/api";
 class UsersClassContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -19,22 +20,39 @@ class UsersClassContainer extends React.Component {
     }
     componentDidMount() {
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true})
-            .then(response => {
+         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+             .then(data => {
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items);
-                this.props.setTotalCount(response.data.totalCount)
+                this.props.setUsers(data.items);
+                this.props.setTotalCount(data.totalCount)
             })
     }
+
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            /*
+                    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+                    {withCredentials: true})
+            */
+            .then(data => {
+                this.props.toggleIsFetching(false);
+                this.props.setUsers(data.items);
+            })
+    }
+   /* onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber);
+        this.props.toggleIsFetching(true);
+        getUsers(pageNumber, this.props.pageSize)
+/!*
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true})
+*!/
             .then(response => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(response.data.items);
             })
-    }
+    }*/
 
 
     render() {

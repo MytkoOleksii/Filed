@@ -4,7 +4,6 @@ import Like from "./Like/Like";
 import LikeContainer from "./Like/LikeContainer";
 
 function Post(props) {
-    console.log(props)
     return (
 
         <div>
