@@ -22,10 +22,10 @@ function ProfileInfo(props) {
                 <h3>{props.profile.fullName}</h3>
                 <p><b>О бо мне:</b> {props.profile.aboutMe}</p>
                 <p><b>Мои соц.сети:</b>
-                    <li><a href="https://www.facebook.com/">Facebook</a></li>
-                    <li><a href={"http://www." + props.profile.contacts.vk}>Vk</a></li>
+                    <li><a href={"https:///" + props.profile.contacts.facebook}>Facebook</a></li>
+                    <li><a href={"http:///" + props.profile.contacts.vk}>Vk</a></li>
                     <li><a href={props.profile.contacts.twitter}>Twitter</a></li>
-                    <li><a href={"http://www.instagram.com/sdc"}>Instagram</a></li>
+                    <li><a href={"http:///"}>Instagram</a></li>
                     <li>Youtube:</li>
                 </p>
                 avatar + description

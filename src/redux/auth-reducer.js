@@ -13,7 +13,7 @@ let initialState = {
 const authReducer = (state = initialState,action) => {
 
     switch (action.type) {
-        case FOLLOW:
+  /*      case FOLLOW:
             return {
                 ...state,
                 //   users: [...state.users],
@@ -33,11 +33,11 @@ const authReducer = (state = initialState,action) => {
                     }
                     return u;
                 })
-            }
+            }*/
         case SET_USER_DATA: {
             return {...state,
                     ...action.data,
-                isAuth: true,
+                      isAuth: true,
             }
 
         }
@@ -47,8 +47,8 @@ const authReducer = (state = initialState,action) => {
     }
 }
 
-let follow = (userID) => ( {type: FOLLOW, userID }) ;
-let unfollow = (userID) => ( {type: UNFOLLOW, userID });
+/*let follow = (userID) => ( {type: FOLLOW, userID }) ;
+let unfollow = (userID) => ( {type: UNFOLLOW, userID });*/
 export let setAuthUserData = (userID, email, login) => ( {type: SET_USER_DATA, data: {userID, email, login} });
 
 export default authReducer;
