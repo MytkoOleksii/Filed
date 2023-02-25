@@ -4,14 +4,18 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 let initialState = {
     users: [],
     pageSize: 10,       // відображае кількість користувачів на сторінці (яку порцію отримувати)
     totalUsersCount:0,// скільки пришло юзерів
     currentPage: 1,    // номер сторінки
-    isFetching: false, // крутилка загрузки
+    isFetching: true, // крутилка загрузки
+    followingInProgress: [], //отключает кнопку
+
 }
+
 const usersReducer = (state = initialState,action) => {
 
     switch (action.type) {
@@ -49,6 +53,17 @@ const usersReducer = (state = initialState,action) => {
         case TOGGLE_IS_FETCHING: {
             return  {...state, isFetching: action.isFetching}
         }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+            console.log(state.followingInProgress)
+            return {
+                ...state,
+                 followingInProgress: action.isFetching
+                     ? [...state.followingInProgress, action.userID]
+                     : state.followingInProgress.filter(id => id != action.userID)
+
+            }
+            }
+
         default:
             return state;
     }
@@ -59,7 +74,8 @@ export let unfollow = (userID) => ( {type: UNFOLLOW, userID })
 export let setUsers = (users) => ( {type: SET_USERS, users })
 export let setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export let setTotalCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT,totalCount})
-export  let toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export let toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export let toggleFollowingProgress = (isFetching, userID) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userID})
 export default usersReducer;
 
 
