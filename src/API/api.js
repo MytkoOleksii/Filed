@@ -37,6 +37,12 @@ setAuth_Me() {
 
         });
 },
+    getUserID_URL(userId) {
+       return  instance.get(`profile/` + userId)
+            .then(response => {
+                return response.data
+            })
+    }
 
 }
 
