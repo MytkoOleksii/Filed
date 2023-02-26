@@ -2,18 +2,13 @@ import React from 'react';
 import {
     follow, getUsersThunkCreator,
     setCurrentPage,
-    setTotalCount,
-    setUsers, toggleFollowingProgress,
-    toggleIsFetching,
+    toggleFollowingProgress,
     unfollow
 } from "../../redux/Useres-reducer";
 import {connect} from "react-redux";
-import axios from "axios";
 import Users from "./Users";
-import preloader from '../../assets/images/Loading.gif';
 import Preloader from "../common/Preloader/Preloader";
-import { usersAPI} from "../../API/api";
-import {Navigate} from "react-router-dom";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 class UsersClassContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -65,7 +60,7 @@ class UsersClassContainer extends React.Component {
 
     render() {
 
-        if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}
+      //  if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}
        // if (!this.props.isAuth ) {return  <Navigate to={'/Login'} /> ;}
 
         let pagesCount = this.props.totalUsersCount / this.props.pageSize;
@@ -144,9 +139,8 @@ let mapStateToProps = (state) => {
 )
 (UsersClassContainer);*/
 //Варіант 3
-export default connect(mapStateToProps, {
-    follow, unfollow,
-    setCurrentPage, toggleFollowingProgress,
-    getUsers: getUsersThunkCreator
-})
-(UsersClassContainer);
+
+let withRedirect = withAuthRedirect(UsersClassContainer)
+
+export default connect(mapStateToProps,
+    {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers: getUsersThunkCreator}) (withRedirect);

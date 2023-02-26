@@ -1,17 +1,12 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
-import AddMessage from "./Message/addMessage/AddMessage";
-import {sendMessageCreator, updateNewMessage, updateNewMessageBodyCreator} from "../../redux/Dialogs-reducer";
+import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/Dialogs-reducer";
 import Dialogs from "./Dialogs";
-
 import {connect} from "react-redux";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
 let mapStateToProps = (state) => {
 return {
     dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth,
 }
 };
 let mapDispatchToProps = (dispatch) => {
@@ -23,9 +18,18 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(updateNewMessageBodyCreator(body))
         },
     }
-
 };
 
-let DialogsContainer = connect (mapStateToProps,mapDispatchToProps) (Dialogs);
+let AuthRedirectComponent = withAuthRedirect(Dialogs);
+
+/*let AuthRedirectComponent = (props) => {
+    if (!this.props.isAuth) {
+        return <Navigate to={'/Login'}/>;
+    }
+    /!* if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}*!/
+    return <Dialogs {...props} />
+}*/
+
+let DialogsContainer = connect (mapStateToProps,mapDispatchToProps) (AuthRedirectComponent);
 
 export default DialogsContainer;
