@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    follow,
+    follow, getUsersThunkCreator,
     setCurrentPage,
     setTotalCount,
     setUsers, toggleFollowingProgress,
@@ -18,29 +18,36 @@ class UsersClassContainer extends React.Component {
         super(props);
         //if (this.props.users.length === 0) {
     }
+
     componentDidMount() {
-        this.props.toggleIsFetching(true);
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+       /* this.props.toggleIsFetching(true);
+
          usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
              .then(data => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(data.items);
                 this.props.setTotalCount(data.totalCount)
-            })
+            })*/
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
+        this.props.getUsers(pageNumber, this.props.pageSize )
+
+      /*  this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
+
         usersAPI.getUsers(pageNumber, this.props.pageSize)
-            /*
+            /!*
                     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
                     {withCredentials: true})
-            */
+            *!/
             .then(data => {
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(data.items);
-            })
+            })*/
     }
+    // варіант 1
    /* onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
@@ -64,6 +71,7 @@ class UsersClassContainer extends React.Component {
         let curPF = ((curP - 3) < 0) ?  0  : curP - 3 ;
         let curPL = curP + 2;
         let slicedPages = pages.slice( curPF, curPL);
+
         return ( <>
                 {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
@@ -128,5 +136,9 @@ let mapStateToProps = (state) => {
 )
 (UsersClassContainer);*/
 //Варіант 3
-export default connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalCount, toggleIsFetching, toggleFollowingProgress})
+export default connect(mapStateToProps, {
+    follow, unfollow,
+    setCurrentPage, toggleFollowingProgress,
+    getUsers: getUsersThunkCreator
+})
 (UsersClassContainer);
