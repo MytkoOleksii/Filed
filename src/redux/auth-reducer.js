@@ -1,3 +1,5 @@
+import {usersAPI} from "../API/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USER_DATA = 'SET_USERS_DATA';
@@ -50,6 +52,18 @@ const authReducer = (state = initialState,action) => {
 /*let follow = (userID) => ( {type: FOLLOW, userID }) ;
 let unfollow = (userID) => ( {type: UNFOLLOW, userID });*/
 export let setAuthUserData = (userID, email, login) => ( {type: SET_USER_DATA, data: {userID, email, login} });
+////////////////// Thunk ////////////////
+
+export  const setAuth_MeThunkCreator = () => {
+    return (dispatch) => {
+        usersAPI.setAuth_Me()
+            .then(data => {
+                if(data.resultCode === 0) {
+                    let{id, email, login } = data.data;
+                    dispatch(setAuthUserData(id, email, login));
+                }})
+    }
+}
 
 export default authReducer;
 

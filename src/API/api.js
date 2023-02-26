@@ -28,8 +28,16 @@ deleteUsersUnfollow(id) {
          .then(response => {
              return response.data;
          });
+},
 
-}
+setAuth_Me() {
+    return instance.get(`auth/me` )
+        .then(response => {
+            return response.data
+
+        });
+},
+
 }
 
 
