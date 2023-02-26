@@ -2,8 +2,7 @@ import React from 'react';
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {usersAPI} from "../../API/api";
+
 
 function Users(props) {
 
@@ -13,7 +12,7 @@ function Users(props) {
             <div>
                 <div className={styles.block}>
                     {props.slicedPages.map(p => {
-                        return ( <span   className={props.currentPage === p && styles.selectedPage || props.currentPage !== p && styles.page }
+                        return ( <span key={p}  className={props.currentPage === p && styles.selectedPage || props.currentPage !== p && styles.page }
                                         onClick={(e)=>{props.onPageChanged(p)}}>{p}</span>
                         )})}
                 </div>
