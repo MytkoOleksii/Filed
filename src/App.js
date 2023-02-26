@@ -10,6 +10,7 @@ import NewNFiends from "./components/nFriends/NewNFiendsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/login/login";
 
 const App = (props) => {
 
@@ -31,6 +32,7 @@ const App = (props) => {
                   {/*   <Route path='/news' render={ () => <News/>} />*/}
                          <Route path='/News' element={<News/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
+                        <Route path={'/login'} element={<Login />} />
                     </Routes>
                 </div>
             </div>

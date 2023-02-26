@@ -13,6 +13,7 @@ import Users from "./Users";
 import preloader from '../../assets/images/Loading.gif';
 import Preloader from "../common/Preloader/Preloader";
 import { usersAPI} from "../../API/api";
+import {Navigate} from "react-router-dom";
 class UsersClassContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -63,6 +64,10 @@ class UsersClassContainer extends React.Component {
 
 
     render() {
+
+        if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}
+       // if (!this.props.isAuth ) {return  <Navigate to={'/Login'} /> ;}
+
         let pagesCount = this.props.totalUsersCount / this.props.pageSize;
         let pages = [];
         for (let i=1; i < pagesCount; i++) {
@@ -71,6 +76,8 @@ class UsersClassContainer extends React.Component {
         let curPF = ((curP - 3) < 0) ?  0  : curP - 3 ;
         let curPL = curP + 2;
         let slicedPages = pages.slice( curPF, curPL);
+
+
 
         return ( <>
                 {this.props.isFetching ? <Preloader/> : null}
@@ -99,6 +106,7 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth,
     }
 };
 //Варіант 1
