@@ -1,4 +1,4 @@
-import {usersAPI} from "../API/api";
+import {authAPI as aythAPI, usersAPI} from "../API/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -51,12 +51,13 @@ const authReducer = (state = initialState,action) => {
 
 /*let follow = (userID) => ( {type: FOLLOW, userID }) ;
 let unfollow = (userID) => ( {type: UNFOLLOW, userID });*/
-export let setAuthUserData = (userID, email, login) => ( {type: SET_USER_DATA, data: {userID, email, login} });
+let setAuthUserData = (userID, email, login) => ( {type: SET_USER_DATA, data: {userID, email, login} });
+
 ////////////////// Thunk ////////////////
 
 export  const setAuth_MeThunkCreator = () => {
     return (dispatch) => {
-        usersAPI.setAuth_Me()
+        aythAPI.setAuth_Me()
             .then(data => {
                 if(data.resultCode === 0) {
                     let{id, email, login } = data.data;

@@ -1,10 +1,8 @@
 import React from 'react';
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {getUserID, setUserProfile} from "../../redux/Profile-reducer";
+import { getUserProfileThunkCreate} from "../../redux/Profile-reducer";
 import { useParams} from 'react-router-dom';
-import {usersAPI} from "../../API/api";
 
 function withRouter(Children){
     return(props)=>{
@@ -17,7 +15,7 @@ function withRouter(Children){
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUserID(this.props.match.params.userId)
+        this.props.getUserProfileThunkCreate(this.props.match.params.userId)
       /*  let userId = this.props.match.params.userId;
         if (!userId) {
             userId = 2
@@ -51,4 +49,4 @@ let mapStateToProps = (state) => ({
 let withUrlDataContainerComponent = withRouter(ProfileContainer)
 
 
-export default connect (mapStateToProps,{setUserProfile,getUserID}) (withUrlDataContainerComponent);
+export default connect (mapStateToProps,{getUserProfileThunkCreate}) (withUrlDataContainerComponent);

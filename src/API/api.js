@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const  instance = axios.create({
+const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
     withCredentials: true,
     headers: {
@@ -9,36 +9,29 @@ const  instance = axios.create({
 
 })
 
-export const usersAPI ={
+export const usersAPI = {
 
- getUsers (currentPage, pageSize) {
-     return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-         .then(response => {
-             return response.data;
-         });
- },
-postUsersFollow (id) {
-     return instance.post(`follow/${id}`)
-         .then(response => {
-             return response.data;
-         });
-},
-deleteUsersUnfollow(id) {
-     return instance.delete(`follow/${id}`)
-         .then(response => {
-             return response.data;
-         });
-},
+    getUsers(currentPage, pageSize) {
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+    postUsersFollow(id) {
+        return instance.post(`follow/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+    deleteUsersUnfollow(id) {
+        return instance.delete(`follow/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
 
-setAuth_Me() {
-    return instance.get(`auth/me` )
-        .then(response => {
-            return response.data
-
-        });
-},
     getUserID_URL(userId) {
-       return  instance.get(`profile/` + userId)
+        return instance.get(`profile/` + userId)
             .then(response => {
                 return response.data
             })
@@ -46,6 +39,15 @@ setAuth_Me() {
 
 }
 
+export const authAPI = {
+    setAuth_Me() {
+        return instance.get(`auth/me`)
+            .then(response => {
+                return response.data
+
+            });
+    },
+}
 
 
 /*export const  getUsers = (currentPage, pageSize) => {

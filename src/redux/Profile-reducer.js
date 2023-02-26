@@ -109,7 +109,7 @@ export const updateNewPostTextActionCreator = (text) => {
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 
 ///////////////// Thunk ///////////////////
-export const getUserID = (userId) => {
+export const getUserProfileThunkCreate = (userId) => {
     return (dispatch) => {
         if (!userId) {
             userId = 2

@@ -6,8 +6,13 @@
  width: 150px;
  height: 50px;
 
-
 }
+@media screen and (max-width: 414px) {
+ .dialog {
+  width:  100px;
+ }
+}
+
  .dialog2 {
 
   text-decoration: none;

@@ -9,7 +9,7 @@ class HeaderContainer extends React.Component {
 
     componentDidMount() {
         this.props.setAuth_MeThunkCreator();
-        /*usersAPI.setAuth_Me()
+        /*authAPI.setAuth_Me()
             .then(data => {
         if(data.resultCode === 0) {
             let{id, email, login } = data.data;
@@ -34,4 +34,4 @@ const  mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
 })
-export default connect(mapStateToProps,{setAuthUserData, setAuth_MeThunkCreator}) (HeaderContainer);
+export default connect(mapStateToProps,{setAuth_MeThunkCreator}) (HeaderContainer);
