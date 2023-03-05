@@ -9,6 +9,7 @@ const instance = axios.create({
 
 })
 
+
 export const usersAPI = {
 
     getUsers(currentPage, pageSize) {
@@ -29,13 +30,27 @@ export const usersAPI = {
                 return response.data;
             });
     },
+    getUserID_URL(userId) {
+        console.log('Old method Please use profileAPI obj'  )
+        return profileAPI.getUserID_URL(userId)
+    }
+}
 
+export  const  profileAPI = {
     getUserID_URL(userId) {
         return instance.get(`profile/` + userId)
             .then(response => {
                 return response.data
-            })
-    }
+            });
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/` + userId);
+    },
+    updateStatus(status) {
+        return instance.put(`profile/status/`,{status: status} );
+    },
+
+
 
 }
 

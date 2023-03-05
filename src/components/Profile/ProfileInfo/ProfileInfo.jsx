@@ -30,7 +30,11 @@ function ProfileInfo(props) {
                                     : <img className={teg.ava} src={avatar}/>
                                 }
                             </div>
-                            <div className={teg.about}><div className={teg.status}>Status profile:<ProfileStatus status={'hello'}/> </div></div>
+                            <div className={teg.about}>
+                                <div className={teg.status}>
+                                    Status profile:
+                                    <ProfileStatus status={props.status}
+                                                   updateStatus={props.updateStatus}/> </div></div>
                         </div>
                     </div>
                 </div>

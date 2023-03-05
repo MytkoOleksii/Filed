@@ -1,9 +1,10 @@
-import {usersAPI} from "../API/api";
+import {profileAPI, usersAPI} from "../API/api";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const LIKE = "LIKE";
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 
 export let initialState = {
@@ -17,6 +18,7 @@ export let initialState = {
     ],
     newPostText: 'It-kamasutra.',
     profile: null,
+    status: "........",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -56,6 +58,11 @@ const profileReducer = (state = initialState, action) => {
             }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
+        }
+        case SET_STATUS: {
+            return {...state,
+            status: action.status
+            }
         }
         /*
                 let stateCopy = {...state,}
@@ -107,21 +114,43 @@ export const updateNewPostTextActionCreator = (text) => {
 }
 
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
+export const setStatus = (status) => ({type: SET_STATUS, status: status})
 
 ///////////////// Thunk ///////////////////
 export const getUserProfileThunkCreate = (userId) => {
     return (dispatch) => {
-        if (!userId) {
+       /* if (!userId) {
             userId = 2
-        }
+        }*/
         usersAPI.getUserID_URL(userId)
             .then((data => {
                 dispatch(setUserProfile(data));
             }))
     }
+};
+
+export  const  getStatusThunkCreate = ( userId) => (dispatch) => {
+   /* if (!userId) {
+        userId = 2
+    }*/
+    profileAPI.getStatus(userId)
+        .then(response => {
+        dispatch(setStatus(response.data))
+    })
+}
+
+export const updateStatusThunkCreate =( status) => (dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatus(response.data));
+            }
+        });
 }
 
 export default profileReducer;
+
+
 /*
 
 export let addLikes = (state = initialState,action) => {
