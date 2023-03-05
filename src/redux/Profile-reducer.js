@@ -18,13 +18,10 @@ export let initialState = {
     ],
     newPostText: 'It-kamasutra.',
     profile: null,
-    status: "........",
+    status: "...",
 };
 
 const profileReducer = (state = initialState, action) => {
-    // console.log('в Profile')
-    // console.log( state.posts)
-
 
     switch (action.type) {
 
@@ -114,7 +111,11 @@ export const updateNewPostTextActionCreator = (text) => {
 }
 
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
-export const setStatus = (status) => ({type: SET_STATUS, status: status})
+const setStatus = (status) => {
+    return (
+        {type: SET_STATUS, status: status}
+    )
+}
 
 ///////////////// Thunk ///////////////////
 export const getUserProfileThunkCreate = (userId) => {
@@ -130,20 +131,21 @@ export const getUserProfileThunkCreate = (userId) => {
 };
 
 export  const  getStatusThunkCreate = ( userId) => (dispatch) => {
-   /* if (!userId) {
-        userId = 2
-    }*/
     profileAPI.getStatus(userId)
         .then(response => {
+            console.log(" с сервера в санки getStatus")
+            console.log(response.data)
         dispatch(setStatus(response.data))
-    })
+    });
 }
 
 export const updateStatusThunkCreate =( status) => (dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
+            console.log("с сервера в санки update")
+            console.log(response.data)
             if (response.data.resultCode === 0) {
-                dispatch(setStatus(response.data));
+                dispatch(setStatus(status));
             }
         });
 }
