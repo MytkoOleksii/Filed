@@ -70,7 +70,7 @@ const usersReducer = (state = initialState,action) => {
     }
 }
 
- let followSuccess = (userID) => ( {type: FOLLOW, userID })
+  let followSuccess = (userID) => ( {type: FOLLOW, userID })
  let unfollowSuccess = (userID) => ( {type: UNFOLLOW, userID })
  let setUsers = (users) => ( {type: SET_USERS, users })
  let setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
