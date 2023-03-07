@@ -133,8 +133,6 @@ export const getUserProfileThunkCreate = (userId) => {
 export  const  getStatusThunkCreate = ( userId) => (dispatch) => {
     profileAPI.getStatus(userId)
         .then(response => {
-            console.log(" с сервера в санки getStatus")
-            console.log(response.data)
         dispatch(setStatus(response.data))
     });
 }
@@ -142,8 +140,6 @@ export  const  getStatusThunkCreate = ( userId) => (dispatch) => {
 export const updateStatusThunkCreate =( status) => (dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
-            console.log("с сервера в санки update")
-            console.log(response.data)
             if (response.data.resultCode === 0) {
                 dispatch(setStatus(status));
             }
