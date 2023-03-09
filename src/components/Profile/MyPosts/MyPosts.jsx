@@ -1,6 +1,7 @@
 import React from 'react';
 import teg from './MyPosts.module.css'
 import Post from "./Post/Post";
+import {Field, reduxForm} from "redux-form";
 
 function MyPosts(props) {
 
@@ -10,40 +11,41 @@ function MyPosts(props) {
                   dispatch={props.dispatch} returnType={props.returnType} updateNewPostText={props.updateNewPostText}/>
         )
     })
-
-    let newPostElement = React.createRef();
-
-    let onAddPost = function ()  {
-        props.addPost();
+   // let newPostElement = React.createRef();
+    let onAddPost =  (values) => {
+        props.addPost(values.newPostText);
     }
-
-    let onPostChange = () => {
-
+  /*  let onPostChange = () => {
         let text = newPostElement.current.value;
             props.updateNewPostText(text);
-    }
-
+    }*/
     return (
-
         <div className={teg.postsBlock}>
           <h3> My posts </h3>
-            <div>
-                <div>
-                <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
-                </div>
-                <div>
-                <button onClick={ onAddPost }>Add post</button>
-                </div>
-            </div>
+           <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={teg.posts}>
-
                 {postsElements}
-
                 {/*<Post likesCount={postData[0].likesCount} message={postData[0].messages}/>
                 <Post likesCount={postData[1].likesCount} message={postData[1].messages}/>*/}
             </div>
         </div>
     );
 }
+
+let AddNewPostForm = (props) => {
+    return(
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component={"textarea"} name={"newPostText"} />
+            </div>
+            <div>
+                <button>Add post</button>
+            </div>
+        </form>
+    )
+}
+
+let AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"}) (AddNewPostForm)
+
 
 export default MyPosts;
