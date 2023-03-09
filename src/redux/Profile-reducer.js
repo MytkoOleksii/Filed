@@ -66,13 +66,9 @@ const profileReducer = (state = initialState, action) => {
                      stateCopy.posts[action.id].likesCount = action.like
 
                      return stateCopy;*/
-
         default:
             return state;
-
     }
-
-
 }
 /* switch (action.type) {
      case ADD_POST:
