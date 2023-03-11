@@ -2,48 +2,56 @@ import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getStatusThunkCreate, getUserProfileThunkCreate, updateStatusThunkCreate} from "../../redux/Profile-reducer";
-import { useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import {compose} from "redux";
-
+/*
 function withRouter(Children) {
     return (props) => {
 
         const match = {params: useParams()};
         return <Children {...props} match={match}/>
     }
+}*/
+
+export const withRouter = (Component) => {
+    function ComponentWithRouterProp(props) {
+        let location = useLocation();
+        let navigate = useNavigate();
+        let params = useParams();
+        return (
+            <Component
+                {...props}
+                router={{ location, navigate, params }}
+            />
+        );
+    }
+    return ComponentWithRouterProp;
 }
 
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId;
+
+        let userId = this.props.router.params.userId;
+        if (!userId) {
+            userId=this.props.myID;
+            if (!userId) {
+                this.props.router.navigate('/login');
+            }
+        ////////////////////////////////////
+        /*let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.myID
+            if (!userId) {
+                this.props.history.push('/login')
+            }*/
         }
         this.props.getUserProfileThunkCreate(userId);
         this.props.getStatusThunkCreate(userId);
-        /*  let userId = this.props.match.params.userId;
-          if (!userId) {
-              userId = 2
-          }
-          usersAPI.getUserID_URL(userId)
-              .then((data =>{
-                  this.props.setUserProfile(data);
-              }))*/
-        /*axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data);
-
-            })*/
-
     }
 
     render() {
-       /* if (!this.props.isAuth) {
-            return <Navigate to={'/Login'}/>;
-        }
-        /!* if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}*!/*/
         return (
             <div>
                 ProfileContainer
@@ -59,29 +67,9 @@ let mapStateToProps = (state) => ({
     myID: state.auth.userID,
     isAuth: state.auth.isAuth,
 });
-
+withRouter(ProfileContainer)
 export default compose(
     connect(mapStateToProps, {getUserProfileThunkCreate,getStatusThunkCreate,updateStatusThunkCreate}),
     withRouter,
      withAuthRedirect,
 ) (ProfileContainer);
-
-/*
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-//Варіант 2
-/!*let AuthRedirectComponent = (props) => {
-    if (!this.props.isAuth) {
-        return <Navigate to={'/Login'}/>;
-    }
-    /!* if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}*!/
-    return <ProfileContainer {...props} />
-}*!/
-
-let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile,
-});
-
-let withUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-
-
-export default connect(mapStateToProps, {getUserProfileThunkCreate})(withUrlDataContainerComponent);*/

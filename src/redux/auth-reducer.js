@@ -2,16 +2,13 @@ import {authAPI, authAPI as aythAPI,} from "../API/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USERS_DATA';
-//const ERROR_COD = 'ERROR_COD';
 
 let initialState = {
     userID: null,
     email:  null,
     login:  null,
     isAuth: false,
-  //  error:  "",
 };
-
 
 const authReducer = (state = initialState,action) => {
 
@@ -21,46 +18,32 @@ const authReducer = (state = initialState,action) => {
                     ...action.data,
             }
         }
-      /*  case ERROR_COD:
-            return {...state,
-               error: action.error,
-            }*/
         default:
             return state;
     }
 }
 
-/*let follow = (userID) => ( {type: FOLLOW, userID }) ;
-let unfollow = (userID) => ( {type: UNFOLLOW, userID });*/
 let setAuthUserData = (userID, email, login, isAuth) => ( {type: SET_USER_DATA, data: {userID, email, login, isAuth} });
-//let errorCod = (error) => ({type: ERROR_COD, error})
-
 ////////////////// Thunk ////////////////
-
-export  const setAuth_MeThunkCreator = () => { // getAuthUserData
-    return (dispatch) => {
-        aythAPI.setAuth_Me()
+export  const getAuthUserData = () => (dispatch) => {
+        return  aythAPI.setAuth_Me()
             .then(data => {
                 if(data.resultCode === 0) {
                     let{id, email, login } = data.data;
                     dispatch(setAuthUserData(id, email, login,true));
                 }
             });
-    }
 }
 //авторизация, вход на сайта
 export  const loginThunkCreator = (email, password, rememberMe) => (dispatch) => {
     authAPI.login(email, password, rememberMe)
         .then(response  => {
         if (response.data.resultCode === 0) {
-            dispatch(setAuth_MeThunkCreator())
-            //let {email, password, rememberMe} = response.data // ?????
+            dispatch(getAuthUserData())
         } else {
              let messageError = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
              let error = stopSubmit('login', {_error:messageError });
             dispatch(error);
-            //Варіант 1
-          //  dispatch(errorCod(response.data.messages))
         }
     });
 }

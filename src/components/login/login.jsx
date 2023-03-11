@@ -42,20 +42,9 @@ function Login(props) {
             <LoginReduxForm onSubmit={onSubmit} error={props.error}/>
         </div>
     );
-// мой вариант
-/*function Login(props) {
-    const onSubmit = (formData) => {
-        const {login,password,rememberMe} = formData
-       return  loginAPI.setLogin(login,password,rememberMe)
-    }
-    return (<div>
-            <LoginReduxForm onSubmit={onSubmit}/>
-        </div>
-    );*/
 }
 const matStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
-  //  error: state.auth.error,
 })
 
 export default connect (matStateToProps, {login: loginThunkCreator,}) (Login);

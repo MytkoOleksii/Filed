@@ -147,6 +147,4 @@ export default connect(mapStateToProps,
     {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers: getUsersThunkCreator}) (withRedirect);*/
 
 export default  compose (
-    connect(mapStateToProps, {follow, unfollow,  getUsers: getUsersThunkCreator}),
-    withAuthRedirect
-) (UsersClassContainer)
+    connect(mapStateToProps, {follow, unfollow,  getUsers: getUsersThunkCreator}),/* withAuthRedirect*/) (UsersClassContainer)
