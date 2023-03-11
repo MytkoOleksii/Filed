@@ -1,14 +1,11 @@
-import {authAPI as aythAPI, usersAPI} from "../API/api";
+import {authAPI, authAPI as aythAPI,} from "../API/api";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
 const SET_USER_DATA = 'SET_USERS_DATA';
-
 
 let initialState = {
     userID: null,
-    email: null,
-    login: null,
+    email:  null,
+    login:  null,
     isAuth: false,
 };
 
@@ -39,11 +36,8 @@ const authReducer = (state = initialState,action) => {
         case SET_USER_DATA: {
             return {...state,
                     ...action.data,
-                      isAuth: true,
             }
-
         }
-
         default:
             return state;
     }
@@ -51,21 +45,42 @@ const authReducer = (state = initialState,action) => {
 
 /*let follow = (userID) => ( {type: FOLLOW, userID }) ;
 let unfollow = (userID) => ( {type: UNFOLLOW, userID });*/
-let setAuthUserData = (userID, email, login) => ( {type: SET_USER_DATA, data: {userID, email, login} });
+let setAuthUserData = (userID, email, login, isAuth) => ( {type: SET_USER_DATA, data: {userID, email, login, isAuth} });
 
 ////////////////// Thunk ////////////////
 
-export  const setAuth_MeThunkCreator = () => {
+export  const setAuth_MeThunkCreator = () => { // getAuthUserData
     return (dispatch) => {
         aythAPI.setAuth_Me()
             .then(data => {
                 if(data.resultCode === 0) {
                     let{id, email, login } = data.data;
-                    dispatch(setAuthUserData(id, email, login));
-                }})
+                    dispatch(setAuthUserData(id, email, login,true));
+                }
+            });
     }
 }
 
+//авторизация, вход на сайта
+export  const loginThunkCreator = (email, password, rememberMe) => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(response  => {
+        if (response.data.resultCode === 0) {
+            dispatch(setAuth_MeThunkCreator())
+            //let {email, password, rememberMe} = response.data // ?????
+        }
+    });
+}
+// Виход из сайта
+export  const logOutThunkCreator = () => (dispatch) => {
+    authAPI.logOut()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null,false));
+            }
+        })
+
+}
 export default authReducer;
 
 

@@ -50,14 +50,14 @@ export  const  profileAPI = {
         return instance.put(`profile/status/`,{status: status} )
     },
 }
-export const loginAPI = {
+/*export const loginAPI = {
     setLogin (email,pass,ok) {
         return instance.post(`auth/login/`,{email: email, password: pass,rememberMe: ok})
     },
     outLogin () {
         return instance.delete(`auth/login/`)
     }
-}
+}*/
 
 export const authAPI = {
     setAuth_Me() {
@@ -67,6 +67,13 @@ export const authAPI = {
 
             });
     },
+    login (email, password, rememberMe = false) {
+        return instance.post('auth/login/', {email, password, rememberMe});
+    },
+    logOut () {
+        return instance.delete('auth/login/');
+    },
+
 }
 
 
