@@ -6,6 +6,7 @@ import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {loginThunkCreator} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
+import  style from '../common/FormsControls/FormsControls.module.css'
 
 let LoginForm = (props) => {
     return (
@@ -18,9 +19,9 @@ let LoginForm = (props) => {
                     <div><Field placeholder={'Password'} name={'password'} validate={[required]} component={Input} type={'password'}/></div>
                     <div><Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me</div>
                     <div>
+                        {props.error &&  <div className={style.formSummaryError}>{props.error}</div> }
                         <button>Login</button>
                     </div>
-                    <div></div>
                 </form>
             </div>
         </div>
@@ -54,7 +55,7 @@ function Login(props) {
 }
 const matStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
-    error: state.auth.error,
+  //  error: state.auth.error,
 })
 
 export default connect (matStateToProps, {login: loginThunkCreator,}) (Login);

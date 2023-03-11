@@ -12,3 +12,10 @@ border: red solid 1px ;
 {
    color: red;
 }
+
+.formSummaryError {
+   border: red 1px solid;
+   padding: 5px;
+   color: red;
+   text-shadow: 2px 1px 4px black;
+}
