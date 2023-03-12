@@ -3,6 +3,7 @@ import {createSelector} from "reselect";
 
 
 //--------------------------------------------//
+
 export const getUsersSelector = (state) => { //Примитивный селектор
     return state.usersPage.users;
 }
@@ -12,6 +13,7 @@ export const getUsersSelector = (state) => { //Примитивный селек
 export const getUsers = createSelector( getUsersSelector,(users) => { // Сложный селектор, зависит от примитивных
   return  users.filter(u => true)
 })
+
 //-----------------------------------------------//
 export const getPageSize = (state) => {
     return state.usersPage.pageSize;
