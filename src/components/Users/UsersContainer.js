@@ -65,12 +65,9 @@ class UsersClassContainer extends React.Component {
             })
     }*/
 
-
     render() {
-
       //  if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}
        // if (!this.props.isAuth ) {return  <Navigate to={'/Login'} /> ;}
-
         let pagesCount = this.props.totalUsersCount / this.props.pageSize;
         let pages = [];
         for (let i=1; i < pagesCount; i++) {
@@ -79,8 +76,6 @@ class UsersClassContainer extends React.Component {
         let curPF = ((curP - 3) < 0) ?  0  : curP - 3 ;
         let curPL = curP + 2;
         let slicedPages = pages.slice( curPF, curPL);
-
-
 
         return ( <>
                 {this.props.isFetching ? <Preloader/> : null}
