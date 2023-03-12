@@ -8,8 +8,15 @@ import {
 import {connect} from "react-redux";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import withAuthRedirect from "../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 class UsersClassContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -91,9 +98,20 @@ class UsersClassContainer extends React.Component {
             </>
 
         )}}
-
-
-
+// Варіант 5 селектори
+let mapStateToProps = (state) => {
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state) ,
+        followingInProgress: getFollowInProgress(state),
+        isAuth: state.auth.isAuth,
+    }
+};
+// Варіант 4
+/*
 let mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
@@ -105,6 +123,8 @@ let mapStateToProps = (state) => {
         isAuth: state.auth.isAuth,
     }
 };
+*/
+
 //Варіант 1
 /*let mapDispatchToProps = (dispatch) => {
     return {

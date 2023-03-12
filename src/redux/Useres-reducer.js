@@ -82,13 +82,15 @@ const usersReducer = (state = initialState,action) => {
 export const getUsersThunkCreator = (currentPage, pageSize) => {
    return  (dispatch) => {
        dispatch(toggleIsFetching(true));
+       dispatch(setCurrentPage(currentPage))
+
 
        usersAPI.getUsers(currentPage, pageSize)
            .then(data => {
                dispatch(toggleIsFetching(false));
                dispatch(setUsers(data.items));
                dispatch(setTotalCount(data.totalCount))
-               dispatch(setCurrentPage(currentPage))
+               // dispatch(setCurrentPage(currentPage))
            });
    }
 }
@@ -97,7 +99,7 @@ export const follow = (userID) => {
         dispatch(toggleFollowingProgress(true, userID));
         usersAPI.postUsersFollow(userID)
             .then(data => {
-                    if (data.resultCode == 0) {
+                    if (data.resultCode === 0) {
                         dispatch(followSuccess(userID))
                     }
                     dispatch(toggleFollowingProgress(false, userID))
@@ -110,7 +112,7 @@ export const follow = (userID) => {
             dispatch(toggleFollowingProgress(true, userID));
             usersAPI.deleteUsersUnfollow(userID)
                 .then(data => {
-                        if (data.resultCode == 0) {
+                        if (data.resultCode === 0) {
                             dispatch(unfollowSuccess(userID))
                         }
                         dispatch(toggleFollowingProgress(false, userID))
