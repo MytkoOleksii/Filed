@@ -1,14 +1,13 @@
 import React from 'react';
 import teg from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
-import {NavLink, Route, Routes} from "react-router-dom";
 import avatar from "../../../assets/images/user.png";
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-
+/*
 function FontAwesomeIcon(props: { size: string, fixedWidth: boolean, icon: * }) {
     return null;
-}
+}*/
 
 function ProfileInfo(props) {
     if (!props.profile) {
@@ -17,7 +16,7 @@ function ProfileInfo(props) {
     return (
         <div>
             <div className={teg.im}>
-                <img
+                <img alt={'ava'}
                     src='https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'/>
             </div>
             <div className={teg.descriptionBlock} key={props.profile.id}>
@@ -26,14 +25,14 @@ function ProfileInfo(props) {
                         <div className={teg.avaStatus} >
                             <div className={teg.about}>
                                 {props.profile.photos.large
-                                    ? <img className={teg.ava} src={props.profile.photos.large}/>
-                                    : <img className={teg.ava} src={avatar}/>
+                                    ? <img alt={'avatar'} className={teg.ava} src={props.profile.photos.large}/>
+                                    : <img alt={'avatar'} className={teg.ava} src={avatar}/>
                                 }
                             </div>
                             <div className={teg.about}>
                                 <div className={teg.status}>
                                     Status profile:
-                                    <ProfileStatus status={props.status}
+                                    <ProfileStatusWithHooks status={props.status}
                                                    updateStatus={props.updateStatus}/> </div></div>
                         </div>
                     </div>
