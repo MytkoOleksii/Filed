@@ -18,7 +18,7 @@ export let initialState = {
     ],
  //   newPostText: 'It-kamasutra.',
     profile: null,
-    status: "...",
+    status: "",
 };
 
 const profileReducer = (state = initialState, action) => {

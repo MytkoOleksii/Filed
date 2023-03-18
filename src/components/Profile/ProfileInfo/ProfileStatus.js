@@ -5,17 +5,15 @@ class ProfileStatus extends React.Component {
     state = {
         editMode: false,
         status: this.props.status,
-
     }
-
 
     activateEditMode = () => {
         this.setState( {
             editMode: true,
         });
 }
-    deactivateEditMode =  () => {
 
+    deactivateEditMode =  () => {
         this.setState({
             editMode: false,
         });
@@ -26,7 +24,6 @@ class ProfileStatus extends React.Component {
         this.setState({
             status:  e.currentTarget.value,
         })
-
     }
    /* activateEditMode () {
         //Варіант 2
