@@ -4,8 +4,9 @@ import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
+import connectedField from "redux-form/lib/ConnectedField";
 
-function MyPosts(props) {
+const MyPosts = React.memo (props => {
 
     let postsElements = props.posts.map( (element) => {
         return (
@@ -14,7 +15,7 @@ function MyPosts(props) {
         )
     })
    // let newPostElement = React.createRef();
-    let onAddPost =  (values) => {
+    let onAddPost = (values) => {
         props.addPost(values.newPostText);
     }
   /*  let onPostChange = () => {
@@ -32,7 +33,7 @@ function MyPosts(props) {
             </div>
         </div>
     );
-}
+})
 
 let AddNewPostForm = (props) => {
     return(

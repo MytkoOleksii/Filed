@@ -34,7 +34,7 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: '',
+                newPostText: null,
             }
 
        /* case UPDATE_NEW_POST_TEXT:
