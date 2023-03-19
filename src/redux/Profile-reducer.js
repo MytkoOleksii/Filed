@@ -5,6 +5,7 @@ const ADD_POST = 'ADD-POST';
 const LIKE = "LIKE";
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = "DELETE_POST";
 
 
 export let initialState = {
@@ -61,6 +62,9 @@ const profileReducer = (state = initialState, action) => {
             status: action.status
             }
         }
+        case DELETE_POST: {
+            return {...state, posts: state.posts.filter(p => p.id != action.postId)}
+        }
         /*
                 let stateCopy = {...state,}
                      stateCopy.posts[action.id].likesCount = action.like
@@ -109,11 +113,9 @@ export const updateNewPostTextActionCreator = (text) => {
 */
 
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
-const setStatus = (status) => {
-    return (
-        {type: SET_STATUS, status: status}
-    )
-}
+const setStatus = (status) => { return ( {type: SET_STATUS, status: status} ) }
+export const deletePost = (postId) => { return ( {type: DELETE_POST, postId} ) }
+
 
 ///////////////// Thunk ///////////////////
 export const getUserProfileThunkCreate = (userId) => {
