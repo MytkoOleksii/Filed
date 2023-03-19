@@ -1,7 +1,7 @@
 import React from 'react';
 import teg from './login.module.css'
 import {Field, reduxForm} from "redux-form";
-import {Input} from "../common/FormsControls/FormsControls";
+import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {loginThunkCreator} from "../../redux/auth-reducer";
@@ -15,9 +15,14 @@ let LoginForm = (props) => {
                 <h1>Login</h1>
 
                 <form onSubmit={props.handleSubmit}>
-                    <div><Field placeholder={'Email'}    name={'email'} validate={[required]} component={Input}/></div>
+
+                    {createField('Email','email',[required], Input)}
+                    {createField('Password','password',[required], Input, {type: 'password'})}
+                    {createField(null,'rememberMe',null, Input, {type: 'checkbox'}, "remember me")}
+
+                    {/*<div><Field placeholder={'Email'}    name={'email'} validate={[required]} component={Input}/></div>
                     <div><Field placeholder={'Password'} name={'password'} validate={[required]} component={Input} type={'password'}/></div>
-                    <div><Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me</div>
+                    <div><Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me</div>*/}
                     <div>
                         {props.error &&  <div className={style.formSummaryError}>{props.error}</div> }
                         <button>Login</button>

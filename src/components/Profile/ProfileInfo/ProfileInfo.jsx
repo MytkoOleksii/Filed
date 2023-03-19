@@ -43,7 +43,7 @@ function ProfileInfo(props) {
                     <p><b>Мои соц.сети:</b>
                         <li><a href={"https:///" + props.profile.contacts.facebook}>Facebook</a></li>
                         <li><a href={"http:///" + props.profile.contacts.vk}>Vk</a></li>
-                        <li><a href={props.profile.contacts.twitter}>Twitter</a></li>
+                        <li><a href={"http:///" + props.profile.contacts.twitter}>Twitter</a></li>
                         <li><a href={"http:///"}>Instagram</a></li>
                         <li>Youtube:</li>
                     </p>

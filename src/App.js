@@ -15,13 +15,7 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 
-/*function withRouter(Children) {
-    return (props) => {
-
-        const match = {params: useParams()};
-        return <Children {...props} match={match}/>
-    }
-}*/
+//--ХУК якій заміняє withRouter ---------------------------//
 export const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
         let location = useLocation();
@@ -35,7 +29,8 @@ export const withRouter = (Component) => {
         );
     }
     return ComponentWithRouterProp;
-}
+};
+//----------------------------------------------------------//
 
 class App extends React.Component {
     componentDidMount()

@@ -1,27 +1,31 @@
- import React from "react";
+import React from "react";
 import styles from "./FormsControls.module.css"
+import {required} from "../../../utils/validators/validators";
+import {Field} from "redux-form";
 
-const FormControl = ({input,meta, ...props}) => {
-     const showError = meta.touched && meta.error;
-     return (
-         <div className={styles.formControl + " "+ (showError ? styles.error : '') }>
-             <div>
-                 {props.children}
-             </div>
-             {showError && <span>{meta.error}</span> }
-         </div>
-     )
- }
+const FormControl = ({input, meta: {touched, error}, ...props}) => {
+    //const showError = meta.touched && meta.error;
+    const showError = touched && error;
+
+    return (
+        <div className={styles.formControl + " " + (showError ? styles.error : '')}>
+            <div>
+                {props.children}
+            </div>
+            {showError && <span>{error}</span>}
+        </div>
+    )
+}
 export const Textarea = (props) => {
     const {input, meta, child, ...restProps} = props;
-    return <FormControl {...props}><textarea {...input} {...restProps} /> </FormControl>
+    return <FormControl {...props}> <textarea {...input} {...restProps} /> </FormControl>
 };
 
- export const Input = (props) => {
-     const {input, meta, child, ...restProps} = props;
+export const Input = (props) => {
+    const {input, meta, child, ...restProps} = props;
 
-     return <FormControl {...props}><input {...input} {...restProps} /> </FormControl>
- }
+    return <FormControl {...props}><input {...input} {...restProps} /> </FormControl>
+}
 // Варіант 2
 /* export const Textarea2 = ({input,meta, ...props}) => {
     const showError = meta.touched && meta.error;
@@ -39,18 +43,18 @@ export const Textarea = (props) => {
      )
  };*/
 
- /*export const Input = ({input,meta, ...props}) => {
-     const showError = meta.touched && meta.error;
-     return (
-         <div className={styles.formControl + " "+ (showError ? styles.error : '') }>
-             <div>
-                 <input {...input} {...props} />
-             </div>
-             {showError && <span>{meta.error}</span> }
-         </div>
-     )
- };*/
- // Варіант 3
+/*export const Input = ({input,meta, ...props}) => {
+    const showError = meta.touched && meta.error;
+    return (
+        <div className={styles.formControl + " "+ (showError ? styles.error : '') }>
+            <div>
+                <input {...input} {...props} />
+            </div>
+            {showError && <span>{meta.error}</span> }
+        </div>
+    )
+};*/
+// Варіант 3
 /*
 export const Textarea = (props) => {
     return (
@@ -59,3 +63,14 @@ export const Textarea = (props) => {
         </div>
     )
  }*/
+//--------------------------------------------------------------------//
+export const createField = (placeholder, name, validator, component, props = {}, text = '') => (
+    <div>
+        <Field placeholder={placeholder}
+               name={name}
+               validate={validator}
+               component={component}
+               {...props}
+        /> {text}
+    </div>
+)

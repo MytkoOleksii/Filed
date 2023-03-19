@@ -4,7 +4,7 @@ import {
     setCurrentPage,
     toggleFollowingProgress,
     unfollow
-} from "../../redux/Useres-reducer";
+} from "../../redux/Users-reducer";
 import {connect} from "react-redux";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
@@ -15,68 +15,22 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers, getUsersSuper, getUsersSuperSelector
+    getUsers,
 } from "../../redux/users-selectors";
 class UsersClassContainer extends React.Component {
     constructor(props) {
         super(props);
-        //if (this.props.users.length === 0) {
     }
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
-       /* this.props.toggleIsFetching(true);
-
-         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-             .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalCount(data.totalCount)
-            })*/
     }
 
     onPageChanged = (pageNumber) => {
         this.props.getUsers(pageNumber, this.props.pageSize )
-
-      /*  this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true);
-
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            /!*
-                    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-                    {withCredentials: true})
-            *!/
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-            })*/
     }
-    // варіант 1
-   /* onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true);
-        getUsers(pageNumber, this.props.pageSize)
-/!*
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true})
-*!/
-            .then(response => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items);
-            })
-    }*/
 
     render() {
-      //  if (this.props.isAuth == false) {return  <Navigate to={'/Login'} /> ;}
-       // if (!this.props.isAuth ) {return  <Navigate to={'/Login'} /> ;}
-        let pagesCount = this.props.totalUsersCount / this.props.pageSize;
-        let pages = [];
-        for (let i=1; i < pagesCount; i++) {
-            pages.push(i)}
-        let curP = this.props.currentPage;// номер сторінки
-        let curPF = ((curP - 3) < 0) ?  0  : curP - 3 ;
-        let curPL = curP + 2;
-        let slicedPages = pages.slice( curPF, curPL);
-
         return ( <>
                 {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
@@ -86,7 +40,7 @@ class UsersClassContainer extends React.Component {
                    users={this.props.users}
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
-                   slicedPages={slicedPages}
+
                    toggleFollowingProgress={this.props.toggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
             />
