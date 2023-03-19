@@ -17,7 +17,7 @@ export let initialState = {
         {id: 5, likesCount: 8, messages: 'good day'},
         {id: 6, likesCount: 34, messages: 'Hello world'},
     ],
- //   newPostText: 'It-kamasutra.',
+    //   newPostText: 'It-kamasutra.',
     profile: null,
     status: "",
 };
@@ -38,11 +38,11 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: null,
             }
 
-       /* case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText,
-            }*/
+        /* case UPDATE_NEW_POST_TEXT:
+             return {
+                 ...state,
+                 newPostText: action.newText,
+             }*/
 
         case LIKE :
             return {
@@ -58,18 +58,14 @@ const profileReducer = (state = initialState, action) => {
             return {...state, profile: action.profile}
         }
         case SET_STATUS: {
-            return {...state,
-            status: action.status
+            return {
+                ...state,
+                status: action.status
             }
         }
         case DELETE_POST: {
             return {...state, posts: state.posts.filter(p => p.id != action.postId)}
         }
-        /*
-                let stateCopy = {...state,}
-                     stateCopy.posts[action.id].likesCount = action.like
-
-                     return stateCopy;*/
         default:
             return state;
     }
@@ -104,25 +100,42 @@ export let returnTypeActionCreator = (id, like) => {
 }
 
 export const addPostActionCreator = (newPostText) => {
-    return ({type: ADD_POST,newPostText})
+    return ({type: ADD_POST, newPostText})
 }
-/*
-export const updateNewPostTextActionCreator = (text) => {
-    return ({type: 'UPDATE-NEW-POST-TEXT', newText: text})
-}
-*/
-
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
-const setStatus = (status) => { return ( {type: SET_STATUS, status: status} ) }
-export const deletePost = (postId) => { return ( {type: DELETE_POST, postId} ) }
-
+const setStatus = (status) => {
+    return ({type: SET_STATUS, status: status})
+}
+export const deletePost = (postId) => {
+    return ({type: DELETE_POST, postId})
+}
 
 ///////////////// Thunk ///////////////////
-export const getUserProfileThunkCreate = (userId) => {
+export const getUserProfileThunkCreate = (userId) => async (dispatch) => {
+    let response = await usersAPI.getUserID_URL(userId)
+    dispatch(setUserProfile(response.data));
+};
+
+export const getStatusThunkCreate = (userId) => async (dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data))
+
+}
+
+export const updateStatusThunkCreate = (status) => async (dispatch) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status));
+    }
+}
+
+
+// Использование .then
+/*export const getUserProfileThunkCreate = (userId) => {
     return (dispatch) => {
-       /* if (!userId) {
+       /!* if (!userId) {
             userId = 2
-        }*/
+        }*!/
         usersAPI.getUserID_URL(userId)
             .then((data => {
                 dispatch(setUserProfile(data));
@@ -144,7 +157,7 @@ export const updateStatusThunkCreate =( status) => (dispatch) => {
                 dispatch(setStatus(status));
             }
         });
-}
+}*/
 
 export default profileReducer;
 

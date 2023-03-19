@@ -15,21 +15,21 @@ export const usersAPI = {
 
     getUsers(currentPage, pageSize) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => {
+           /* .then(response => {   // не нужно если использовать async await
                 return response.data;
-            });
+            });*/
     },
     postUsersFollow(id) {
         return instance.post(`follow/${id}`)
-            .then(response => {
+            /*.then(response => {  // не нужно если использовать async await
                 return response.data;
-            });
+            });*/
     },
     deleteUsersUnfollow(id) {
         return instance.delete(`follow/${id}`)
-            .then(response => {
+          /*  .then(response => {   // не нужно если использовать async await
                 return response.data;
-            });
+            });*/
     },
     getUserID_URL(userId) {
         console.log('Old method Please use profileAPI obj'  )
@@ -40,9 +40,9 @@ export const usersAPI = {
 export  const  profileAPI = {
     getUserID_URL(userId) {
         return instance.get(`profile/` + userId)
-            .then(response => {
+           /* .then(response => {  // не нужно если использовать async await
                 return response.data
-            });
+            });*/
     },
     getStatus(userId) {
         return instance.get(`profile/status/` + userId)
@@ -63,10 +63,10 @@ export  const  profileAPI = {
 export const authAPI = {
     setAuth_Me() {
         return instance.get(`auth/me`)
-            .then(response => {
+            /*.then(response => {    // не нужно если использовать async await
                 return response.data
 
-            });
+            });*/
     },
     login (email, password, rememberMe = false) {
         return instance.post('auth/login/', {email, password, rememberMe});
