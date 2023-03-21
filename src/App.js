@@ -10,10 +10,11 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/login/login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import store from "./redux/redux-store";
 
 //--ХУК якій заміняє withRouter ---------------------------//
 export const withRouter = (Component) => {
@@ -67,6 +68,22 @@ class App extends React.Component {
 const mapStateToProps = (state) => ({
 initialized: state.app.initialized,
 })
+
 export default compose (
     withRouter,
     connect(mapStateToProps, {initializeApp})) (App);
+
+/*
+let AppContainer = compose (
+    withRouter,
+    connect(mapStateToProps, {initializeApp})) (App);
+
+let SamuraiJSApp = (props) => {
+  return  <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer />
+        </Provider>
+    </BrowserRouter>
+}
+
+export default  SamuraiJSApp;*/

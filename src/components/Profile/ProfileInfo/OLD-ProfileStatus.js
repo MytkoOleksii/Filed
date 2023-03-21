@@ -1,10 +1,12 @@
 import React from 'react';
 
-class ProfileStatus extends React.Component {
+class OLDProfileStatus extends React.Component {
 
     state = {
         editMode: false,
         status: this.props.status,
+       // status: "it-kamasutra.com"
+
     }
 
     activateEditMode = () => {
@@ -74,4 +76,4 @@ class ProfileStatus extends React.Component {
     }
 }
 
-export default ProfileStatus;
+export default OLDProfileStatus;
