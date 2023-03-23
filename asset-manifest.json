@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/test/demo-samurai/static/css/main.678a54e7.css",
+    "main.js": "/test/demo-samurai/static/js/main.f17756ed.js",
+    "static/js/960.120fcf4a.chunk.js": "/test/demo-samurai/static/js/960.120fcf4a.chunk.js",
+    "static/css/309.5ef505c0.chunk.css": "/test/demo-samurai/static/css/309.5ef505c0.chunk.css",
+    "static/js/309.e7c5c35e.chunk.js": "/test/demo-samurai/static/js/309.e7c5c35e.chunk.js",
+    "static/js/787.a40791ce.chunk.js": "/test/demo-samurai/static/js/787.a40791ce.chunk.js",
+    "static/media/Loading.gif": "/test/demo-samurai/static/media/Loading.63d7da1bc33c0063002c.gif",
+    "static/media/user.png": "/test/demo-samurai/static/media/user.2cf1a97f5c187a0ed83a.png",
+    "static/media/MyPostsClass": "/test/demo-samurai/static/media/MyPostsClass.26206a5a078b32dcf966",
+    "static/media/addLike-reducer": "/test/demo-samurai/static/media/addLike-reducer.6666d535b2339204170b",
+    "index.html": "/test/demo-samurai/index.html",
+    "static/media/Sidebar-reducer": "/test/demo-samurai/static/media/Sidebar-reducer.d944c83994ab84b16d5d",
+    "static/media/OLD-StoreContext": "/test/demo-samurai/static/media/OLD-StoreContext.24cd56cfaebf5ed95575",
+    "main.678a54e7.css.map": "/test/demo-samurai/static/css/main.678a54e7.css.map",
+    "main.f17756ed.js.map": "/test/demo-samurai/static/js/main.f17756ed.js.map",
+    "960.120fcf4a.chunk.js.map": "/test/demo-samurai/static/js/960.120fcf4a.chunk.js.map",
+    "309.5ef505c0.chunk.css.map": "/test/demo-samurai/static/css/309.5ef505c0.chunk.css.map",
+    "309.e7c5c35e.chunk.js.map": "/test/demo-samurai/static/js/309.e7c5c35e.chunk.js.map",
+    "787.a40791ce.chunk.js.map": "/test/demo-samurai/static/js/787.a40791ce.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.678a54e7.css",
+    "static/js/main.f17756ed.js"
+  ]
+}
