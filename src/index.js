@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/redux-store'
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import StoreContext from "./OLD-StoreContext";
 import {Provider} from "react-redux";
 import SamuraiJSApp from "./App";
@@ -15,7 +15,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(
         <React.StrictMode>
          {/*   <SamuraiJSApp />*/}
-            <BrowserRouter>
+            {/*<BrowserRouter basename={process.env.PUBLIC_URL}>*/}
+          {/*  <HashRouter basename='/'>*/}
+            <HashRouter>
                 <Provider store={store}>
                     <App/>
                 </Provider>
@@ -23,7 +25,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
             <App state={store.getState()} addLikes={store.addLikes.bind(store)} addPost={store.addPost.bind(store)} updateNewPostText={store.updateNewPostText.bind(store)} addMessage={store.addMessage.bind(store)} updateNewMessage={store.updateNewMessage.bind(store)} />
 */}
-            </BrowserRouter>
+                </HashRouter>
+
         </React.StrictMode>
     )
 
