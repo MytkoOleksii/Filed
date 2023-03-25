@@ -1,4 +1,6 @@
 import {profileAPI, usersAPI} from "../API/api";
+import {toggleIsFetching} from "./Users-reducer";
+import {getAuthUserData} from "./auth-reducer";
 
 const ADD_POST = 'ADD-POST';
 //const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -6,7 +8,7 @@ const LIKE = "LIKE";
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = "DELETE_POST";
-
+const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
 export let initialState = {
     posts: [
@@ -20,6 +22,7 @@ export let initialState = {
     //   newPostText: 'It-kamasutra.',
     profile: null,
     status: "",
+    initializedPhoto: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -66,6 +69,10 @@ const profileReducer = (state = initialState, action) => {
         case DELETE_POST: {
             return {...state, posts: state.posts.filter(p => p.id != action.postId)}
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {...state, profile:  {...state.profile, photos: action.photos}}
+        }
+
         default:
             return state;
     }
@@ -109,12 +116,14 @@ const setStatus = (status) => {
 export const deletePost = (postId) => {
     return ({type: DELETE_POST, postId})
 }
-
+const savePhotoSuccessAC = (photos) => {
+    return ({type: SAVE_PHOTO_SUCCESS, photos})
+}
 ///////////////// Thunk ///////////////////
 export const getUserProfileThunkCreate = (userId) => async (dispatch) => {
     let response = await usersAPI.getUserID_URL(userId)
     dispatch(setUserProfile(response.data));
-};
+}
 
 export const getStatusThunkCreate = (userId) => async (dispatch) => {
     let response = await profileAPI.getStatus(userId)
@@ -127,7 +136,17 @@ export const updateStatusThunkCreate = (status) => async (dispatch) => {
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status));
     }
-}
+};
+
+export const savePhotoTC = (file) => async (dispatch) => {
+    let response = await profileAPI.savePhoto(file);
+
+    if (response.data.resultCode === 0) {
+
+        dispatch(savePhotoSuccessAC(response.data.data.photos))
+
+    }
+};
 
 
 // Использование .then

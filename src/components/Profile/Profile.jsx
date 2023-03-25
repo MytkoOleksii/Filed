@@ -6,7 +6,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 function Profile(props) {
     return (
         <div className={teg.content}>
-           <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
+           <ProfileInfo  savePhoto={props.savePhoto} isOwner={props.isOwner} profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
             <MyPostsContainer store={props.store} />
             Main content(Profile)
         </div>

@@ -80,7 +80,7 @@ let unfollowSuccess = (userID) => ({type: UNFOLLOW, userID})
 let setUsers = (users) => ({type: SET_USERS, users})
 let setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 let setTotalCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
-let toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export let toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 let toggleFollowingProgress = (isFetching, userID) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userID})
 
 ////////////////// Thunk  ///////////////////////////////////////////
