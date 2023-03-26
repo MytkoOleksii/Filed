@@ -156,7 +156,29 @@ export const saveProfileTC = (profile) => async (dispatch, getState) => {
         dispatch(getUserProfileThunkCreate(userID))
     } else {
        // dispatch(stopSubmit('edit-profile',{_error: response.data.messages[0]}));
-        dispatch(stopSubmit('edit-profile',{'contacts':{'facebook': response.data.messages[0]} }));
+        let mess = response.data.messages;
+        let arr;
+        let a1,b2;
+       /* for ( let a=0; a < mess.length; ++a) {
+            arr = a
+        }*/
+        for (let a of mess) {
+             [a1,b2] = a.split('>');
+        }
+        let b3 = b2.slice(0, -1)
+        let b4 = b3.toLowerCase()
+        let b5 = String(b4)
+        let b6 = `'${b5}'`
+        const fn = (n,mes) => {
+            return ({n:mes})
+        }
+
+      let  b7 = fn(b5,mess)
+        console.log(b6)
+        console.log(b7)
+
+
+        dispatch(stopSubmit('edit-profile',{'contacts':{b7} }));
         return Promise.reject(response.data.messages[0]);
 
     }

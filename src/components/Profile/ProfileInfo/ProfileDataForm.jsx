@@ -29,7 +29,7 @@ const ProfileDataForm = (props) => {
                 </div>
                 <div>
                     <div><p><b>Contact:</b></p> {Object.keys(props.profile.contacts).map(key => {
-                        return <div className={s.contact}>
+                        return <div  key={key} className={s.contact}>
                         <b>{key}: </b> {createField(key, "contacts." + key, [], Input)}
                         </div>
                     })}

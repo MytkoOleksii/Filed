@@ -4,7 +4,6 @@ import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
-import connectedField from "redux-form/lib/ConnectedField";
 
 const MyPosts = React.memo (props => {
 
@@ -28,28 +27,21 @@ const MyPosts = React.memo (props => {
            <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={teg.posts}>
                 {postsElements}
-                {/*<Post likesCount={postData[0].likesCount} message={postData[0].messages}/>
-                <Post likesCount={postData[1].likesCount} message={postData[1].messages}/>*/}
             </div>
         </div>
     );
 })
 
 let AddNewPostForm = (props) => {
-    return(
-        <form onSubmit={props.handleSubmit}>
+    return <form onSubmit={props.handleSubmit}>
             <div>
                 <Field component={Textarea} name={"newPostText"} validate={[required,maxLengthCreator(10)]} />
-
-                {/*
-                <Field component={"textarea"} name={"newPostText"} validate={[required,maxLengthCreator(10)]} />
-*/}
             </div>
             <div>
                 <button>Add post</button>
             </div>
         </form>
-    )
+
 }
 
 let AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"}) (AddNewPostForm)
