@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     getStatusThunkCreate,
     getUserProfileThunkCreate, initializePhotoDownload,
-    savePhotoTC,
+    savePhotoTC, saveProfileTC,
     updateStatusThunkCreate
 } from "../../redux/Profile-reducer";
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
@@ -79,6 +79,7 @@ if (this.props.router.params.userId != prevProps.router.params.userId) {
                          status={this.props.status}
                          updateStatus={this.props.updateStatusThunkCreate}
                          savePhoto={this.props.savePhotoTC}
+                         saveProfile={this.props.saveProfileTC}
                  />
             </div>
         );
@@ -93,7 +94,7 @@ let mapStateToProps = (state) => ({
 });
 withRouter(ProfileContainer)
 export default compose(
-    connect(mapStateToProps, {getUserProfileThunkCreate,getStatusThunkCreate,updateStatusThunkCreate, savePhotoTC,}),
+    connect(mapStateToProps, {getUserProfileThunkCreate,getStatusThunkCreate,updateStatusThunkCreate, savePhotoTC, saveProfileTC}),
     withRouter,
        withAuthRedirect,
 ) (ProfileContainer);

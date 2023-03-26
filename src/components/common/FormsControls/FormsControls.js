@@ -64,6 +64,7 @@ export const Textarea = (props) => {
     )
  }*/
 //--------------------------------------------------------------------//
+// Создает елементы формы
 export const createField = (placeholder, name, validator, component, props = {}, text = '') => (
     <div>
         <Field placeholder={placeholder}

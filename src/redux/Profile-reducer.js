@@ -1,6 +1,7 @@
 import {profileAPI, usersAPI} from "../API/api";
 import {toggleIsFetching} from "./Users-reducer";
 import {getAuthUserData} from "./auth-reducer";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD-POST';
 //const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -101,7 +102,7 @@ const profileReducer = (state = initialState, action) => {
  }
  return state;
 }*/
-
+//------------------Action create -------------------------------//
 export let returnTypeActionCreator = (id, like) => {
     return ({type: LIKE, id: id, like: like})
 }
@@ -119,7 +120,7 @@ export const deletePost = (postId) => {
 const savePhotoSuccessAC = (photos) => {
     return ({type: SAVE_PHOTO_SUCCESS, photos})
 }
-///////////////// Thunk ///////////////////
+/////////////////-------- Thunk-------- ///////////////////
 export const getUserProfileThunkCreate = (userId) => async (dispatch) => {
     let response = await usersAPI.getUserID_URL(userId)
     dispatch(setUserProfile(response.data));
@@ -147,6 +148,20 @@ export const savePhotoTC = (file) => async (dispatch) => {
 
     }
 };
+export const saveProfileTC = (profile) => async (dispatch, getState) => {
+    let userID = getState().auth.userID
+    let response = await profileAPI.saveProfile(profile);
+
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfileThunkCreate(userID))
+    } else {
+       // dispatch(stopSubmit('edit-profile',{_error: response.data.messages[0]}));
+        dispatch(stopSubmit('edit-profile',{'contacts':{'facebook': response.data.messages[0]} }));
+        return Promise.reject(response.data.messages[0]);
+
+    }
+};
+
 
 
 // Использование .then
