@@ -7,3 +7,7 @@
     left: 50%;
     margin-right: -50%;
 }
+.captcha {
+    width: 170px;
+    height: 70px;
+}
