@@ -159,26 +159,27 @@ export const saveProfileTC = (profile) => async (dispatch, getState) => {
         let mess = response.data.messages;
         let arr;
         let a1,b2;
+
+        for (arr of mess) {
+            arr = arr
+        }
        /* for ( let a=0; a < mess.length; ++a) {
             arr = a
         }*/
-        for (let a of mess) {
+       for (let a of mess) {
              [a1,b2] = a.split('>');
         }
         let b3 = b2.slice(0, -1)
         let b4 = b3.toLowerCase()
-        let b5 = String(b4)
-        let b6 = `'${b5}'`
-        const fn = (n,mes) => {
-            return ({n:mes})
+       // let b5 = String(b4)
+       // let b6 = `'${b5}'`
+        const fnReturnMassageError = (nameContact,messagesError) => {
+            let objError={[nameContact]:messagesError}
+            return (objError)
         }
+        let objErrorContact = fnReturnMassageError(b4,arr)
 
-      let  b7 = fn(b5,mess)
-        console.log(b6)
-        console.log(b7)
-
-
-        dispatch(stopSubmit('edit-profile',{'contacts':{b7} }));
+        dispatch(stopSubmit('edit-profile',{'contacts': objErrorContact }));
         return Promise.reject(response.data.messages[0]);
 
     }
