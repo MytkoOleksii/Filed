@@ -1,6 +1,5 @@
 import {profileAPI, usersAPI} from "../API/api";
-import {toggleIsFetching} from "./Users-reducer";
-import {getAuthUserData} from "./auth-reducer";
+
 import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD-POST';
@@ -71,7 +70,7 @@ const profileReducer = (state = initialState, action) => {
             return {...state, posts: state.posts.filter(p => p.id != action.postId)}
         }
         case SAVE_PHOTO_SUCCESS: {
-            return {...state, profile:  {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos}}
         }
 
         default:
@@ -155,36 +154,54 @@ export const saveProfileTC = (profile) => async (dispatch, getState) => {
     if (response.data.resultCode === 0) {
         dispatch(getUserProfileThunkCreate(userID))
     } else {
-       // dispatch(stopSubmit('edit-profile',{_error: response.data.messages[0]}));
-        let mess = response.data.messages;
-        let arr;
-        let a1,b2;
+        // dispatch(stopSubmit('edit-profile',{_error: response.data.messages[0]}));
+        /*        let mess = response.data.messages;
+                let arr;
+                let a1,b2;
+              for ( let a=0; a < mess.length; ++a) {
+                    arr = a
+                }
 
-        for (arr of mess) {
-            arr = arr
-        }
-       /* for ( let a=0; a < mess.length; ++a) {
-            arr = a
-        }*/
-       for (let a of mess) {
-             [a1,b2] = a.split('>');
-        }
-        let b3 = b2.slice(0, -1)
-        let b4 = b3.toLowerCase()
-       // let b5 = String(b4)
-       // let b6 = `'${b5}'`
-        const fnReturnMassageError = (nameContact,messagesError) => {
-            let objError={[nameContact]:messagesError}
-            return (objError)
-        }
-        let objErrorContact = fnReturnMassageError(b4,arr)
 
-        dispatch(stopSubmit('edit-profile',{'contacts': objErrorContact }));
+               for (let a of mess) {
+                     [a1,b2] = a.split('>');
+                }
+                let b3 = b2.slice(0, -1)
+                let b4 = b3.toLowerCase()
+                let b5 = String(b4)
+
+                const fnReturnMassageError = (nameContact,messagesError) => {
+                  return (  {contacts : {[nameContact]: [messagesError]} })
+                }
+
+                let objErrorContact = fnReturnMassageError(b4,mess[arr])
+
+                dispatch(stopSubmit('edit-profile', objErrorContact));
+                return Promise.reject(response.data.messages[0]);*/
+//-------------------------------------------------------------------------//
+        let arrayMessError = response.data.messages; //сообщение ошибки с сервера
+        //--------------------------------------------//
+        let numberArrayMessagesError
+        for (let a = 0; a < arrayMessError.length; ++a) { // перебирает массив на количество елементов
+            numberArrayMessagesError = a
+        }
+        //--------------------------------------------//
+        let arrNameErrors = arrayMessError.map(name => {
+            let [b1, b2] = name.split('>'); // перебирает, формирует новый массив, разделяет по ">" , и обрезает
+            let b3 = b2.slice(0, -1)
+            return b3.toLowerCase()
+        });
+
+        const fnReturnMassageError = (nameContact, messagesError) => {
+            return ({contacts: {[nameContact]: [messagesError]}}) // формирует обект ошибки
+        }
+        let error = fnReturnMassageError(arrNameErrors[numberArrayMessagesError], arrayMessError[numberArrayMessagesError])
+
+        dispatch(stopSubmit('edit-profile', error));
         return Promise.reject(response.data.messages[0]);
 
     }
 };
-
 
 
 // Использование .then
