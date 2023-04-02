@@ -12,7 +12,7 @@ const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
 export let initialState = {
     posts: [
-        {id: 1, likesCount: 10, messages: 'hi, how are you ?'},b
+        {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
         {id: 2, likesCount: 12, messages: 'Are you'},
         {id: 3, likesCount: 45, messages: 'Simple pimple'},
         {id: 4, likesCount: 2, messages: 'Ben roberts hi hi hi'},
