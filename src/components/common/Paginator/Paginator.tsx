@@ -1,26 +1,34 @@
 import React, {useState} from 'react';
-import styles from "./paginator.module.css";
+import styles from './paginator.module.css'
 import cn from 'classnames'
 
 // portionSize - сколько кнопок выводить (порции)
-// totalItemsCount -  количество загруженых страниц (общее количество пользователей )
+// totalItemsCount - количество загруженных страниц (общее количество пользователей)
 // pageSize - размер страницы
 // currentPage -
 // currentPage -
 
-const Paginator = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
+type PropsType = {
+    totalItemsCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    portionSize?: number
+}
+
+const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
      // pagesCount - какое есть количество страниц
-    let pages = [];
+    let pages: Array<number> = [];
      for (let i = 1; i < pagesCount; i++) {
          pages.push(i);
-     };
-    // portionCount - все пользователи разделеные на порции
+     }
+    // portionCount - все пользователи разделение на порции
     // portionNumber -
     // setPortionNumber -
-    // leftPortionPageNumber - отрисовать границы которые больше левой стороны (номер страницы левой границы) порции
-    // rightPortionPageNumber - отрисовать границы которые больше правой  стороны (номер страницы левой границы)
+    // leftPortionPageNumber - отрисовать границы которые больше левой стороны (номер страницы левой границы) порции.
+    // rightPortionPageNumber -отрисовать границы которые больше правой стороны (номер страницы левой границы)
 
      let portionCount = Math.ceil(pagesCount / portionSize);
      let [portionNumber, setPortionNumber] = useState(1);
@@ -28,10 +36,10 @@ const Paginator = ({totalItemsCount, pageSize, currentPage, onPageChanged, porti
      let rightPortionPageNumber = portionNumber * portionSize;
 
      return <div className={styles.paginator}>
-        {/* показывай кнопку с лева если  portionNumber больше 1*/}
+        {/* показывай кнопку с лева если portionNumber больше 1*/}
          {portionNumber > 1 &&
-             <button onClick={() => { setPortionNumber(portionNumber - 1)}}>Prev</button> }
-         {pages.filter(p =>  p >= leftPortionPageNumber && p < rightPortionPageNumber).map((p)=> {
+             <button onClick = { () => { setPortionNumber(portionNumber - 1)}}>Prev</button> }
+         {pages.filter(p =>  p >= leftPortionPageNumber && p < rightPortionPageNumber).map((p) => {
              return <span className={ cn({
                  [styles.selectorPage]: currentPage === p
              }, styles.pageNumber)}
@@ -40,8 +48,8 @@ const Paginator = ({totalItemsCount, pageSize, currentPage, onPageChanged, porti
                               onPageChanged(p);
                           }}>{p}</span>
          })}
-         {/* показывай кнопку с права если  portionNumber больше чем текущая порция */}
-         { portionCount > portionNumber &&
+         {/* показывай кнопку с права если portionNumber больше чем текущая порция */}
+         { portionCount >  portionNumber &&
              <button onClick={ () => { setPortionNumber(portionNumber + 1)} } >Next</button> }
      </div>
 

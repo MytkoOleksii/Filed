@@ -69,10 +69,8 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userID]
                     : state.followingInProgress.filter(id => id != action.userID)
-
             }
         }
-
         default:
             return state;
     }
@@ -100,7 +98,7 @@ type SetCurrentPageActionType = {
     type: typeof SET_CURRENT_PAGE
     currentPage: number
 }
-let setCurrentPage = (currentPage: number): SetCurrentPageActionType => ({type: SET_CURRENT_PAGE, currentPage})
+export let setCurrentPage = (currentPage: number): SetCurrentPageActionType => ({type: SET_CURRENT_PAGE, currentPage})
 
 type SetTotalCountActionType = {
     type: typeof  SET_TOTAL_USERS_COUNT
