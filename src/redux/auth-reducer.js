@@ -4,9 +4,11 @@ import {stopSubmit} from "redux-form";
 const SET_USER_DATA = 'SET_USERS_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'GET_CAPTCHA_URL_SUCCESS';
 
+
+
 let initialState = {
-    userID: null,
-    email:  null,
+    userID:  null ,
+    email:   null,
     login:  null,
     isAuth: false,
     captchaUrl: null, // if null , then captcha is not require
@@ -28,6 +30,8 @@ const authReducer = (state = initialState,action) => {
             return state;
     }
 }
+
+
 
 let setAuthUserData = (userID, email, login, isAuth) => ( {type: SET_USER_DATA, data: {userID, email, login, isAuth} });
 let getCaptchaUrlSuccess = (captchaUrl) => ({type: GET_CAPTCHA_URL_SUCCESS, payload:{captchaUrl}});
