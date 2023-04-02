@@ -1,13 +1,13 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import sidebarReducer from "./Sidebar-reducer";
-import profileReducer from "./Profile-reducer";
-import dialogsReducer from "./Dialogs-reducer";
+import profileReducer from "./profile-reducer.ts";
+import dialogsReducer from "./dialogs-reducer.ts";
 import addLikes from "./addLike-reducer";
-import usersReducer from "./Users-reducer";
-import authReducer from "./auth-reducer";
+import usersReducerTs from "./users-reducer.ts";
+import authReducer from "./auth-reducer.ts";
 import thunkMiddleware from  'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
-import appReducer from "./app-reducer";
+import appReducer from "./app-reducer.ts";
 import {compose } from 'redux';
 
 let reducers = combineReducers({
@@ -15,7 +15,7 @@ let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     addLikes: addLikes,
-    usersPage: usersReducer,
+    usersPage: usersReducerTs,
     auth: authReducer,
     form: formReducer,
     app: appReducer,

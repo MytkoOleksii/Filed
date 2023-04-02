@@ -10,7 +10,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/login/login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
-import {initializeApp} from "./redux/app-reducer";
+import {initializeApp} from "./redux/app-reducer.ts";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/redux-store";
 import {WithLazy} from "./components/hoc/withSuspense";

@@ -4,7 +4,7 @@ import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
-import {follow, unfollow} from "../../redux/Users-reducer";
+import {follow, unfollow} from "../../redux/users-reducer.ts";
 
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Like from "./Like";
-import {addPostActionCreator, updateNewPostTextActionCreator, returnTypeActionCreator} from "../../../../../redux/Profile-reducer";
+import {addPostActionCreator, updateNewPostTextActionCreator, returnTypeActionCreator} from "../../../../../redux/profile-reducer.ts";
 //import {returnTypeActionCreator, } from "../../../../../redux/addLike-reducer";
 
 /*let Elements = state.profilePage.posts.map( (element) => {

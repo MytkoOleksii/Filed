@@ -1,5 +1,5 @@
 import {profileAPI, usersAPI} from "../API/api";
-
+import {PhotosType, PostType, ProfileType} from "../types/types";
 import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD-POST';
@@ -12,20 +12,23 @@ const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
 export let initialState = {
     posts: [
-        {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
+        {id: 1, likesCount: 10, messages: 'hi, how are you ?'},b
         {id: 2, likesCount: 12, messages: 'Are you'},
         {id: 3, likesCount: 45, messages: 'Simple pimple'},
         {id: 4, likesCount: 2, messages: 'Ben roberts hi hi hi'},
         {id: 5, likesCount: 8, messages: 'good day'},
         {id: 6, likesCount: 34, messages: 'Hello world'},
-    ],
+    ] as Array<PostType>,
     //   newPostText: 'It-kamasutra.',
-    profile: null,
+    newPostText: null as string | null,
+    profile: null as ProfileType | null,
     status: "",
     initializedPhoto: false,
 };
 
-const profileReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState
+
+const profileReducer = (state = initialState, action: any): InitialStateType => {
 
     switch (action.type) {
 
@@ -40,12 +43,6 @@ const profileReducer = (state = initialState, action) => {
                 posts: [...state.posts, newPost],
                 newPostText: null,
             }
-
-        /* case UPDATE_NEW_POST_TEXT:
-             return {
-                 ...state,
-                 newPostText: action.newText,
-             }*/
 
         case LIKE :
             return {
@@ -70,75 +67,75 @@ const profileReducer = (state = initialState, action) => {
             return {...state, posts: state.posts.filter(p => p.id != action.postId)}
         }
         case SAVE_PHOTO_SUCCESS: {
-            return {...state, profile: {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         }
 
         default:
             return state;
     }
 }
-/* switch (action.type) {
-     case ADD_POST:
-         let newPost = {
-             id: state.posts.length + 1,
-             likesCount: 0,
-             messages: state.newPostText,
-         };
-         let stateCopy = {...state};
-         stateCopy.posts = [...state.posts]
-         stateCopy.posts.push(newPost);
-         stateCopy.newPostText = '';
-         return stateCopy;
-     case UPDATE_NEW_POST_TEXT: {
-         let stateCopy = {...state};
-         stateCopy.posts = [...state.posts]
-
-         stateCopy.newPostText = action.newText;
-         return stateCopy;
-     }
-     default:
-         return state;
- }
- return state;
-}*/
 //------------------Action create -------------------------------//
-export let returnTypeActionCreator = (id, like) => {
+export let returnTypeActionCreator = (id: number, like: number) => {
     return ({type: LIKE, id: id, like: like})
 }
 
-export const addPostActionCreator = (newPostText) => {
+type AddPostActionCreatorActionType = {
+    type: typeof ADD_POST
+    newPostText: string
+}
+export const addPostActionCreator = (newPostText: string): AddPostActionCreatorActionType => {
     return ({type: ADD_POST, newPostText})
 }
-export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
-const setStatus = (status) => {
+
+type SetUserProfileActionType = {
+    type: typeof SET_USER_PROFILE
+    profile: ProfileType
+}
+export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({type: SET_USER_PROFILE, profile})
+
+type SetStatusActionType = {
+    type: typeof SET_STATUS
+    status: string
+}
+const setStatus = (status: string):SetStatusActionType => {
     return ({type: SET_STATUS, status: status})
 }
-export const deletePost = (postId) => {
+
+type DeletePostActionType ={
+    type: typeof DELETE_POST
+    postId: number
+}
+export const deletePost = (postId: number):DeletePostActionType  => {
     return ({type: DELETE_POST, postId})
 }
-const savePhotoSuccessAC = (photos) => {
+
+type SavePhotoSuccessACActionType = {
+    type: typeof  SAVE_PHOTO_SUCCESS
+    photos: PhotosType
+}
+const savePhotoSuccessAC = (photos: PhotosType): SavePhotoSuccessACActionType => {
     return ({type: SAVE_PHOTO_SUCCESS, photos})
 }
-/////////////////-------- Thunk-------- ///////////////////
-export const getUserProfileThunkCreate = (userId) => async (dispatch) => {
+//--------------------------------- Thunk-------------------------------------------------- //
+export const getUserProfileThunkCreate = (userId: number    ) => async (dispatch: any) => {
     let response = await usersAPI.getUserID_URL(userId)
     dispatch(setUserProfile(response.data));
 }
 
-export const getStatusThunkCreate = (userId) => async (dispatch) => {
+export const getStatusThunkCreate = (userId: number) => async (dispatch: any) => {
     let response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
 
 }
 
-export const updateStatusThunkCreate = (status) => async (dispatch) => {
+export const updateStatusThunkCreate = (status: string) => async (dispatch: any) => {
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status));
     }
 };
 
-export const savePhotoTC = (file) => async (dispatch) => {
+export const savePhotoTC = (file: any) => async (dispatch: any) => {
     let response = await profileAPI.savePhoto(file);
 
     if (response.data.resultCode === 0) {
@@ -147,52 +144,32 @@ export const savePhotoTC = (file) => async (dispatch) => {
 
     }
 };
-export const saveProfileTC = (profile) => async (dispatch, getState) => {
+export const saveProfileTC = (profile: ProfileType) => async (dispatch: any, getState: any) => {
     let userID = getState().auth.userID
     let response = await profileAPI.saveProfile(profile);
 
     if (response.data.resultCode === 0) {
         dispatch(getUserProfileThunkCreate(userID))
     } else {
-        // dispatch(stopSubmit('edit-profile',{_error: response.data.messages[0]}));
-        /*        let mess = response.data.messages;
-                let arr;
-                let a1,b2;
-              for ( let a=0; a < mess.length; ++a) {
-                    arr = a
-                }
+      /*  dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}));
+    }}*/
 
-
-               for (let a of mess) {
-                     [a1,b2] = a.split('>');
-                }
-                let b3 = b2.slice(0, -1)
-                let b4 = b3.toLowerCase()
-                let b5 = String(b4)
-
-                const fnReturnMassageError = (nameContact,messagesError) => {
-                  return (  {contacts : {[nameContact]: [messagesError]} })
-                }
-
-                let objErrorContact = fnReturnMassageError(b4,mess[arr])
-
-                dispatch(stopSubmit('edit-profile', objErrorContact));
-                return Promise.reject(response.data.messages[0]);*/
 //-------------------------------------------------------------------------//
-        let arrayMessError = response.data.messages; //сообщение ошибки с сервера
+
+        let arrayMessError: any = response.data.messages; //сообщение ошибки с сервера
         //--------------------------------------------//
-        let numberArrayMessagesError
+        let numberArrayMessagesError: any
         for (let a = 0; a < arrayMessError.length; ++a) { // перебирает массив на количество елементов
             numberArrayMessagesError = a
         }
         //--------------------------------------------//
-        let arrNameErrors = arrayMessError.map(name => {
-            let [b1, b2] = name.split('>'); // перебирает, формирует новый массив, разделяет по ">" , и обрезает
+        let arrNameErrors: any = arrayMessError.map ((name: any) => {
+            let [b1, b2] = name.split('>') ; // перебирает, формирует новый массив, разделяет по ">" , и обрезает
             let b3 = b2.slice(0, -1)
             return b3.toLowerCase()
         });
 
-        const fnReturnMassageError = (nameContact, messagesError) => {
+        const fnReturnMassageError = (nameContact: any, messagesError: string) => {
             return ({contacts: {[nameContact]: [messagesError]}}) // формирует обект ошибки
         }
         let error = fnReturnMassageError(arrNameErrors[numberArrayMessagesError], arrayMessError[numberArrayMessagesError])

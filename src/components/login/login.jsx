@@ -4,7 +4,7 @@ import {Field, reduxForm} from "redux-form";
 import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {loginThunkCreator} from "../../redux/auth-reducer";
+import {loginThunkCreator} from "../../redux/auth-reducer.ts";
 import {Navigate} from "react-router-dom";
 import  style from '../common/FormsControls/FormsControls.module.css'
 import s from  './login.module.css'

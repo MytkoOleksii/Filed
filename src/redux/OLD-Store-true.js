@@ -1,6 +1,6 @@
 import React from "react";
-import profileReducer from "./Profile-reducer";
-import dialogsReducer from "./Dialogs-reducer";
+import profileReducer from "./profile-reducer.ts";
+import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./Sidebar-reducer";
 
 let OLDStore = {

@@ -6,7 +6,7 @@ import {
     getUserProfileThunkCreate, initializePhotoDownload,
     savePhotoTC, saveProfileTC,
     updateStatusThunkCreate
-} from "../../redux/Profile-reducer";
+} from "../../redux/profile-reducer.ts";
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import {compose} from "redux";
