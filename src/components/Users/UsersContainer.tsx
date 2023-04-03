@@ -33,27 +33,9 @@ type MapStatePropsType ={
 }
 type MapDispatchPropsType ={
     getUsers: (currentPage: number, pageSize: number) => void
-    follow: () => void
-    unfollow:() => void
+    follow: (userId: number) => void
+    unfollow:(userId: number) => void
 }
-
-/*
-
-type PropsType ={
-    currentPage: number
-    pageSize: number
-    getUsers: (currentPage: number, pageSize: number) => void
-    isFetching: boolean
-    totalUsersCount: number
-    users: Array<UserType>
-    follow: () => void
-    unfollow:() => void
-    toggleFollowingProgress: () => void
-    followingInProgress: Array<number>
-
-}
-
-*/
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
@@ -97,8 +79,8 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
         //isAuth: state.auth.isAuth,
     }
 };
-// Варіант 4
-/*
+/*// Варіант 4
+/!*
 let mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
@@ -110,10 +92,10 @@ let mapStateToProps = (state) => {
         isAuth: state.auth.isAuth,
     }
 };
-*/
+*!/
 
 //Варіант 1
-/*let mapDispatchToProps = (dispatch) => {
+/!*let mapDispatchToProps = (dispatch) => {
     return {
         follow: (userID) => {
             dispatch(followAC(userID))
@@ -134,9 +116,9 @@ let mapStateToProps = (state) => {
             dispatch(toggleIsFetchingAC(isFetching))
         }
     }
-}*/
+}*!/
 //Варіант 2
-/*export default connect(mapStateToProps, {
+/!*export default connect(mapStateToProps, {
     follow: followAC,
     unfollow: unfollowAC,
     setUsers: setUsersAC,
@@ -145,13 +127,12 @@ let mapStateToProps = (state) => {
     toggleIsFetching: toggleIsFetchingAC,
 }
 )
-(UsersClassContainer);*/
+(UsersClassContainer);*!/
 //Варіант 3
-/*
+/!*
 let withRedirect = withAuthRedirect(UsersClassContainer)
 
 export default connect(mapStateToProps,
-    {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers: getUsersThunkCreator}) (withRedirect);*/
+    {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers: getUsersThunkCreator}) (withRedirect);*!/*/
 
-export default  compose (
-    connect<>(mapStateToProps, {follow, unfollow,  getUsers: getUsersThunkCreator}),/* withAuthRedirect*/) (UsersClassContainer)
+export default  compose (connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {follow, unfollow,  getUsers: getUsersThunkCreator})) (UsersClassContainer)

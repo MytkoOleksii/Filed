@@ -1,30 +1,36 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 
-class OLDProfileStatus extends React.Component {
+type PropsType = {
+    status: string
+    updateStatus: ( newStatus: string) => void
+
+}
+type StateType = {
+    status?: string
+    editMode?: boolean
+}
+
+class OLDProfileStatus extends React.Component <PropsType, StateType> {
 
     state = {
         editMode: false,
-        status: this.props.status,
-       // status: "it-kamasutra.com"
-
+        status: this.props.status
     }
 
     activateEditMode = () => {
-        this.setState( {
-            editMode: true,
-        });
+        this.setState( { editMode: true, });
 }
 
     deactivateEditMode =  () => {
         this.setState({
-            editMode: false,
+            editMode: false
         });
-        this.props.updateStatus(this.state.status)
+        this.props.updateStatus(this.state.status) // функция принимает новый статус
     }
 
-    onStatusChange = (e) => {
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
-            status:  e.currentTarget.value,
+            status:  e.currentTarget.value
         })
     }
    /* activateEditMode () {
@@ -42,7 +48,7 @@ class OLDProfileStatus extends React.Component {
         });
     }*/
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
