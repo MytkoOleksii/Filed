@@ -1,5 +1,7 @@
 import {authAPI, authAPI as aythAPI, securityAPI,} from "../API/api";
 import {stopSubmit} from "redux-form";
+import {AppStateType} from "./redux-store";
+import {ThunkAction} from "redux-thunk";
 
 
 const SET_USER_DATA = 'SET_USERS_DATA';
@@ -22,7 +24,7 @@ let initialState: InitialStateType = {
     captchaUrl: null, // if null , then captcha is not require
 };
 
-const authReducer = (state = initialState, action: any): InitialStateType => {
+const authReducer = (state = initialState, action: AllActionType): InitialStateType => {
 
     switch (action.type) {
         case SET_USER_DATA: {
@@ -41,6 +43,7 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
             return state;
     }
 }
+type AllActionType =   SetAuthUserDataActionType | GetCaptchaUrlSuccessActionType
 
 type SetAuthUserDataActionDataType = {
         userID: number | null,
@@ -64,6 +67,7 @@ export type GetCaptchaUrlSuccessActionType = {
 let getCaptchaUrlSuccess = (captchaUrl: string):GetCaptchaUrlSuccessActionType => ({type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}});
 //-------------------------------------- Thunk---------------------------------------------------------//
 
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AllActionType>
 // Использование .then
 /*export  const getAuthUserData = () => (dispatch) => {
         return  aythAPI.setAuth_Me()
@@ -75,7 +79,7 @@ let getCaptchaUrlSuccess = (captchaUrl: string):GetCaptchaUrlSuccessActionType =
             });
 }*/
 // Использование async / await
-export const getAuthUserData = () => async (dispatch: any) => {
+export const getAuthUserData = ():ThunkType  => async (dispatch) => {
     let response = await aythAPI.setAuth_Me()
 
     if (response.data.resultCode === 0) {
@@ -97,18 +101,17 @@ export const getAuthUserData = () => async (dispatch: any) => {
     });
 }*/
 
-export const loginThunkCreator = (email: string, password:string, rememberMe: boolean, captcha: any) => async (dispatch: any) => {
+export const loginThunkCreator = (email: string, password:string, rememberMe: boolean, captcha: any):ThunkType => async (dispatch) => {
     let response = await authAPI.login(email, password, rememberMe,  captcha)
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
     } else {
         if (response.data.resultCode === 10) {
             dispatch(getCaptchaURLTC())
-
         }
-
         let messageError = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
         let error = stopSubmit('login', {_error: messageError});
+        //@ts-ignore
         dispatch(error);
     }
 };
@@ -121,7 +124,7 @@ export const loginThunkCreator = (email: string, password:string, rememberMe: bo
             }
         })
 }*/
-export const logOutThunkCreator = () => async (dispatch: any) => {
+export const logOutThunkCreator = (): ThunkType => async (dispatch) => {
     let response = await authAPI.logOut()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false));
@@ -130,7 +133,7 @@ export const logOutThunkCreator = () => async (dispatch: any) => {
 
 
 // Получение урла на каптчу
-export const getCaptchaURLTC = () => async (dispatch: any) => {
+export const getCaptchaURLTC = (): ThunkType => async (dispatch) => {
     let response = await securityAPI.getCaptchaURL();
     let captchaUrl = response.data.url;
 

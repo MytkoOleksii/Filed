@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
@@ -12,8 +12,9 @@ import withAuthRedirect from "../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileType} from "../../types/types";
-
-export const withRouter = (Component) => {
+import {withRouter} from "../hoc/withRouter";
+//@ts-ignore*/
+/*export const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
         let location = useLocation();
         let navigate = useNavigate();
@@ -26,8 +27,7 @@ export const withRouter = (Component) => {
         );
     }
     return ComponentWithRouterProp;
-}
-
+}*/
 
 
 class ProfileContainer extends React.Component {
