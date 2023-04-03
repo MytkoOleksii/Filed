@@ -3,21 +3,15 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getStatusThunkCreate,
-    getUserProfileThunkCreate, initializePhotoDownload,
+    getUserProfileThunkCreate,
     savePhotoTC, saveProfileTC,
     updateStatusThunkCreate
-} from "../../redux/profile-reducer.ts";
+} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import {compose} from "redux";
-/*
-function withRouter(Children) {
-    return (props) => {
-
-        const match = {params: useParams()};
-        return <Children {...props} match={match}/>
-    }
-}*/
+import {AppStateType} from "../../redux/redux-store";
+import {ProfileType} from "../../types/types";
 
 export const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
@@ -27,7 +21,7 @@ export const withRouter = (Component) => {
         return (
             <Component
                 {...props}
-                router={{ location, navigate, params }}
+                router={{location, navigate, params}}
             />
         );
     }
@@ -38,35 +32,26 @@ export const withRouter = (Component) => {
 
 class ProfileContainer extends React.Component {
 
-    refreshProfile () {
+    refreshProfile() {
         let userId = this.props.router.params.userId;
         if (!userId) {
-            userId=this.props.myID;
+            userId = this.props.myID;
             if (!userId) {
                 this.props.router.navigate('/login');
             }
-            ////////////////////////////////////
-            /*let userId = this.props.match.params.userId;
-            if (!userId) {
-                userId = this.props.myID
-                if (!userId) {
-                    this.props.history.push('/login')
-                }*/
         }
         this.props.getUserProfileThunkCreate(userId);
         this.props.getStatusThunkCreate(userId);
     }
 
     componentDidMount() {
-this.refreshProfile()
-
+        this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps, prevState,snapshot) {
-if (this.props.router.params.userId != prevProps.router.params.userId) {
-    this.refreshProfile();
-}
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.router.params.userId != prevProps.router.params.userId) {
+            this.refreshProfile();
+        }
     }
 
     render() {
@@ -74,13 +59,13 @@ if (this.props.router.params.userId != prevProps.router.params.userId) {
             <div>
                 ProfileContainer
                 <Profile {...this.props}
-                isOwner={!this.props.router.params.userId}
+                         isOwner={!this.props.router.params.userId}
                          profile={this.props.profile}
                          status={this.props.status}
                          updateStatus={this.props.updateStatusThunkCreate}
                          savePhoto={this.props.savePhotoTC}
                          saveProfile={this.props.saveProfileTC}
-                 />
+                />
             </div>
         );
     }
@@ -94,7 +79,13 @@ let mapStateToProps = (state) => ({
 });
 withRouter(ProfileContainer)
 export default compose(
-    connect(mapStateToProps, {getUserProfileThunkCreate,getStatusThunkCreate,updateStatusThunkCreate, savePhotoTC, saveProfileTC}),
+    connect(mapStateToProps, {
+        getUserProfileThunkCreate,
+        getStatusThunkCreate,
+        updateStatusThunkCreate,
+        savePhotoTC,
+        saveProfileTC
+    }),
     withRouter,
-       withAuthRedirect,
-) (ProfileContainer);
+    withAuthRedirect,
+)(ProfileContainer);

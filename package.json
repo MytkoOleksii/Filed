@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://mytkooleksii.github.io/Way_Of_The_Samurai",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "@shopify/react-form": "^2.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
