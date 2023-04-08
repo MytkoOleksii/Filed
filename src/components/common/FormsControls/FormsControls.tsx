@@ -12,20 +12,25 @@ type FormControlPropsType = {
     props: WrappedFieldMetaProps
 }*/
 
+/*type FormControlPropsType = {
+    meta: WrappedFieldMetaProps
+}*/
+
 type FormControlPropsType = {
     meta: WrappedFieldMetaProps
+    children: React.ReactNode
 }
 
-const FormControl: React.FC <FormControlPropsType> = ({ meta}, children) => {
-    const showError = meta.touched && meta.error;
-  //  const showError = touched && error;
+const FormControl: React.FC <FormControlPropsType> = ({ meta: {touched, error}, children}) => {
+    //const showError = meta.touched && meta.error;
+    const showError = touched && error;
 
     return (
         <div className={styles.formControl + " " + (showError ? styles.error : '')}>
             <div>
                 {children}
             </div>
-            {showError && <span>{showError.error}</span>}
+            {showError && <span>{error}</span>}
         </div>
     )
 }

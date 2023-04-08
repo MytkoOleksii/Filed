@@ -9,17 +9,18 @@ import {Navigate} from "react-router-dom";
 import  style from '../common/FormsControls/FormsControls.module.css'
 import s from  './login.module.css'
 import {AppStateType} from "../../redux/redux-store";
+import {string} from "yargs";
 
 type  LoginFormOwnProps = {
     captchaUrl:string | null
 }
-let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProps > & LoginFormOwnProps> = ({handleSubmit,error,captchaUrl}) => {
+let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProps > & LoginFormOwnProps> = (props) => {
     return (
         <div className={teg.di}>
             <div className={teg.form}>
                 <h1>Login</h1>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={props.handleSubmit}>
 
                     {createField<LoginFormsValuesTypeKeys>('Email','email',[required], Input)}
                     {createField<LoginFormsValuesTypeKeys>('Password','password',[required], Input, {type: 'password'})}
@@ -29,10 +30,10 @@ let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProp
                     <div><Field placeholder={'Password'} name={'password'} validate={[required]} component={Input} type={'password'}/></div>
                     <div><Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me</div>*/}
 
-                    { captchaUrl &&  <img src={captchaUrl} className={s.captcha}/>}
-                    { captchaUrl && createField<LoginFormsValuesTypeKeys>('Symbols from image', "captcha",[required],Input,{})}
+                    { props.captchaUrl &&  <img src={props.captchaUrl} className={s.captcha}/>}
+                    { props.captchaUrl && createField<LoginFormsValuesTypeKeys>('Symbols from image', "captcha",[required],Input,{})}
                     <div>
-                        {error &&  <div className={style.formSummaryError}>{error}</div> }
+                        {props.error &&  <div className={style.formSummaryError}>{props.error}</div> }
                         <button>Login</button>
                     </div>
                 </form>
@@ -56,7 +57,7 @@ type LoginFormsValuesTypeKeys = Extract<keyof LoginFormValuesType, string>  // Ð
 
 
 const Login: React.FC<MapStatePropsType & MapDispatchType> = (props) => {
-    const onSubmit = (formData: LoginFormValuesType) => {
+    const onSubmit = (formData: any) => {
         props.loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
