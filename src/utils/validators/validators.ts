@@ -14,7 +14,7 @@ export  const maxLengthCreator = (maxLength: number): FieldValidatorType => (val
     return  undefined;
 };*/
 
-export const minLength30 = value => {
+export const minLength30 = (value: any) => {
     if(value.length > 30) return 'Min length is 30 symbols';
 
     return  undefined;

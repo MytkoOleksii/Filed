@@ -1,7 +1,7 @@
 import React from 'react';
 import teg from './login.module.css'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Input} from "../common/FormsControls/FormsControls";
+import {createField, Input, LoginFormValuesType} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {loginThunkCreator} from "../../redux/auth-reducer";
@@ -13,7 +13,7 @@ import {AppStateType} from "../../redux/redux-store";
 type  LoginFormOwnProps = {
     captchaUrl:string | null
 }
-let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProps > & LoginFormOwnProps> = ({handleSubmit,error,captchaUrl}) => {
+let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProps > & LoginFormOwnProps> = ({handleSubmit,error,captchaUrl,}) => {
     return (
         <div className={teg.di}>
             <div className={teg.form}>
@@ -21,16 +21,16 @@ let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProp
 
                 <form onSubmit={handleSubmit}>
 
-                    {createField<LoginFormsValuesTypeKeys>('Email','email',[required], Input)}
-                    {createField<LoginFormsValuesTypeKeys>('Password','password',[required], Input, {type: 'password'})}
-                    {createField<LoginFormsValuesTypeKeys>(undefined,'rememberMe',[], Input, {type: 'checkbox'}, "remember me")}
+                    {createField('Email','email',[required], Input)}
+                    {createField('Password','password',[required], Input, {type: 'password'})}
+                    {createField(undefined,'rememberMe',[], Input, {type: 'checkbox'}, "remember me")}
 
                     {/*<div><Field placeholder={'Email'}    name={'email'} validate={[required]} component={Input}/></div>
                     <div><Field placeholder={'Password'} name={'password'} validate={[required]} component={Input} type={'password'}/></div>
                     <div><Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me</div>*/}
 
                     { captchaUrl &&  <img src={captchaUrl} className={s.captcha}/>}
-                    { captchaUrl && createField<LoginFormsValuesTypeKeys>('Symbols from image', "captcha",[required],Input,{})}
+                    { captchaUrl && createField('Symbols from image', "captcha",[required],Input,{})}
                     <div>
                         {error &&  <div className={style.formSummaryError}>{error}</div> }
                         <button>Login</button>
@@ -41,25 +41,22 @@ let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProp
     );
 };
 
-const LoginReduxForm = reduxForm<LoginFormValuesType , LoginFormOwnProps, any>({form: 'login'}) (LoginForm)
+const LoginReduxForm = reduxForm<LoginFormValuesType & LoginFormOwnProps>({form: "login"}) (LoginForm)
 
 type MapStatePropsType = {
     captchaUrl: string | null
     isAuth: boolean
 }
 type MapDispatchType ={
-    loginTC: (email: string, password:string, rememberMe: boolean, captcha: string) => void
+    loginTC: (email: string, password:string, rememberMe: boolean, captcha: any) => void
 }
-export type LoginFormValuesType = {email: string, password: string, rememberMe: boolean, captcha: string,}
+export type LoginFormValuesType = {email: string, password: string, rememberMe: boolean, captcha: string}
 //type LoginFormPropertiesType = "captcha" | "rememberMe"
-type LoginFormsValuesTypeKeys = Extract<keyof LoginFormValuesType, string>  // взять ключи из ...
-
-
-const Login: React.FC<MapStatePropsType & MapDispatchType> = (props) => {
-    const onSubmit = (formData: LoginFormValuesType) => {
+type LoginFormsValuesTypeKeys = keyof LoginFormValuesType // взять ключи из ...
+const OLDLogin: React.FC<MapStatePropsType & MapDispatchType> = (props) => {
+    const onSubmit = (formData: any) => {
         props.loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
-
     if (props.isAuth) {
         return <Navigate to={'/profile'}/>
     }
@@ -71,7 +68,33 @@ const Login: React.FC<MapStatePropsType & MapDispatchType> = (props) => {
 }
 const matStateToProps = (state: AppStateType): MapStatePropsType => ({
     isAuth: state.auth.isAuth,
-    captchaUrl: state.auth.captchaUrl
+    captchaUrl: state.auth.captchaUrl,
 })
 
-export default connect (matStateToProps, {loginTC: loginThunkCreator,}) (Login);
+
+
+export default connect (matStateToProps, {loginTC: loginThunkCreator,}) (OLDLogin);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+jhhjk
+
+
