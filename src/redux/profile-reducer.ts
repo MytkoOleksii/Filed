@@ -1,8 +1,9 @@
-import {profileAPI, usersAPI} from "../API/api";
 import {PhotosType, PostType, ProfileType} from "../types/types";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {usersAPI} from "../API/users-API";
+import {profileAPI} from "../API/profile-API";
 
 const ADD_POST = 'ADD-POST';
 //const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -129,37 +130,37 @@ const savePhotoSuccessAC = (photos: PhotosType): SavePhotoSuccessACActionType =>
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const getUserProfileThunkCreate = (userId: number | null): ThunkType => async (dispatch, setState) => {
-    let response = await usersAPI.getUserID_URL(userId)
-    dispatch(setUserProfile(response.data));
+    let data = await profileAPI.getUserID_URL(userId)
+    dispatch(setUserProfile(data));
 }
 
 export const getStatusThunkCreate = (userId: number): ThunkType => async (dispatch) => {
-    let response = await profileAPI.getStatus(userId)
-    dispatch(setStatus(response.data))
+    let data = await profileAPI.getStatus(userId)
+    dispatch(setStatus(data))
 
 }
 
 export const updateStatusThunkCreate = (status: string): ThunkType => async (dispatch) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
+    let data = await profileAPI.updateStatus(status)
+    if (data.resultCode === 0) {
         dispatch(setStatus(status));
     }
 };
 
 export const savePhotoTC = (file: any): ThunkType => async (dispatch) => {
-    let response = await profileAPI.savePhoto(file);
+    let data = await profileAPI.savePhoto(file);
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === 0) {
 
-        dispatch(savePhotoSuccessAC(response.data.data.photos))
+        dispatch(savePhotoSuccessAC(data.data.photos))
 
     }
 };
 export const saveProfileTC = (profile: ProfileType): ThunkType => async (dispatch, getState) => {
     let userID = getState().auth.userID
-    let response = await profileAPI.saveProfile(profile);
+    let data = await profileAPI.saveProfile(profile);
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === 0) {
         dispatch(getUserProfileThunkCreate(userID))
     } else {
       /*  dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}));
@@ -167,7 +168,7 @@ export const saveProfileTC = (profile: ProfileType): ThunkType => async (dispatc
 
 //-------------------------------------------------------------------------//
 
-        let arrayMessError: any = response.data.messages; //сообщение ошибки с сервера
+        let arrayMessError: any = data.messages; //сообщение ошибки с сервера
         //--------------------------------------------//
         let numberArrayMessagesError: any
         for (let a = 0; a < arrayMessError.length; ++a) { // перебирает массив на количество елементов
@@ -186,41 +187,9 @@ export const saveProfileTC = (profile: ProfileType): ThunkType => async (dispatc
         let error = fnReturnMassageError(arrNameErrors[numberArrayMessagesError], arrayMessError[numberArrayMessagesError])
         //@ts-ignore
         dispatch(stopSubmit('edit-profile', error));
-        return Promise.reject(response.data.messages[0]);
-
+        return Promise.reject(data.messages[0]);
     }
 };
-
-
-// Использование .then
-/*export const getUserProfileThunkCreate = (userId) => {
-    return (dispatch) => {
-       /!* if (!userId) {
-            userId = 2
-        }*!/
-        usersAPI.getUserID_URL(userId)
-            .then((data => {
-                dispatch(setUserProfile(data));
-            }))
-    }
-};
-
-export  const  getStatusThunkCreate = ( userId) => (dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
-        dispatch(setStatus(response.data))
-    });
-}
-
-export const updateStatusThunkCreate =( status) => (dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status));
-            }
-        });
-}*/
-
 export default profileReducer;
 
 

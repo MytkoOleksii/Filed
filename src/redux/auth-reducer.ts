@@ -1,7 +1,9 @@
-import {authAPI, authAPI as aythAPI, ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI,} from "../API/api";
+import {ResultCodeForCaptchaEnum, ResultCodesEnum, } from "../API/api";
 import {stopSubmit} from "redux-form";
 import {AppStateType} from "./redux-store";
 import {ThunkAction} from "redux-thunk";
+import {authAPI as aythAPI, authAPI} from "../API/auth-API";
+import {securityAPI} from "../API/security-API";
 
 
 const SET_USER_DATA = 'SET_USERS_DATA';
@@ -115,7 +117,7 @@ export const loginThunkCreator = (email: string, password:string, rememberMe: bo
         dispatch(error);
     }
 };
-// Виход из сайта
+// Выход из сайта
 /*export  const logOutThunkCreator = () => (dispatch) => {
     authAPI.logOut()
         .then(response => {
@@ -134,8 +136,8 @@ export const logOutThunkCreator = (): ThunkType => async (dispatch) => {
 
 // Получение урла на каптчу
 export const getCaptchaURLTC = (): ThunkType => async (dispatch) => {
-    let response = await securityAPI.getCaptchaURL();
-    let captchaUrl = response.data.url;
+    let data = await securityAPI.getCaptchaURL();
+    let captchaUrl = data.url;
 
     dispatch(getCaptchaUrlSuccess(captchaUrl));
 

@@ -1,10 +1,10 @@
-import {usersAPI} from "../API/api";
 import {updateObjectInArray} from "../utils/object-helpers";
 import {PhotosType, UserType} from "../types/types";
 import {number} from "yargs";
 import {AppStateType, InferActionsTypes} from "./redux-store";
 import {Dispatch} from "react";
 import {ThunkAction} from "redux-thunk";
+import {usersAPI} from "../API/users-API";
 
 /*const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -64,7 +64,7 @@ const usersReducer = (state = initialState, action: ActionTypes): InitialStateTy
     }
 }
 type ActionTypes = InferActionsTypes<typeof actionsCreate>// получает у приходящих екшенов их тип
-
+//---------------------- Action Create -------------------------------//
 export const actionsCreate = {
     followSuccess: (userID: number) => ({type: 'FOLLOW', userID} as const),
 
@@ -80,8 +80,8 @@ export const actionsCreate = {
 
     toggleFollowingProgress: (isFetching: boolean, userID: number) => ({type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userID} as const),
 }
-//---------------------- Action Create -------------------------------//
 
+//---------------- OLD ----------------------------------------//
 /*let followSuccess = (userID: number) => ({type: FOLLOW, userID})
 let unfollowSuccess = (userID: number) => ({type: UNFOLLOW, userID})
 let setUsers = (users: Array<UserType>) => ({type: SET_USERS, users})
@@ -89,7 +89,6 @@ export let setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, c
 let setTotalCount = (totalCount: number)=> ({type: SET_TOTAL_USERS_COUNT, totalCount})
 export let toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
 let toggleFollowingProgress = (isFetching: boolean, userID: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userID})*/
-
 //----------------------------------------------- Thunk  -----------------------------------------------------------//
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 export const getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
@@ -97,10 +96,10 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number): Thu
         dispatch(actionsCreate.toggleIsFetching(true));
         dispatch(actionsCreate.setCurrentPage(currentPage))
 
-        let response = await usersAPI.getUsers(currentPage, pageSize)
+        let data = await usersAPI.getUsers(currentPage, pageSize)
         dispatch(actionsCreate.toggleIsFetching(false));
-        dispatch(actionsCreate.setUsers(response.data.items));
-        dispatch(actionsCreate.setTotalCount(response.data.totalCount))
+        dispatch(actionsCreate.setUsers(data.items));
+        dispatch(actionsCreate.setTotalCount(data.totalCount))
     }
 };
 //---------------------------------------------------------------------------//
