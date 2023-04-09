@@ -1,18 +1,23 @@
-import profileReducer, {addPostActionCreator, deletePost} from "./profile-reducer.ts";
+import profileReducer, {actionsCreate} from "./profile-reducer";
+import {PostType, ProfileType} from "../types/types";
 
 let state = {
     posts: [
+
         {id: 1, likesCount: 10, messages: 'hi, how are you ?'},
         {id: 2, likesCount: 12, messages: 'Are you'},
         {id: 3, likesCount: 45, messages: 'Simple pimple'},
-        {id: 4, likesCount: 2, messages: 'Ben roberts hi hi hi'},
-        {id: 5, likesCount: 8, messages: 'good day'},
-    ],
+        {id: 4, likesCount: 8, messages: 'good day'},
+        {id: 5, likesCount: 34, messages: 'Hello world'},
+    ] as Array<PostType>,
+    newPostText: '',
+    profile: null as ProfileType | null,
+    status: "",
 };
 
 it('new post should be added', () => {
     // 1. test data
-    let action = addPostActionCreator('it-kamasutra');
+    let action = actionsCreate.addPostActionCreator('it-kamasutra');
     // 2. action
     let newState = profileReducer (state,action);
     // 3. expectation
@@ -22,7 +27,7 @@ it('new post should be added', () => {
 
 it('message of new post shout be correct', () => {
     // 1. test data
-    let action = addPostActionCreator('it-kamasutra');
+    let action = actionsCreate.addPostActionCreator('it-kamasutra');
     // 2. action
     let newState = profileReducer (state,action);
     // 3. expectation
@@ -31,7 +36,7 @@ it('message of new post shout be correct', () => {
 
 it('after deleting length of messages should be decrement', () => {
     // 1. test data
-    let action = deletePost(1)
+    let action = actionsCreate.deletePost(1)
     // 2. action
     let newState = profileReducer (state,action);
     // 3. expectation
@@ -40,7 +45,7 @@ it('after deleting length of messages should be decrement', () => {
 
 it(`after deleting length shouldn't be decrement if id is incorrect`, () => {
     // 1. test data
-    let action = deletePost(1000)
+    let action = actionsCreate.deletePost(1000)
     // 2. action
     let newState = profileReducer (state,action);
     // 3. expectation

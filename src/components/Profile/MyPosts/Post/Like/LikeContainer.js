@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Like from "./Like";
-import {addPostActionCreator, updateNewPostTextActionCreator, returnTypeActionCreator} from "../../../../../redux/profile-reducer.ts";
+import {actionsCreate, updateNewPostTextActionCreator, returnTypeActionCreator} from "../../../../../redux/profile-reducer.ts";
 //import {returnTypeActionCreator, } from "../../../../../redux/addLike-reducer";
 
 /*let Elements = state.profilePage.posts.map( (element) => {
@@ -25,7 +25,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         returnTypeAC: (id,like) => {
-            dispatch(returnTypeActionCreator(id,like))
+            dispatch(actionsCreate.returnTypeActionCreator(id,like))
         },
     }
 }

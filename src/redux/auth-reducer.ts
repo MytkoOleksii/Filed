@@ -1,20 +1,18 @@
 import {ResultCodeForCaptchaEnum, ResultCodesEnum, } from "../API/api";
 import {stopSubmit} from "redux-form";
 import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store";
-import {ThunkAction} from "redux-thunk";
-import {authAPI as authAPI} from "../API/auth-API";
+import {authAPI} from "../API/auth-API";
 import {securityAPI} from "../API/security-API";
-type INS = { isAuth: boolean | null; captchaUrl: string|null; login: string | null; userID: number | null; email: string | null }
+
 let initialState = {
-    userID: null,
-    email: null,
-    login: null,
+    userID:null as (number | null),
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
-    captchaUrl: null, // if null , then captcha is not require
+    captchaUrl: null as string | null, // if null , then captcha is not require
 };
-//{ isAuth: boolean | null; captchaUrl: string|null; login: string | null; userID: number | null; email: string | null }
-//    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    //
-const authReducer = (state = initialState, action: ActionsType): any  => {
+
+const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
 
     switch (action.type) {
         case 'SN/AUTH/SET_USERS_DATA': {
@@ -45,17 +43,6 @@ export const actionsCreator = {
 
 //-------------------------------------- Thunk---------------------------------------------------------//
 
-// Использование .then
-/*export  const getAuthUserData = () => (dispatch) => {
-        return  aythAPI.setAuth_Me()
-            .then(data => {
-                if(data.resultCode === 0) {
-                    let{id, email, login } = data.data;
-                    dispatch(setAuthUserData(id, email, login,true));
-                }
-            });
-}*/
-/*Использование async / await */
 // Зарегистрирован ли на сайте
 export const getAuthUserData = ():ThunkType  => async (dispatch) => {
     let meData = await authAPI.setAuth_Me()
@@ -65,19 +52,7 @@ export const getAuthUserData = ():ThunkType  => async (dispatch) => {
         dispatch(actionsCreator.setAuthUserData(id, email, login, true));
     }
 };
-//авторизация, вход на сайт OLD
-/*export  const loginThunkCreator = (email, password, rememberMe) => (dispatch) => {
-    authAPI.login(email, password, rememberMe)
-        .then(response  => {
-        if (response.data.resultCode === 0) {
-            dispatch(getAuthUserData())
-        } else {
-             let messageError = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
-             let error = stopSubmit('login', {_error:messageError });
-            dispatch(error);
-        }
-    });
-}*/
+
 //авторизация, вход на сайта
 export const loginThunkCreator = (email: string, password:string, rememberMe: boolean, captcha: any):ThunkType => async (dispatch) => {
     let loginData = await authAPI.login(email, password, rememberMe,  captcha)
@@ -93,15 +68,6 @@ export const loginThunkCreator = (email: string, password:string, rememberMe: bo
         dispatch(error);
     }
 };
-// Выход из сайта
-/*export  const logOutThunkCreator = () => (dispatch) => {
-    authAPI.logOut()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null,false));
-            }
-        })
-}*/
 // Выход из сайта
 export const logOutThunkCreator = (): ThunkType => async (dispatch) => {
     let response = await authAPI.logOut()
