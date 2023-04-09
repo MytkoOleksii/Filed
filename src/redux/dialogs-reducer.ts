@@ -70,7 +70,7 @@ type ActionsType = InferActionsTypes<typeof  actionsCreator>
      return state;
 }*/
 export const actionsCreator = {
- sendMessageCreator: (newMessageBody: string) => ({ type: 'SN/DIALOGS/SEND-MESSAGE', newMessageBody } as const),
+ sendMessage: (newMessageBody: string) => ({ type: 'SN/DIALOGS/SEND-MESSAGE', newMessageBody } as const),
 
 }
 

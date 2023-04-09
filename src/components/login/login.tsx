@@ -53,7 +53,7 @@ type MapDispatchType ={
 }
 export type LoginFormValuesType = {email: string, password: string, rememberMe: boolean, captcha: string,}
 //type LoginFormPropertiesType = "captcha" | "rememberMe"
-type LoginFormsValuesTypeKeys = Extract<keyof LoginFormValuesType, string>  // взять ключи из ...
+export type LoginFormsValuesTypeKeys = Extract<keyof LoginFormValuesType, string>  // взять ключи из ...
 
 
 const Login: React.FC<MapStatePropsType & MapDispatchType> = (props) => {

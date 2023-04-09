@@ -23,10 +23,14 @@ let rootReducer = combineReducers({
 
 type RootReducerType = typeof rootReducer;
  export type AppStateType = ReturnType<RootReducerType>
-
-type PropertiesTypes<T> = T extends  {[key: string]: infer U} ? U : never;
+//----------------------------------OLD----------------------------------------------------------//
 // Вытягивает типы с объектов action creator
-export type InferActionsTypes<T extends {[key: string]: (...args: any) =>  any }> = ReturnType<PropertiesTypes<T>>
+//type PropertiesTypes<T> = T extends  {[key: string]: infer U} ? U : never;
+//export type InferActionsTypes<T extends {[key: string]: (...args: any) => any }> = ReturnType<PropertiesTypes<T>>
+//--------------------------------------------------------------------------------------------//
+
+// Вытягивает типы с объектов action creator
+export type InferActionsTypes<T> = T extends {[key: string]: (...args: any[]) => infer U } ? U : never;// lessons 11
 
 // Типизирует Thunk creator
 // A - Action Type, R - Promise<void>,
