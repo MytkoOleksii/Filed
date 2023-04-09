@@ -25,9 +25,11 @@ const Dialogs = (props) => {
         let body = e.target.value;
          props.updateNewMessageBody(body);
      }*/
+
     let addNewMessage = (values) => {
         props.sendMessage(values.newMessageBody)
     }
+
     return (
         <div className={teg.dialogs}>
             <div className={teg.dialogsItems}>

@@ -30,6 +30,12 @@ let Users: React.FC <PropsType> = function ({currentPage, totalUsersCount, pageS
                                   follow={props.follow}
                 />
             )}
+            <Paginator currentPage={currentPage}
+                       onPageChanged={onPageChanged}
+                // totalUsersCount={props.totalUsersCount}
+                       totalItemsCount={totalUsersCount}
+                       pageSize={pageSize}
+            />
         </div>
     );
 }

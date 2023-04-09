@@ -41,8 +41,8 @@ type PropsType = {
 type MapStateType = {
     profile: any
     status: string
-    myID: number
-    isAuth: boolean
+    myID: number | null
+    isAuth: boolean | null
 }
 type MapDispatchType = {
     getUserProfileThunkCreate: (userId: number | null) => void
