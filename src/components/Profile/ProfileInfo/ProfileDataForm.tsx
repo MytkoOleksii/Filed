@@ -6,14 +6,12 @@ import style from  '../../common/FormsControls/FormsControls.module.css';
 import {GetStringKeys} from "../MyPosts/MyPosts";
 import {ProfileType} from "../../../types/types";
 
-type PropsType ={
+type PropsType = {
     profile: ProfileType
-    "fullName": string
-    'lookingForAJobDescription': string
-    'lookingForAJob': string
-    'aboutMe': string
+
 }
-type ProfileTypeKeys = GetStringKeys<PropsType>
+
+type ProfileTypeKeys = GetStringKeys<ProfileType>
 
     const ProfileDataForm: React.FC<InjectedFormProps<ProfileType,PropsType>& PropsType> = (props) => {
     return (

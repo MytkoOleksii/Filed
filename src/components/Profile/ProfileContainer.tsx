@@ -37,9 +37,11 @@ type PropsType = {
     router: any
     userId: number | null
     myID: number
+    store: any
+    goToEditMode: () => void
 }
 type MapStateType = {
-    profile: ProfileType | null
+    profile: ProfileType
     status: string
     myID: number | null
     isAuth: boolean | null
@@ -65,9 +67,7 @@ type PropsParamType = RouteComponentProps<PathParamsType> & {
 type AllPropsType = MapPropsType & MapDispatchType & PropsType
 
 class ProfileContainer extends React.Component <AllPropsType, PropsType > {
-constructor(props: PropsType) {
-    super(props);
-}
+
     refreshProfile() {
         let userId = +this.props.router.params.userId;
         if (!userId) {

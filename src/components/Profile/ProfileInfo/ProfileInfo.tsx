@@ -7,14 +7,12 @@ import ProfileDataForm from "./ProfileDataForm";
 import {ContactsType, ProfileType} from "../../../types/types";
 
 type PropsType = {
-    profile: ProfileType | null
+    profile: ProfileType
     isOwner: boolean
     status: string
     updateStatus:(status: string) => void
-    goToEditMode: () => void
-    saveProfile: (profile: ProfileType | null) => Promise<any>
+    saveProfile: (profile: ProfileType) => Promise<any>
     savePhoto: (file: File) => void
-    store: any
 }
 
 const ProfileInfo: React.FC<PropsType> = function (props) {

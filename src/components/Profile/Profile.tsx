@@ -6,14 +6,14 @@ import {AppStateType} from "../../redux/redux-store";
 import {ProfileType} from "../../types/types";
 
 type PropsType = {
-    saveProfile: (profile: ProfileType | null) => Promise<any>
+    saveProfile: (profile: ProfileType ) => Promise<any>
     savePhoto: (file: File) => void
-    profile: ProfileType | null
+    profile: ProfileType
     isOwner: boolean
     status: string
     updateStatus: (status: string) => void
     store: any
-
+    goToEditMode: () => void
 }
 const Profile: React.FC<PropsType> = function (props: PropsType) {
     return (

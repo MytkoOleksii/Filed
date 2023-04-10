@@ -3,7 +3,6 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 type PropsType = {
     status: string
     updateStatus: (newStatus: string) => void
-    editMode: boolean
 }
 
 let  ProfileStatusWithHooks: React.FC <PropsType> = function (props)  {
