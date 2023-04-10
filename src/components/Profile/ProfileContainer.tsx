@@ -7,12 +7,13 @@ import {
     savePhotoTC, saveProfileTC,
     updateStatusThunkCreate
 } from "../../redux/profile-reducer";
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
-import withAuthRedirect from "../hoc/withAuthRedirect";
+import {RouteProps, useLocation, useNavigate, useParams} from 'react-router-dom';
+import withAuthRedirect from "../hoc/withAuthRedirectHOK";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileType} from "../../types/types";
 import {withRouter} from "../hoc/withRouter";
+import {GetStringKeys} from "./MyPosts/MyPosts";
 //@ts-ignore
 /*export const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
@@ -28,36 +29,47 @@ import {withRouter} from "../hoc/withRouter";
     }
     return ComponentWithRouterProp;
 }*/
+
 type PropsType = {
     location: any
     navigate: any
     params: any
     router: any
-    userId: number
+    userId: number | null
     myID: number
-
-
 }
 type MapStateType = {
-    profile: any
+    profile: ProfileType | null
     status: string
     myID: number | null
     isAuth: boolean | null
+    router: any
 }
 type MapDispatchType = {
     getUserProfileThunkCreate: (userId: number | null) => void
-    getStatusThunkCreate: (userId: number) => void
+    getStatusThunkCreate: (userId: number | null) => void
     updateStatusThunkCreate: (status: string) => void
-    savePhotoTC: (file: any) => void
-    saveProfileTC: (profile: ProfileType) => void
+    savePhotoTC: (file: File) => void
+    saveProfileTC: (profile: ProfileType | null) => Promise<any>
 }
 
-type AllPropsType = MapDispatchType & MapStateType & PropsType
+type MapPropsType = ReturnType<typeof mapStateToProps>
+/*type PathParamsType ={
+    userId: string
+}
 
-class ProfileContainer extends React.Component <AllPropsType, AppStateType> {
+type PropsParamType = RouteComponentProps<PathParamsType> & {
+    someString: string
+}*/
 
+type AllPropsType = MapPropsType & MapDispatchType & PropsType
+
+class ProfileContainer extends React.Component <AllPropsType, PropsType > {
+constructor(props: PropsType) {
+    super(props);
+}
     refreshProfile() {
-        let userId = this.props.router.params.userId;
+        let userId = +this.props.router.params.userId;
         if (!userId) {
             userId = this.props.myID;
             if (!userId) {
@@ -72,7 +84,7 @@ class ProfileContainer extends React.Component <AllPropsType, AppStateType> {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps:any, prevState:any, snapshot:any) {
+    componentDidUpdate(prevProps:AllPropsType, prevState:AllPropsType, snapshot:AllPropsType) {
         if (this.props.router.params.userId != prevProps.router.params.userId) {
             this.refreshProfile();
         }
@@ -102,7 +114,7 @@ let mapStateToProps = (state: AppStateType): MapStateType => ({
     isAuth: state.auth.isAuth,
 }) as MapStateType;
 withRouter(ProfileContainer)
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         getUserProfileThunkCreate,
         getStatusThunkCreate,

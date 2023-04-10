@@ -3,7 +3,12 @@ import teg from './Post.module.css'
 import Like from "./Like/Like";
 import LikeContainer from "./Like/LikeContainer";
 
-function Post(props) {
+type PropsType = {
+    id: number
+    message: string
+    likesCount: number
+}
+const Post: React.FC<PropsType> = function (props) {
     return (
 
         <div>
@@ -13,10 +18,10 @@ function Post(props) {
                 {props.message}
 
                 <div>
-                    <div >{props.likesCount}кількість лайків</div>
+                    <div>{props.likesCount}кількість лайків</div>
                     <LikeContainer id={props.id} likesCount={props.likesCount}
-                          /*dispatch={props.dispatch} returnType={props.returnType}
-                          updateNewPostText={props.updateNewPostText}*/
+                        /*dispatch={props.dispatch} returnType={props.returnType}
+                        updateNewPostText={props.updateNewPostText}*/
                     />
                 </div>
             </div>

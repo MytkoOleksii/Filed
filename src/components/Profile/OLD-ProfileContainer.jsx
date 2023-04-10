@@ -78,7 +78,7 @@ let mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
 });
 withRouter(ProfileContainer)
-export default compose(
+/*export default*/ compose(
     connect(mapStateToProps, {
         getUserProfileThunkCreate,
         getStatusThunkCreate,

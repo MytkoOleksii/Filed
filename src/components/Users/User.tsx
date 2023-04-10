@@ -3,10 +3,16 @@ import styles from "./users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
+import {UserType} from "../../types/types";
 
+type PropsType ={
+    user: UserType
+    followingInProgress: Array<number>
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+}
 
-
-function User ({user, followingInProgress, unfollow, follow}) {
+let User: React.FC<PropsType> = function  ({user, followingInProgress, unfollow, follow}) {
 
     return (
        <div  className={styles.us}>
@@ -14,7 +20,7 @@ function User ({user, followingInProgress, unfollow, follow}) {
                 <span>
                     <div >
                         <NavLink to={'/profile/'+ user.id}>
-                            <img src={user.photos.small != null ? user.photos.small : userPhoto} className={styles} />
+                            <img src={user.photos.small != null ? user.photos.small : userPhoto}  />
                         </NavLink>
                         </div>
                     <div>

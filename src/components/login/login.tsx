@@ -9,7 +9,7 @@ import {Navigate} from "react-router-dom";
 import  style from '../common/FormsControls/FormsControls.module.css'
 import s from  './login.module.css'
 import {AppStateType} from "../../redux/redux-store";
-import {string} from "yargs";
+import {GetStringKeys} from "../Profile/MyPosts/MyPosts";
 
 type  LoginFormOwnProps = {
     captchaUrl:string | null
@@ -53,8 +53,8 @@ type MapDispatchType ={
 }
 export type LoginFormValuesType = {email: string, password: string, rememberMe: boolean, captcha: string,}
 //type LoginFormPropertiesType = "captcha" | "rememberMe"
-export type LoginFormsValuesTypeKeys = Extract<keyof LoginFormValuesType, string>  // взять ключи из ...
-
+//export type LoginFormsValuesTypeKeys = Extract<keyof LoginFormValuesType, string>  // взять ключи из ...
+type LoginFormsValuesTypeKeys = GetStringKeys<LoginFormValuesType>
 
 const Login: React.FC<MapStatePropsType & MapDispatchType> = (props) => {
     const onSubmit = (formData: any) => {

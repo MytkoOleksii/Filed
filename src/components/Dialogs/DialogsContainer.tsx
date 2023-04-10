@@ -2,7 +2,7 @@ import React from 'react';
 import {actionsCreator,} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import withAuthRedirect from "../hoc/withAuthRedirect";
+import withAuthRedirect from "../hoc/withAuthRedirectHOK";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 
@@ -11,21 +11,21 @@ return {
     dialogsPage: state.dialogsPage,
 }
 };
-let mapDispatchToProps = (dispatch) => {
+/*let mapDispatchToProps = (dispatch) => {
     return {
         sendMessage: (newMessageBody) => {
             dispatch(actionsCreator.sendMessage(newMessageBody));
         },
-     /*  updateNewMessageBody: (body) => {
+     /!*  updateNewMessageBody: (body) => {
             dispatch(updateNewMessageBodyCreator(body))
-        },*/
+        },*!/
     }
-};
+};*/
 
-export default  compose(connect(mapStateToProps,{...actionsCreator}),
+export default  compose<React.ComponentType>(connect(mapStateToProps,{...actionsCreator}),
    //     {sendMessage: actionsCreator.sendMessage,}),
 withAuthRedirect)
-(Dialogs)
+(Dialogs);
 
 /*
 compose (withAuthRedirect) (Dialogs)

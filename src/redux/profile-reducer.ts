@@ -17,7 +17,7 @@ export let initialState = {
         {id: 6, likesCount: 34, messages: 'Hello world'},
     ] as Array<PostType>,
     //newPostText: 'It-kamasutra.',
-    newPostText: '',
+   // newPostText: '',
     profile: null as ProfileType | null,
     status: "",
 };
@@ -39,7 +39,9 @@ const profileReducer = (state = initialState, action: ActionsType ): InitialStat
             return {
                 ...state,
                 posts: [...state.posts, newPost],
+/*
                 newPostText: '',
+*/
             }
 //@ts-ignore
         case "SN/PROFILE/LIKE" :
@@ -110,7 +112,7 @@ export const savePhotoTC = (file: File): ThunkType => async (dispatch) => {
         dispatch(actionsCreate.savePhotoSuccessAC(data.data.photos))
     }
 };
-export const saveProfileTC = (profile: ProfileType): ThunkType => async (dispatch:any, getState) => {
+export const saveProfileTC = (profile: ProfileType ): ThunkType => async (dispatch:any, getState) => {
     let userId = getState().auth.userID
     let data = await profileAPI.saveProfile(profile);
 

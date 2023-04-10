@@ -1,6 +1,6 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import React from "react";
-
+// ХУК якій заміняє withRouter
 export const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
         let location = useLocation();
