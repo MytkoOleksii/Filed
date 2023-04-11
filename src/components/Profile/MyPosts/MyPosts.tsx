@@ -1,9 +1,9 @@
 import React from 'react';
 import teg from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {createField, Input, Textarea} from "../../common/FormsControls/FormsControls";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {required} from "../../../utils/validators/validators";
+import {createField, Textarea} from "../../common/FormsControls/FormsControls";
 import {PostType} from "../../../types/types";
 
 export type MyPostStatePropsType = {
@@ -48,9 +48,9 @@ type AddPostFormValuesTypeKeys = GetStringKeys <AddPostFormValuesType >
 let AddNewPostForm: React.FC<InjectedFormProps<AddPostFormValuesType,PropsType> & PropsType> = (props) => {
     return <form onSubmit={props.handleSubmit}>
             <div>
-                {createField<AddPostFormValuesTypeKeys>('Your post','newPostText',[required], Input)}
+                {createField<AddPostFormValuesTypeKeys>('Your post','newPostText',[required], Textarea)}
 
-                <Field component={Textarea} name={"newPostText"} validate={[required,maxLengthCreator(10)]} />
+             {/*   <Field component={Textarea} name={"newPostText"} validate={[required,maxLengthCreator(10)]} />*/}
             </div>
             <div>
                 <button>Add post</button>

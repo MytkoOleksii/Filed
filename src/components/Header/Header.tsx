@@ -2,7 +2,14 @@ import React from "react";
 import tag from './Header.module.css'
 import {NavLink} from "react-router-dom";
 
-const Header = (props) => {
+export type HeaderStatePropsType = {
+    isAuth: boolean
+    login: string | null
+}
+export type HeaderDispatchPropsType = {
+    logOut: () => void
+}
+const Header: React.FC<HeaderStatePropsType & HeaderDispatchPropsType> = (props) => {
     return (
         <header className={tag.header}>
             <img alt='download' src='https://logos-download.com/wp-content/uploads/2016/09/React_logo_wordmark-700x235.png'/>

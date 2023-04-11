@@ -4,11 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/redux-store'
-import {BrowserRouter, HashRouter} from "react-router-dom";
-import StoreContext from "./OLD-StoreContext";
+import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import SamuraiJSApp from "./App";
-
+//@ts-ignore
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
