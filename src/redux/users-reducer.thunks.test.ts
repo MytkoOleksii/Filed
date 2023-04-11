@@ -15,8 +15,11 @@ test('success follow thunk', async () => {
     //@ts-ignore
     userAPIMock.postUsersFollow.mockReturnValue(Promise.resolve(result));
     const thunk = follow(1)
+
     const dispatchMock = jest.fn();
-    await thunk(dispatchMock)
+    const getStateMock = jest.fn();
+    //@ts-ignore
+    await thunk(dispatchMock, getStateMock, {})
     expect(dispatchMock).toBeCalledTimes(3)
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actionsCreate.toggleFollowingProgress(true, 1))
 });
@@ -26,7 +29,10 @@ test('success unfollow thunk', async () => {
     userAPIMock.deleteUsersUnfollow.mockReturnValue(Promise.resolve(result));
     const thunk = unfollow(1)
     const dispatchMock = jest.fn();
-    await thunk(dispatchMock)
+    const getStateMock = jest.fn();
+
+    //@ts-ignore
+    await thunk(dispatchMock, getStateMock, {})
     expect(dispatchMock).toBeCalledTimes(3)
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actionsCreate.toggleFollowingProgress(true, 1))
     expect(dispatchMock).toHaveBeenNthCalledWith(2, actionsCreate.unfollowSuccess( 1))
