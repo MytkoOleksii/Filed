@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    FilterUserType,
     follow, getUsersThunkCreator,
     unfollow
 } from "../../redux/users-reducer";
@@ -30,9 +31,10 @@ type MapStatePropsType ={
     totalUsersCount: number
     users: Array<UserType>
     followingInProgress: Array<number>
+
 }
 type MapDispatchPropsType ={
-    getUsers: (currentPage: number, pageSize: number) => void
+    getUsers: (currentPage: number, pageSize: number, term: string) => void
     follow: (userId: number) => void
     unfollow:(userId: number) => void
 }
@@ -43,11 +45,17 @@ class UsersClassContainer extends React.Component<PropsType, any> {
 
     componentDidMount() {
         let {currentPage, pageSize} = this.props;
-        this.props.getUsers(currentPage, pageSize);
+        this.props.getUsers(currentPage, pageSize,'');
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize )
+        this.props.getUsers(pageNumber, this.props.pageSize,'' )
+    }
+
+    onFilterChanged = (filter: FilterUserType) => {
+        let {currentPage, pageSize} = this.props;
+this.props.getUsers(currentPage,pageSize,filter.term)
+
     }
 
     render() {
@@ -62,6 +70,7 @@ class UsersClassContainer extends React.Component<PropsType, any> {
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
                    followingInProgress={this.props.followingInProgress}
+                   onFilterChanged={this.onFilterChanged}
             />
             </>
 

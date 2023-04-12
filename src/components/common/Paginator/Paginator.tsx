@@ -16,7 +16,7 @@ type PropsType = {
     portionSize?: number
 }
 
-const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage= 1, onPageChanged = x => x, portionSize = 10}) => {
+const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage=10, onPageChanged = x => x, portionSize = 10}) => {
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
      // pagesCount - какое есть количество страниц
@@ -31,8 +31,8 @@ const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage=
     // rightPortionPageNumber -отрисовать границы которые больше правой стороны (номер страницы левой границы)
 
      let portionCount = Math.ceil(pagesCount / portionSize);
-     let [portionNumber, setPortionNumber] = useState(1);
-     let leftPortionPageNumber =( portionNumber - 1) * portionSize + 1;
+     let [portionNumber, setPortionNumber] =  useState(Math.floor(currentPage/10) + 1)
+     let leftPortionPageNumber =( portionNumber -1) * portionSize ;
      let rightPortionPageNumber = portionNumber * portionSize;
 
      return <div className={styles.paginator}>

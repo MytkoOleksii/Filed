@@ -15,6 +15,9 @@ beforeEach(() => {
     currentPage: 1,    // номер сторінки
     isFetching: true, // крутилка загрузки
     followingInProgress: [],
+        filter: {
+        term: ''
+        },
 }})
 
 test('follow success', () => {

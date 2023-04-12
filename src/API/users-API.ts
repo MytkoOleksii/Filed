@@ -4,8 +4,8 @@ import {AxiosPromise} from "axios";
 
 export const usersAPI = {
 
-    getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage: number = 1, pageSize: number = 10, term: string = '') {
+        return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
         .then(response => {   // не нужно если использовать async await
              return response.data;
          });
