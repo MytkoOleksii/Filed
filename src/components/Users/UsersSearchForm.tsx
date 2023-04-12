@@ -1,5 +1,5 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import React from "react";
+import React, {memo} from "react";
 import {FilterUserType} from "../../redux/users-reducer";
 type PropsType ={
     onFilterChanged: (filter: FilterUserType) => void
@@ -16,7 +16,7 @@ const userSearchFormValidate = (values: any) => {
         }*/
     return errors;
 };
-export const UsersSearchForm: React.FC<PropsType> = (props) => {
+ export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
     const submit = (values: FilterUserType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         props.onFilterChanged(values)
         setSubmitting(false)
@@ -41,4 +41,4 @@ export const UsersSearchForm: React.FC<PropsType> = (props) => {
             </Formik>
         </div>
     )
-}
+})
