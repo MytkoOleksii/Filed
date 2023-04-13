@@ -15,13 +15,14 @@ type PropsType = {
     unfollow: (userId: number) => void
     follow: (userId: number) => void
     onFilterChanged: (filter: FilterUserType) => void
+    filter: FilterUserType
 }
 
 let Users: React.FC<PropsType> = function ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props}) {
 
     return (
         <div>
-            <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
+            <UsersSearchForm onFilterChanged={props.onFilterChanged} filter={props.filter}/>
 
             <Paginator currentPage={currentPage}
                        onPageChanged={onPageChanged}

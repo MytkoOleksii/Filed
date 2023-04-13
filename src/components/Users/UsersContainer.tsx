@@ -24,7 +24,7 @@ type OwnPropsType = {
     pageTitle: string
 }
 
-type MapStatePropsType ={
+type MapStatePropsType = {
     currentPage: number
     pageSize: number
     isFetching: boolean
@@ -35,10 +35,10 @@ type MapStatePropsType ={
 
 
 }
-type MapDispatchPropsType ={
-    getUsers: (currentPage: number, pageSize: number, term: string) => void
+type MapDispatchPropsType = {
+    getUsers: (currentPage: number, pageSize: number, filter: FilterUserType) => void
     follow: (userId: number) => void
-    unfollow:(userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
@@ -46,38 +46,42 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 class UsersClassContainer extends React.Component<PropsType, any> {
 
     componentDidMount() {
-        let {currentPage, pageSize} = this.props;
-        this.props.getUsers(currentPage, pageSize,'');
+        let {currentPage, pageSize, filter} = this.props;
+        this.props.getUsers(currentPage, pageSize, filter);
     }
 
     onPageChanged = (pageNumber: number) => {
-        const{pageSize, filter} = this.props
-        this.props.getUsers(pageNumber, pageSize,filter.term )
+        const {pageSize, filter} = this.props
+        this.props.getUsers(pageNumber, pageSize, filter)
     }
 
     onFilterChanged = (filter: FilterUserType) => {
-        let {currentPage, pageSize} = this.props;
-this.props.getUsers(1,pageSize,filter.term)
+        let {pageSize} = this.props;
+        this.props.getUsers(1, pageSize, filter)
 
     }
 
     render() {
-        return ( <>
+        return (<>
                 <h2>{this.props.pageTitle}</h2>
                 {this.props.isFetching ? <Preloader/> : null}
-            <Users totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
-                   onPageChanged={this.onPageChanged}
-                   users={this.props.users}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-                   followingInProgress={this.props.followingInProgress}
-                   onFilterChanged={this.onFilterChanged}
-            />
+                <Users totalUsersCount={this.props.totalUsersCount}
+                       pageSize={this.props.pageSize}
+                       currentPage={this.props.currentPage}
+                       onPageChanged={this.onPageChanged}
+                       users={this.props.users}
+                       follow={this.props.follow}
+                       unfollow={this.props.unfollow}
+                       followingInProgress={this.props.followingInProgress}
+                       onFilterChanged={this.onFilterChanged}
+                       filter={this.props.filter}
+                />
             </>
 
-        )}}
+        )
+    }
+}
+
 // Варіант 5 селектори
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -86,7 +90,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state) ,
+        isFetching: getIsFetching(state),
         followingInProgress: getFollowInProgress(state),
         //isAuth: state.auth.isAuth,
         filter: getUsersFilter(state),
@@ -148,4 +152,8 @@ let withRedirect = withAuthRedirect(UsersClassContainer)
 export default connect(mapStateToProps,
     {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers: getUsersThunkCreator}) (withRedirect);*!/*/
 
-export default  compose (connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {follow, unfollow,  getUsers: getUsersThunkCreator})) (UsersClassContainer)
+export default compose(connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
+    follow,
+    unfollow,
+    getUsers: getUsersThunkCreator
+}))(UsersClassContainer)

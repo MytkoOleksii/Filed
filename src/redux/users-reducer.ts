@@ -4,7 +4,6 @@ import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {Dispatch} from "react";
 import {usersAPI} from "../API/users-API";
 import {APIResponseType} from "../API/api";
-import {string} from "yargs";
 
 /*const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -22,7 +21,10 @@ let initialState = {
     isFetching: true, // крутилка загрузки
     followingInProgress: [] as Array<number>, //отключает кнопку // Масив id users
     filter: {
-        term: ''} ,
+        term: '',
+        friend: null as any,
+
+    } as any,
 }
 
 const usersReducer = (state = initialState, action: ActionTypes): InitialStateType => {
@@ -88,7 +90,7 @@ export const actionsCreate = {
         userID
     } as const),
 
-    setFilter: (term: string) => ({type: 'SN/USERS/SET_FILTER', payload: {term}} as const),
+    setFilter: (filter: FilterUserType) => ({type: 'SN/USERS/SET_FILTER', payload: filter} as const),
 
 }
 
@@ -103,13 +105,13 @@ let toggleFollowingProgress = (isFetching: boolean, userID: number) => ({type: T
 //----------------------------------------------- Thunk  -----------------------------------------------------------//
 type DispatchType = Dispatch<ActionTypes>
 // Получение юзеров
-export const getUsersThunkCreator = (currentPage: number, pageSize: number, term: string): ThunkType => {// requestUsers
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterUserType): ThunkType => {// requestUsers
     return async (dispatch, getState) => {
         dispatch(actionsCreate.toggleIsFetching(true));
         dispatch(actionsCreate.setCurrentPage(currentPage))
-        dispatch(actionsCreate.setFilter(term))
+        dispatch(actionsCreate.setFilter(filter))
 
-        let data = await usersAPI.getUsers(currentPage, pageSize,term )
+        let data = await usersAPI.getUsers(currentPage, pageSize,filter.term,filter.friend )
         dispatch(actionsCreate.toggleIsFetching(false));
         dispatch(actionsCreate.setUsers(data.items));
         dispatch(actionsCreate.setTotalCount(data.totalCount))
