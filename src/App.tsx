@@ -5,9 +5,9 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import {Route, Routes} from "react-router-dom";
 import NewNFiends from "./components/nFriends/NewNFiendsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
+import {UserPage} from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/login/login";
+import {Login} from "./components/login/login";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
@@ -53,7 +53,7 @@ class App extends React.Component<any, any> {
                         <Routes>
                             <Route path='/profile/:userId?' element={<ProfileContainer/>}/>
                             <Route path='/dialogs' element={<DialogsContainer/>}/>
-                            <Route path='/users' element={<UsersContainer pageTitle={"samurai"}/>}/>
+                            <Route path='/users' element={<UserPage pageTitle={"samurai"}/>}/>
                             {/*   <Route path='/news' render={ () => <News/>} />*/}
                             <Route path='/News' element={<News/>}/>
                             <Route path='/Settings' element={<Settings/>}/>

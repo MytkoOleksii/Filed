@@ -1,63 +1,77 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
-import {UserType} from "../../types/types";
 import {UsersSearchForm} from "./UsersSearchForm";
-import {FilterUserType} from "../../redux/users-reducer";
+import {FilterUserType, follow, getUsersThunkCreator, unfollow} from "../../redux/users-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage,
+    getFollowInProgress,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers,
+    getUsersFilter
+} from "../../redux/users-selectors";
+
+import {AnyAction} from "redux";
 
 type PropsType = {
-    currentPage: number
-    totalUsersCount: number
-    onPageChanged: (pageNumber: number) => void
-    pageSize: number
-    users: Array<UserType>
-    followingInProgress: Array<number>
-    unfollow: (userId: number) => void
-    follow: (userId: number) => void
-    onFilterChanged: (filter: FilterUserType) => void
-    filter: FilterUserType
+ /*     currentPage: number
+    //  totalUsersCount: number
+    // onPageChanged: (pageNumber: number) => void
+     pageSize: number
+    //  users: Array<UserType>
+    // followingInProgress: Array<number>
+      unfollow: (userId: number) => any
+     follow: (userId: number) => any
+    // onFilterChanged: (filter: FilterUserType) => void
+      filter: FilterUserType*/
 }
 
-let Users: React.FC<PropsType> = function ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props}) {
+export  const Users: React.FC<PropsType> = function (props) {
+
+    const users = useSelector(getUsers)
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+    const filter = useSelector(getUsersFilter)
+    const followingInProgress = useSelector(getFollowInProgress)
+
+
+    const dispatch = useDispatch();
+    useEffect( () => {
+        dispatch(getUsersThunkCreator(currentPage, pageSize, filter) as unknown as AnyAction)
+    },[])
+
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(getUsersThunkCreator(pageNumber, pageSize, filter) as unknown as AnyAction)
+    }
+    const onFilterChanged = (filter: FilterUserType) => {
+        dispatch(getUsersThunkCreator(currentPage, pageSize, filter) as unknown as AnyAction)
+    }
+    const _follow = (userId: number) => {
+        dispatch(follow(userId) as unknown as AnyAction)
+    }
+    const _unfollow = (userId: number) => {
+        dispatch(unfollow(userId) as unknown as AnyAction)
+    }
 
     return (
         <div>
-            <UsersSearchForm onFilterChanged={props.onFilterChanged} filter={props.filter}/>
+            <UsersSearchForm onFilterChanged={onFilterChanged} filter={filter}/>
 
             <Paginator currentPage={currentPage}
                        onPageChanged={onPageChanged}
-                // totalUsersCount={props.totalUsersCount}
                        totalItemsCount={totalUsersCount}
                        pageSize={pageSize}
             />
             {users.map(u => <User user={u} key={u.id}
-                                  followingInProgress={props.followingInProgress}
-                                  unfollow={props.unfollow}
-                                  follow={props.follow}
+                                  followingInProgress={followingInProgress}
+                                  unfollow={_unfollow}
+                                  follow={_follow}
                 />
             )}
         </div>
     );
 }
-
-/*function Users(props) {
-
-    return (
-        <div>
-                <Paginator currentPage={props.currentPage}
-                           onPageChanged={props.onPageChanged}
-                          // totalUsersCount={props.totalUsersCount}
-                           totalItemsCount={props.totalUsersCount}
-                           pageSize={props.pageSize}
-                />
-                {props.users.map(u => <User user={u} key={u.id}
-                                            followingInProgress={props.followingInProgress}
-                                            unfollow={props.unfollow}
-                                            follow={props.follow}
-                />
-                )}
-        </div>
-    );
-}*/
-
-export default Users;

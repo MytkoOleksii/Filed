@@ -5,6 +5,7 @@ import {Dispatch} from "react";
 import {usersAPI} from "../API/users-API";
 import {APIResponseType} from "../API/api";
 
+
 /*const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -15,9 +16,9 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';*/
 
 let initialState = {
     users: [] as Array<UserType>,
-    pageSize: 10,       // відображае кількість користувачів на сторінці (яку порцію отримувати)
+    pageSize: 5, // відображае кількість користувачів на сторінці (яку порцію отримувати)
     totalUsersCount: 0,// скільки пришло юзерів
-    currentPage: 1,    // номер сторінки
+    currentPage: null as unknown as number,    // номер сторінки
     isFetching: true, // крутилка загрузки
     followingInProgress: [] as Array<number>, //отключает кнопку // Масив id users
     filter: {
@@ -106,7 +107,7 @@ let toggleFollowingProgress = (isFetching: boolean, userID: number) => ({type: T
 type DispatchType = Dispatch<ActionTypes>
 // Получение юзеров
 export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterUserType): ThunkType => {// requestUsers
-    return async (dispatch, getState) => {
+    return async (dispatch: DispatchType) => {
         dispatch(actionsCreate.toggleIsFetching(true));
         dispatch(actionsCreate.setCurrentPage(currentPage))
         dispatch(actionsCreate.setFilter(filter))
@@ -128,7 +129,7 @@ const followUnfollowFlow = async (dispatch: DispatchType, userID: number, apiMet
 };
 // Подписывает на юзера
 export const follow = (userID: number): ThunkType => {
-    return async (dispatch) => {
+    return async (dispatch: DispatchType) => {
         let apiMethod = usersAPI.postUsersFollow.bind(usersAPI)
         let actionCreator = actionsCreate.followSuccess;
 
@@ -137,7 +138,7 @@ export const follow = (userID: number): ThunkType => {
 };
 
 export const unfollow = (userID: number): ThunkType => {
-    return async (dispatch) => {
+    return async (dispatch: DispatchType) => {
         let apiMethod = usersAPI.deleteUsersUnfollow.bind(usersAPI)
         let actionCreator = actionsCreate.unfollowSuccess;
 
@@ -151,7 +152,7 @@ export default usersReducer;
 export type InitialStateType = typeof initialState
 export type FilterUserType = typeof initialState.filter;
 type ActionTypes = InferActionsTypes<typeof actionsCreate>
-type ThunkType = BaseThunkType<ActionTypes> //ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
+export type ThunkType = BaseThunkType<ActionTypes>  //ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 
 
