@@ -20,6 +20,12 @@ let LoginForm: React.FC<InjectedFormProps <LoginFormValuesType, LoginFormOwnProp
         <div className={teg.di}>
             <div className={teg.form}>
                 <h1>Login</h1>
+                <div>
+                    <h3>Для demo входа: </h3>
+                   <p> <b>Email:</b>  free@samuraijs.com<br/>
+                       <b>Password:</b>  free</p>
+
+                </div>
 
                 <form onSubmit={props.handleSubmit}>
                     {createField<LoginFormsValuesTypeKeys>('Email','email',[required], Input)}
