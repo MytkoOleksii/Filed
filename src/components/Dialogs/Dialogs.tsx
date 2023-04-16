@@ -5,6 +5,7 @@ import Message from "./Message/Message";
 import AddMessageForm from "./Message/addMessage/AddMessageForm";
 import {InitialStateType} from "../../redux/dialogs-reducer";
 import {string} from "yargs";
+import {useParams} from "react-router-dom";
 
 type OwnPropsType = {
     dialogsPage: InitialStateType
@@ -23,6 +24,8 @@ export type NewMessageFormValuesType = {
 
 
 const Dialogs: React.FC<OwnPropsType> = (props) => {
+    let param = useParams()
+    console.log(param)
     let state = props.dialogsPage;
     let dialogsElement = state.dialogs.map((element) => {
         return (

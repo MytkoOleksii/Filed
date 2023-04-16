@@ -4,6 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileType} from "../../types/types";
+import {useParams} from "react-router-dom";
 
 type PropsType = {
     saveProfile: (profile: ProfileType ) => Promise<any>
@@ -15,6 +16,7 @@ type PropsType = {
     store: any
     goToEditMode: () => void
 }
+
 const Profile: React.FC<PropsType> = function (props: PropsType) {
     return (
         <div className={teg.content}>

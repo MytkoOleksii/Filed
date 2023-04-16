@@ -5,8 +5,10 @@ import {connect} from "react-redux";
 import withAuthRedirect from "../hoc/withAuthRedirectHOK";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/redux-store";
+import {useParams} from "react-router-dom";
 
 let mapStateToProps = (state: AppStateType) => {
+
 return {
     dialogsPage: state.dialogsPage,
 }
