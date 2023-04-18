@@ -1,5 +1,5 @@
 import {PhotosType, PostType, ProfileType} from "../types/types";
-import {FormAction, stopSubmit} from "redux-form";
+import {FormAction, FormErrors, stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store";
 import {usersAPI} from "../API/users-API";
