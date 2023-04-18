@@ -15,7 +15,6 @@ import {
 import {AnyAction} from "redux";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
-
 type PropsType = {
     /*     currentPage: number
        //  totalUsersCount: number
@@ -28,7 +27,6 @@ type PropsType = {
        // onFilterChanged: (filter: FilterUserType) => void
          filter: FilterUserType*/
 }
-
 export const Users: React.FC<PropsType> = function (props) {
 
     const users = useSelector(getUsers)

@@ -1,10 +1,11 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import teg from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import avatar from "../../../assets/images/user.png";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from "./ProfileDataForm";
-import {ContactsType, ProfileType} from "../../../types/types";
+import { ProfileType} from "../../../types/types";
+
 
 type PropsType = {
     profile: ProfileType
@@ -103,12 +104,18 @@ const ProfileInfo: React.FC<PropsType> = function (props) {
         </div>
     );
 };
+
+export default ProfileInfo;
+
 //-----------------------------------------------------//
-type ProfilePropsType ={
+
+type ProfilePropsType = {
     profile: ProfileType
     isOwner: boolean
     goToEditMode: () => void
 }
+
+
 const ProfileData: React.FC<ProfilePropsType> = (props) => {
     return (
         <div>
@@ -138,21 +145,19 @@ const ProfileData: React.FC<ProfilePropsType> = (props) => {
                     Object
                         .keys(props.profile.contacts)
                         .map(key => {
-                    return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key as keyof ContactsType]}/>
-                })}
+                            return <Contact key={key} contactTitle={key}
+                                            contactValue={props.profile.contacts[key as keyof ContactType]}/>
+                        })}
                 </div>
             </div>
         </div>
     )
 
 }
-
 type ContactType = {
     contactTitle: string
     contactValue: string
 }
-const Contact:React.FC<ContactType> = ({contactTitle, contactValue}) => {
+const Contact: React.FC<ContactType> = ({contactTitle, contactValue}) => {
     return <div className={teg.contact}><b>{contactTitle}</b>: {contactValue}</div>
 }
-
-export default ProfileInfo;
