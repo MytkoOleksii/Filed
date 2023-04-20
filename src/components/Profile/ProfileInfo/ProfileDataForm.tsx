@@ -5,6 +5,7 @@ import s from './ProfileInfo.module.css';
 import style from  '../../common/FormsControls/FormsControls.module.css';
 import {GetStringKeys} from "../MyPosts/MyPosts";
 import {ProfileType} from "../../../types/types";
+import {Button} from "antd";
 
 type PropsType = {
     profile: ProfileType
@@ -18,6 +19,8 @@ type ProfileTypeKeys = GetStringKeys<ProfileType>
         <form onSubmit={props.handleSubmit}>
             <div>
                 <div>
+                   {/* <Button type={"primary"} size={"small"}>Save</Button>*/}
+
                     <button>Save</button>
                 </div>
                 {props.error &&  <div className={style.formSummaryError}>{props.error}</div> }

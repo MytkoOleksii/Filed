@@ -6,6 +6,7 @@
   padding-left: 10px;
   padding-right: 10px;
 
+
   grid-template-areas:
   'h h'
   'n c'
@@ -20,7 +21,7 @@
 
 .app-wrapper-content {
   grid-area: c;
-  background-color: #818181;
+  background-color: #002140FF;
 }
 
 

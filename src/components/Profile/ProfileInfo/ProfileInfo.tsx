@@ -5,6 +5,8 @@ import avatar from "../../../assets/images/user.png";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from "./ProfileDataForm";
 import {ContactsType, ProfileType} from "../../../types/types";
+import {Button} from "antd";
+
 
 type PropsType = {
     profile: ProfileType
@@ -114,7 +116,7 @@ const ProfileData: React.FC<ProfilePropsType> = (props) => {
         <div>
             {props.isOwner &&
                 <div>
-                    <button onClick={props.goToEditMode}>edit</button>
+                    <Button type={"primary"} size={'small'} onClick={props.goToEditMode}>edit</Button>
                 </div>
             }
             <div>

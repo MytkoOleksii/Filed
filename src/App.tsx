@@ -7,12 +7,13 @@ import Preloader from "./components/common/Preloader/Preloader";
 import {AppStateType} from "./redux/redux-store";
 import {withLazyHOK} from "./components/hoc/withSuspenseHOK";
 import {withRouter} from "./components/hoc/withRouter";
-import {Breadcrumb, Layout, Menu, MenuProps, theme} from "antd";
+import {Breadcrumb, Layout, Menu, MenuProps, theme,} from "antd";
+
 import {
     ContactsFilled,
     CustomerServiceTwoTone,
     DeploymentUnitOutlined,
-    MessageFilled,
+    MessageFilled, NotificationTwoTone,
     SettingFilled,
     TeamOutlined,
     ToolFilled,
@@ -30,7 +31,7 @@ import {Login} from "./components/login/login";
 //------------------- React.lazy start -----------------------------------------------------------------//
 //import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
+import {AppHeader} from "./components/Header/AppHeader";
 
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -63,17 +64,18 @@ function getItem(
 const items: MenuItem[] = [
     getItem(<NavLink to="/profile">Profile</NavLink>, '1', <ContactsFilled/>,),
     getItem(<NavLink to="/dialogs">Dialogs</NavLink>, '2', <MessageFilled/>),
-    getItem('User', 'sub1', <TeamOutlined/>, [
-        getItem('All', '3', <UsergroupAddOutlined/>),
-        getItem('Friend', '4', <UserSwitchOutlined/>),
-        getItem('Unfollow', '5', <UsergroupDeleteOutlined/>),
+    getItem(<NavLink to="/users">Users</NavLink>, 'sub1', <TeamOutlined/>,[
+        getItem(<NavLink to="/users">All</NavLink>, '3', <UsergroupAddOutlined/>),
+        getItem(<NavLink to="/users?term=&friend=true&page=1">Friend</NavLink>, '4', <UserSwitchOutlined/>),
+        getItem(<NavLink to="/users?term=&friend=false&page=1">Unfollow</NavLink>, '5', <UsergroupDeleteOutlined/>),
     ]),
     getItem('Team', 'sub2', <DeploymentUnitOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem(<NavLink to="/music">Music</NavLink>, '9', <CustomerServiceTwoTone/>),
-    getItem(<NavLink to="/settings">Settings</NavLink>, '10', <SettingFilled/>, [
-            getItem(<NavLink to="/editprofile">Edit profile</NavLink>, '11', <ToolFilled />),
-            getItem('Friend', '12', <UserSwitchOutlined/>),
-            getItem('Unfollow', '13', <UsergroupDeleteOutlined/>),
+    getItem(<NavLink to="/news">News</NavLink>, '9', <NotificationTwoTone />),
+    getItem(<NavLink to="/music">Music</NavLink>, '1', <CustomerServiceTwoTone/>),
+    getItem(<NavLink to="/settings">Settings</NavLink>, '11', <SettingFilled/>, [
+            getItem(<NavLink to="/editprofile">Edit profile</NavLink>, '12', <ToolFilled />),
+            getItem('Friend', '13', <UserSwitchOutlined/>),
+            getItem('Unfollow', '14', <UsergroupDeleteOutlined/>),
         ]),
 ];
 
@@ -94,7 +96,7 @@ const App = function (props: any) {
     if (!props.initialized) {
         return <Preloader/>
     } else {
-        // @ts-ignore
+
         return (
 
             <Layout style={{minHeight: '100vh'}}>
@@ -103,30 +105,29 @@ const App = function (props: any) {
                     <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items}/>
                 </Sider>
                 <Layout className="site-layout">
-                    <Header style={{padding: 0, background: colorBgContainer}}><HeaderContainer/></Header>
-                    <Content style={{margin: '0 16px'}}>
-                        <Breadcrumb style={{margin: '16px 0'}}>
+                    <Header style={{padding: 0, background: colorBgContainer}}>
+                        <AppHeader/>
+                    </Header>
+                    <Content style={{margin: '5 8px', backgroundColor: '#76b5c7'}}>
+                       {/* <Breadcrumb style={{margin: '16px 0'}}>
                             <Breadcrumb.Item>User</Breadcrumb.Item>
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <div style={{padding: 24, minHeight: 360, background: colorBgContainer}}>
-                            main pages
+                        </Breadcrumb>*/}
+                        <div style={{padding: 1, minHeight: 360,backgroundColor: '#76b5c7'}}>
+
                             <Suspense fallback={<div>Loading...</div>}>
                                 <Routes>
                                     <Route path='/profile/:userId?' element={<ProfileContainer/>}/>
                                     <Route path='/dialogs' element={<DialogsContainer/>}/>
                                     <Route path='/users' element={<UserPage pageTitle={"samurai"}/>}/>
-
                                     <Route path='/News' element={<News/>}/>
                                     <Route path='/Settings' element={<Settings/>}/>
                                     <Route path={'/login'} element={<Login/>}/>
-
                                 </Routes>
                             </Suspense>
-
                         </div>
                     </Content>
-                    <Footer style={{textAlign: 'center'}}>Ant Design ©2023 Created by Ant UED</Footer>
+                    <Footer style={{textAlign: 'center',}}>Ant Design ©2023 Created by IT-KAMASUTRA :) </Footer>
                 </Layout>
             </Layout>
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import Header, {HeaderDispatchPropsType, HeaderStatePropsType} from "./Header";
+//import React from 'react';
+//import  {AppHeader} from "./AppHeader";
 import {connect} from "react-redux";
 import {logOutThunkCreator} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
@@ -25,7 +25,7 @@ class HeaderContainer extends React.Component<HeaderStatePropsType & HeaderDispa
 */
     render() {
         return (
-            <Header {...this.props} />
+            <AppHeader {...this.props} />
         );
     }
 }

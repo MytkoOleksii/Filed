@@ -93,7 +93,7 @@ class ProfileContainer extends React.Component <AllPropsType, PropsType > {
     render() {
         return (
             <div>
-                ProfileContainer
+
                 <Profile {...this.props}
                          isOwner={!this.props.router.params.userId}
                          profile={this.props.profile}
