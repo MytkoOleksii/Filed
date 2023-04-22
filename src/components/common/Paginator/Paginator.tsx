@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import styles from './paginator.module.css'
 import cn from 'classnames'
+import { Pagination } from 'antd';
+import {useDispatch} from "react-redux";
+import {getUsersThunkCreator} from "../../../redux/users-reducer";
 
 // portionSize - сколько кнопок выводить (порции)
 // totalItemsCount - количество загруженных страниц (общее количество пользователей)
@@ -34,9 +37,14 @@ const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage=
      let [portionNumber, setPortionNumber] =  useState(Math.floor(currentPage/10) + 1)
      let leftPortionPageNumber =( portionNumber -1) * portionSize ;
      let rightPortionPageNumber = portionNumber * portionSize;
+const dispatch = useDispatch()
+     return <Pagination defaultCurrent={1} total={totalItemsCount} onChange={ onPageChanged} />;
 
-     return <div className={styles.paginator}>
-        {/* показывай кнопку с лева если portionNumber больше 1*/}
+
+
+   /*
+    <div className={styles.paginator}>
+        {/!* показывай кнопку с лева если portionNumber больше 1*!/}
          {portionNumber > 1 &&
              <button onClick = { () => { setPortionNumber(portionNumber - 1)}}>Prev</button> }
          {pages.filter(p =>  p >= leftPortionPageNumber && p < rightPortionPageNumber).map((p) => {
@@ -48,14 +56,18 @@ const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage=
                               onPageChanged(p);
                           }}>{p}</span>
          })}
-         {/* показывай кнопку с права если portionNumber больше чем текущая порция */}
+         {/!* показывай кнопку с права если portionNumber больше чем текущая порция *!/}
          { portionCount >  portionNumber &&
              <button onClick={ () => { setPortionNumber(portionNumber + 1)} } >Next</button> }
-     </div>
+     </div>*/
 
 }
 
 export  default  Paginator;
+
+
+
+const App: React.FC = () => <Pagination defaultCurrent={1} total={50} pageSize={5} />;
 
 /*
 const Paginator = (props) => {

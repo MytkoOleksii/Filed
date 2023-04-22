@@ -3,17 +3,25 @@ import React from "react";
 import {FilterUserType} from "../../redux/users-reducer";
 import {useSelector} from "react-redux";
 import {getUsersFilter} from "../../redux/users-selectors";
+import {Button, Select, Form as AntForm} from "antd";
 
+
+import Search from "antd/es/input/Search";
+import {SearchOutlined} from "@ant-design/icons";
+//import Item from "antd/es/list/Item";
+const  {Item} = AntForm
+//----------------- type ------------------------------//
 type PropsType = {
     onFilterChanged: (filter: FilterUserType) => void
     filter: FilterUserType
-
 }
 type FormType = {
     term: string
     friend: any //"true" | "false" | "null"  ,
 }
-const userSearchFormValidate = (values: any) => {
+
+//--------------------- end ----------------------------//
+const userSearchFormValidate = (value: any) => {
     const errors = {};
     /*    if (!values.email) {
             errors.email = 'Required';
@@ -27,12 +35,18 @@ const userSearchFormValidate = (values: any) => {
 export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
 
     const filter = useSelector(getUsersFilter)
-
-    const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+    const onSearch = (value: string) => {
+        console.log(value)
+    }
+    const submit = (value: any, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+        console.log(value)
         //Преобразовывает строки в булеан
         const formFilter: FormType = {
-            term: values.term,
-            friend: values.friend === "null" ? null : values.friend === "true" ? true : false,
+            term: value.term,
+            friend: value.friend === "null" ? null : value.friend === "true" ? true : false,
+        }
+        const onSearch = (sss: string ) => {
+            console.log(sss)
         }
 
         props.onFilterChanged(formFilter)
@@ -57,14 +71,19 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
                             <option value="true">Only friends</option>
                             <option value="false">Only unfollowed</option>
                         </Field>
-                        <Field type="text" name="term"/>
+                        <Field as={Search} name="term" placeholder="input search text" enterButton={  <Button htmlType={'submit'} type={"primary"} disabled={isSubmitting}>
+                            <SearchOutlined />
+                        </Button>} style={{ width: 200 }} />
+
+                       {/* <Field type="text" name="term"/>*/}
                         <ErrorMessage name="term" component="div"/>
-                        <button type="submit" disabled={isSubmitting}>
-                            Find
-                        </button>
+
                     </Form>
                 )}
             </Formik>
         </div>
     )
 })
+
+
+
