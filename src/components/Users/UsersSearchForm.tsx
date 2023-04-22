@@ -9,7 +9,7 @@ import {Button, Select, Form as AntForm} from "antd";
 import Search from "antd/es/input/Search";
 import {SearchOutlined} from "@ant-design/icons";
 //import Item from "antd/es/list/Item";
-const  {Item} = AntForm
+const {Item} = AntForm
 //----------------- type ------------------------------//
 type PropsType = {
     onFilterChanged: (filter: FilterUserType) => void
@@ -45,7 +45,7 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
             term: value.term,
             friend: value.friend === "null" ? null : value.friend === "true" ? true : false,
         }
-        const onSearch = (sss: string ) => {
+        const onSearch = (sss: string) => {
             console.log(sss)
         }
 
@@ -71,11 +71,27 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
                             <option value="true">Only friends</option>
                             <option value="false">Only unfollowed</option>
                         </Field>
-                        <Field as={Search} name="term" placeholder="input search text" enterButton={  <Button htmlType={'submit'} type={"primary"} disabled={isSubmitting}>
-                            <SearchOutlined />
-                        </Button>} style={{ width: 200 }} />
+                        {/*     <Field as={Search} name="term"
+                            placeholder="input search text"
+                            allowClear
+                            enterButton={}
+                            size="large"
+                            htmlType={'submit'}
 
-                       {/* <Field type="text" name="term"/>*/}
+                        />*/}
+                        <Field as={Search} name="term"
+                               allowClear
+                               placeholder="input search text"
+                               style={{minWidth: 150}}
+                               size="large"
+                               enterButton={
+                                   <Button htmlType={'submit'} type={"primary"} disabled={isSubmitting}>
+                                       <SearchOutlined/>
+                                   </Button>}/>
+                      {/*  <Button type={"primary"} disabled={isSubmitting}>
+                            <SearchOutlined/>
+                        </Button>*/}
+                        {/* <Field type="text" name="term"/>*/}
                         <ErrorMessage name="term" component="div"/>
 
                     </Form>
