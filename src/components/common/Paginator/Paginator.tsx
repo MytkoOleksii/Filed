@@ -38,12 +38,9 @@ const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage=
      let leftPortionPageNumber =( portionNumber -1) * portionSize ;
      let rightPortionPageNumber = portionNumber * portionSize;
 const dispatch = useDispatch()
-     return <Pagination defaultCurrent={1} total={totalItemsCount} onChange={ onPageChanged} />;
+     return <Pagination defaultCurrent={1} total={totalItemsCount} onChange={ onPageChanged}/>
 
-
-
-   /*
-    <div className={styles.paginator}>
+   /* <div className={styles.paginator}>
         {/!* показывай кнопку с лева если portionNumber больше 1*!/}
          {portionNumber > 1 &&
              <button onClick = { () => { setPortionNumber(portionNumber - 1)}}>Prev</button> }
@@ -67,7 +64,7 @@ export  default  Paginator;
 
 
 
-const App: React.FC = () => <Pagination defaultCurrent={1} total={50} pageSize={5} />;
+//const fnPaginator: React.FC = () => <Pagination defaultCurrent={1} total={50} pageSize={5} />;
 
 /*
 const Paginator = (props) => {

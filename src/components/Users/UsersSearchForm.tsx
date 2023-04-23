@@ -3,12 +3,12 @@ import React from "react";
 import {FilterUserType} from "../../redux/users-reducer";
 import {useSelector} from "react-redux";
 import {getUsersFilter} from "../../redux/users-selectors";
-import {Button, Form as AntForm, Select, Space} from "antd";
+import {Button, Select,} from "antd";
 import Search from "antd/es/input/Search";
 import {SearchOutlined} from "@ant-design/icons";
-//import Item from "antd/es/list/Item";
+import {FormItemProps} from 'antd/lib/form/FormItem';
+
 const { Option } = Select;
-const  {Item} = AntForm
 //----------------- type ------------------------------//
 type PropsType = {
     onFilterChanged: (filter: FilterUserType) => void
@@ -22,40 +22,23 @@ type FormType = {
 //--------------------- end ----------------------------//
 const userSearchFormValidate = (value: any) => {
     const errors = {};
-    /*    if (!values.email) {
-            errors.email = 'Required';
-        } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-            errors.email = 'Invalid email address';
-        }*/
     return errors;
 };
-export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
+export const UsersSearchForm: React.FC<PropsType & FormItemProps> = React.memo((props) => {
 
     const filter = useSelector(getUsersFilter)
-    const onSearch = (value: string) => {
-        console.log(value)
-    }
-    const submit = (value: any, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
-        console.log(value)
+
+    const submit = (values: any, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+
         //Преобразовывает строки в булеан
         const formFilter: FormType = {
-            term: value.term,
-            friend: value.friend === "null" ? null : value.friend === "true" ? true : false,
-        }
-        console.log(formFilter.term)
-        const onSearch = (sss: string ) => {
-            console.log(sss)
+            term: values.term,
+            friend: values.friend === "null" ? null : values.friend === 'true' ? true : false,
         }
 
         props.onFilterChanged(formFilter)
         setSubmitting(false)
     };
-    const handleChange = (value: string) => {
-        console.log(`selected ${value}`);
-    };
-
 
     return (
         <div>
@@ -71,20 +54,23 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
                 {({isSubmitting}) => (
                     <Form>
 
-                        <Field  as={Select}
-                            defaultValue="null"
-                            style={{ width: 120 }}
-                            onChange={submit}
-                            options={[
-                                { value: 'null', label: 'All' },
-                                { value: 'true', label: 'Friend' },
-                                { value: 'false', label: 'unfollowed' },
-                                { value: 'disabled', label: 'Disabled', disabled: true },
-                            ]}
-                        />
+                        <Field name="friend">
+                            {({ field, form }: any) => (
+                                <Select
+                                    {...field}
+                                    style={{ width: 120 }}
+                                    defaultValue={String(filter.friend)}
+                                    onChange={(value) => form.setFieldValue('friend', value)}
+                                >
+                                    <Option value="null">All</Option>
+                                    <Option value='true'>Only friends</Option>
+                                    <Option value="false">unfollowed</Option>
 
+                                </Select>
+                            )}
+                        </Field>
 
-                        {/*<Field name="friend" as="select">
+                    {/*   <Field name="friend" as="select">
                             <option value="null">All</option>
                             <option value="true">Only friends</option>
                             <option value="false">Only unfollowed</option>
