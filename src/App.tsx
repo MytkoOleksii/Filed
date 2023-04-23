@@ -71,7 +71,7 @@ const items: MenuItem[] = [
     ]),
     getItem('Team', 'sub2', <DeploymentUnitOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
     getItem(<NavLink to="/news">News</NavLink>, '9', <NotificationTwoTone />),
-    getItem(<NavLink to="/music">Music</NavLink>, '1', <CustomerServiceTwoTone/>),
+    getItem(<NavLink to="/music">Music</NavLink>, '10', <CustomerServiceTwoTone/>),
     getItem(<NavLink to="/settings">Settings</NavLink>, '11', <SettingFilled/>, [
             getItem(<NavLink to="/editprofile">Edit profile</NavLink>, '12', <ToolFilled />),
             getItem('Friend', '13', <UserSwitchOutlined/>),
