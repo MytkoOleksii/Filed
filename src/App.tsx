@@ -5,15 +5,16 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {AppStateType} from "./redux/redux-store";
-import {withLazyHOK} from "./components/hoc/withSuspenseHOK";
 import {withRouter} from "./components/hoc/withRouter";
-import {Breadcrumb, Layout, Menu, MenuProps, theme,} from "antd";
+import {Layout, Menu, MenuProps, theme,} from "antd";
 
 import {
+    CommentOutlined,
     ContactsFilled,
     CustomerServiceTwoTone,
     DeploymentUnitOutlined,
-    MessageFilled, NotificationTwoTone,
+    MessageFilled,
+    NotificationTwoTone,
     SettingFilled,
     TeamOutlined,
     ToolFilled,
@@ -21,25 +22,22 @@ import {
     UsergroupDeleteOutlined,
     UserSwitchOutlined,
 } from '@ant-design/icons';
-
 import {NavLink, Route, Routes} from "react-router-dom";
 import {UserPage} from "./components/Users/UsersContainer";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import {Login} from "./components/login/login";
-
-//------------------- React.lazy start -----------------------------------------------------------------//
-//import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+//import ProfileContainer from "./components/Profile/ProfileContainer";
 import {AppHeader} from "./components/Header/AppHeader";
-
+//import {ChatPage} from "./components/pages/Chat/ChatPage";
 
 const {Header, Content, Footer, Sider} = Layout;
+//------------------- React.lazy start -----------------------------------------------------------------//
+const DialogsContainer = React.lazy( () => import ('./components/Dialogs/DialogsContainer'));
+//const DialogsContainer = lazy(() => import ('./components/Dialogs/DialogsContainer'));
 
-//const DialogsContainer = React.lazy( () => import ('./components/Dialogs/DialogsContainer'));
-const DialogsContainer = lazy(() => import ('./components/Dialogs/DialogsContainer'));
-withLazyHOK(DialogsContainer, './components/Dialogs/DialogsContainer')
-//const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
+const ChatPageContainer = React.lazy ( () => import ("./components/pages/Chat/ChatPage")) ;
+const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
 //------------------- React.lazy  end -----------------------------------------------------------------//
 
 type PropsType = ReturnType<typeof mapStateToProps>
@@ -69,9 +67,10 @@ const items: MenuItem[] = [
         getItem(<NavLink to="/users?term=&friend=true&page=1">Friend</NavLink>, '4', <UserSwitchOutlined/>),
         getItem(<NavLink to="/users?term=&friend=false&page=1">Unfollow</NavLink>, '5', <UsergroupDeleteOutlined/>),
     ]),
-    getItem('Team', 'sub2', <DeploymentUnitOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+    getItem(<NavLink to="/chat">Chat</NavLink>, '6', <CommentOutlined />),
+    getItem('Team', 'sub2', <DeploymentUnitOutlined />, [getItem('Team 1', '7'), getItem('Team 2', '8')]),
     getItem(<NavLink to="/news">News</NavLink>, '9', <NotificationTwoTone />),
-    getItem(<NavLink to="/music">Music</NavLink>, '1', <CustomerServiceTwoTone/>),
+    getItem(<NavLink to="/music">Music</NavLink>, '10', <CustomerServiceTwoTone/>),
     getItem(<NavLink to="/settings">Settings</NavLink>, '11', <SettingFilled/>, [
             getItem(<NavLink to="/editprofile">Edit profile</NavLink>, '12', <ToolFilled />),
             getItem('Friend', '13', <UserSwitchOutlined/>),
@@ -90,8 +89,6 @@ const App = function (props: any) {
     useEffect(() => {
         props.initializeApp();
     }, [])
-    props.initializeApp();
-
 
     if (!props.initialized) {
         return <Preloader/>
@@ -123,6 +120,8 @@ const App = function (props: any) {
                                     <Route path='/News' element={<News/>}/>
                                     <Route path='/Settings' element={<Settings/>}/>
                                     <Route path={'/login'} element={<Login/>}/>
+                                    <Route path={'/chat'} element={<ChatPageContainer/>}/>
+
                                 </Routes>
                             </Suspense>
                         </div>

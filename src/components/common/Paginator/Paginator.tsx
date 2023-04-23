@@ -38,7 +38,7 @@ const Paginator: React.FC<PropsType> = ({totalItemsCount, pageSize, currentPage=
      let leftPortionPageNumber =( portionNumber -1) * portionSize ;
      let rightPortionPageNumber = portionNumber * portionSize;
 const dispatch = useDispatch()
-     return <Pagination defaultCurrent={1} total={totalItemsCount} onChange={ onPageChanged}/>
+     return <Pagination defaultCurrent={1}  total={totalItemsCount} onChange={ onPageChanged}/>
 
    /* <div className={styles.paginator}>
         {/!* показывай кнопку с лева если portionNumber больше 1*!/}
