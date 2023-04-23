@@ -35,7 +35,8 @@ const Chat: React.FC = () => {
 
 const Messages: React.FC = () => {
 
-    const [messages, setMessages] = useState<ChatMessageType[]>([])
+    const [messages, setMessages] = useState<ChatMessageType[]>([]);
+
     useEffect(() => {
         ws.addEventListener('message', (event) => {
             console.log(JSON.parse(event.data))
@@ -45,7 +46,7 @@ const Messages: React.FC = () => {
 
     return (
         <div style={{height: '500px', overflowY: 'auto'}}>
-            {messages.map((m) => <Message message={m} />)}
+            {messages.map((m) => <Message message={m} key={m.userId} />)}
         </div>
     )
 };
