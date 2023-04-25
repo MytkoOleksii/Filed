@@ -116,7 +116,7 @@ const App = function (props: any) {
                                 <Routes>
                                     <Route path='/profile/:userId?' element={<ProfileContainer/>}/>
                                     <Route path='/dialogs' element={<DialogsContainer/>}/>
-                                    <Route path='/users' element={<UserPage pageTitle={"samurai"}/>}/>
+                                    <Route path='/users' element={<UserPage pageTitle={"Users"}/>}/>
                                     <Route path='/News' element={<News/>}/>
                                     <Route path='/Settings' element={<Settings/>}/>
                                     <Route path={'/login'} element={<Login/>}/>

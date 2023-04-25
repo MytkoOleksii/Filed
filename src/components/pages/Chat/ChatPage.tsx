@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar} from "antd";
+import {Avatar, Button} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 
 export type ChatMessageType = {
@@ -26,27 +26,28 @@ const Chat: React.FC = () => {
 
     useEffect(() => {
 
-        let ws: WebSocket;
-        const closeHandler = () => {
+        let ws: WebSocket;// старый вебсокет
+        // функция перезапускает вызов вебсокета// если вебсокет "умрет" , вызовется функция перезапуска
+        const closeHandler = () => { // нужно сделать одну фн дл всех
             console.log('close WS')
             setTimeout(createChannel, 3000);
         }
 
         function createChannel() {
-           // if (ws !== null) { //если вебсокет был , делаем отписку
-                ws?.removeEventListener('close', closeHandler)
-                ws?.close()
-          //  }
-            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx') // ложим WebSocket v state/ создаем channel
+            //или ставим "?" // if (ws !== null) { //если вебсокет был , перед тем как делать новый, делаем отписку.
+            ws?.removeEventListener('close', closeHandler)
+            ws?.close()// принудительно закрывает
+            //  }
+            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx') // ложим WebSocket v state/ создаем channel/ подключаем
             ws.addEventListener('close', closeHandler)
             setWsChannel(ws);
         }
 
         createChannel();
-
+        // когда мы "уйдем с компоненты нужно все закрыть ( как в componentWill )
         return () => {
             ws.removeEventListener('close', closeHandler)
-            ws.close()
+            ws.close()// принудительно закрывает
         }
     }, [])
 
@@ -71,8 +72,8 @@ const Messages: React.FC<{ wsChannel: WebSocket | null }> = ({wsChannel}) => {
         };
         wsChannel?.addEventListener('message', messageHandler)
 
-        return () => {
-            wsChannel?.removeEventListener('message',messageHandler )
+        return () => { // нужно перед подписаться перед приходом нового
+            wsChannel?.removeEventListener('message', messageHandler)
         }
     }, [wsChannel])
 
@@ -110,28 +111,31 @@ const AddMessagesChatForm: React.FC<{ wsChannel: WebSocket | null }> = ({wsChann
             setReadyStatus('ready');
         }
         wsChannel?.addEventListener('open', openHandler)
-
+// Если приходит новый всченел то от старого нужно отписаться
         return () => {
             wsChannel?.removeEventListener('open', openHandler)
         }
-        }, [wsChannel] )
+    }, [wsChannel])
 
 
-        const sendMessage = () => {
-            if (!message) {
-                return
-            }
-            wsChannel?.send(message)
-            setMessage('')
+    const sendMessage = () => {
+        if (!message) {
+            return
         }
-        return (
+        wsChannel?.send(message)
+        setMessage('')
+    }
+    return (
+        <div>
             <div>
-                <div>
-                    <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea>
-                </div>
-                <div>
-                    <button disabled={wsChannel == null || readyStatus !== 'ready'} onClick={sendMessage}>Send</button>
-                </div>
+                <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea>
             </div>
-        )
-    };
+            <div>
+
+                // неможна отправить пока не подключится вебсокит
+                <Button type={"primary"} disabled={wsChannel == null || readyStatus !== 'ready'}
+                        onClick={sendMessage}>Send</Button>
+            </div>
+        </div>
+    )
+};
