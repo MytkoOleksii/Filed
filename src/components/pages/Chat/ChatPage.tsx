@@ -29,29 +29,34 @@ export default ChatPage;
 // Рисует две компоненты
 const Chat: React.FC = () => {
 
-   const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-    useEffect(() =>{
-        dispatch(startMessagesListening()as unknown as AnyAction);
-       return () => {
-            dispatch(stopMessagesListening()as unknown as AnyAction)
+    const status = useSelector((state: AppStateType) => state.chat.status)
+
+    useEffect(() => {
+        dispatch(startMessagesListening() as unknown as AnyAction);
+        return () => {
+            dispatch(stopMessagesListening() as unknown as AnyAction)
         }
-    },[])
+    }, [])
 
     return (
 
-        <div>
-            <Messages />
-            <AddMessagesChatForm />
-        </div>
+            <div>
+                {status === 'error' && <div> Ошибка. Перезагрузить страницу. </div> }
+
+                <Messages/>
+                <AddMessagesChatForm/>
+
+
+            </div>
     )
 };
 //----------------------------------------//
 
 // Принимает массив узеров и сообщений, мапит и рисует компоненту
 const Messages: React.FC = () => {
-const messages = useSelector((state: AppStateType )=> state.chat.messages)
-    console.log(messages)
+    const messages = useSelector((state: AppStateType) => state.chat.messages)
     return (
         <div style={{height: '500px', overflowY: 'auto'}}>
             {messages.map((m, index) => <Message message={m} key={index}/>)}
@@ -77,10 +82,10 @@ const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
 //--------------------------------------------//
 
 //Рисует поле ввода сообщения и кнопку отправки
-const AddMessagesChatForm: React.FC= () => {
+const AddMessagesChatForm: React.FC = () => {
     const [message, setMessage] = useState('')
-    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
- const dispatch = useDispatch()
+    const dispatch = useDispatch()
+   const status = useSelector((state: AppStateType) => state.chat.status)
 
 
     const sendMessageHandler = () => {
@@ -99,6 +104,7 @@ const AddMessagesChatForm: React.FC= () => {
 
                 {/*// неможна отправить пока не подключится вебсокит*/}
                 <Button type={"primary"}
+                        disabled={status !== 'ready'}
                         onClick={sendMessageHandler}>Send</Button>
             </div>
         </div>
