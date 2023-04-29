@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../../redux/chat-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {AnyAction} from "redux";
+import {debug} from "util";
 
 export type ChatMessageType = {
     message: string,
@@ -32,15 +33,13 @@ const Chat: React.FC = () => {
 
     useEffect(() =>{
         dispatch(startMessagesListening()as unknown as AnyAction);
-        return () => {
+       return () => {
             dispatch(stopMessagesListening()as unknown as AnyAction)
         }
     },[])
 
-
-
-
     return (
+
         <div>
             <Messages />
             <AddMessagesChatForm />
@@ -52,6 +51,7 @@ const Chat: React.FC = () => {
 // Принимает массив узеров и сообщений, мапит и рисует компоненту
 const Messages: React.FC = () => {
 const messages = useSelector((state: AppStateType )=> state.chat.messages)
+    console.log(messages)
     return (
         <div style={{height: '500px', overflowY: 'auto'}}>
             {messages.map((m, index) => <Message message={m} key={index}/>)}

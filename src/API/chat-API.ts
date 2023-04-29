@@ -1,14 +1,7 @@
+let subscribers = [] as SubscriberType []
 
-let subscribers = [] as  SubscriberType []
 
-function createChannel() {
-    //или ставим "?" // if (ws !== null) { //если вебсокет был , перед тем как делать новый, делаем отписку.
-    ws?.removeEventListener('close', closeHandler)
-    ws?.close()// принудительно закрывает
-    //  }
-    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx') // ложим WebSocket v state/ создаем channel/ подключаем
-    ws.addEventListener('close', closeHandler)
-}
+
 //----------------------------------------------------------//
 let ws: WebSocket | null = null;// старый вебсокет
 // функция перезапускает вызов вебсокета// если вебсокет "умрет" , вызовется функция перезапуска
@@ -23,9 +16,29 @@ let messageHandler = (event: MessageEvent) => {
     subscribers.forEach(s => s(newMessages))
 };
 //----------------------------------------------------------//
+function createChannel() {
+    //или ставим "?" // if (ws !== null) { //если вебсокет был , перед тем как делать новый, делаем отписку.
+    ws?.removeEventListener('close', closeHandler)
+    ws?.close()// принудительно закрывает
+    //  }
+    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx') // ложим WebSocket v state/ создаем channel/ подключаем
+    ws.addEventListener('close', closeHandler)
+    ws.addEventListener('message', messageHandler)
+}
+//----------------------------------------------------------//
+
 
 export let chatAPI = {
-    subscribe(callback: SubscriberType ) {
+    start() {
+        createChannel();
+    },
+    stop() {
+        subscribers = []
+        ws?.removeEventListener('close', closeHandler)
+        ws?.removeEventListener('message', messageHandler)
+        ws?.close()
+    },
+    subscribe(callback: SubscriberType) {
         subscribers.push(callback)
         return () => {
             subscribers = subscribers.filter((s) => s !== callback)// Делает отписку
@@ -50,4 +63,4 @@ export type ChatMessageType = {
     userName: string
 }
 
-type SubscriberType =  (messages: ChatMessageType[] ) => void
+type SubscriberType = (messages: ChatMessageType[]) => void
