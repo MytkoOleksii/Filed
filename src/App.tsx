@@ -79,16 +79,29 @@ const items: MenuItem[] = [
 ];
 
 
+
 const App = function (props: any) {
+
+    let media = window.innerWidth
+    console.log(media)
 
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: {colorBgContainer},
     } = theme.useToken();
 
+    // Слідкує за розміром екрану і змінює версівю
     useEffect(() => {
         props.initializeApp();
     }, [])
+
+    useEffect( () => {
+        if(media < 600) {
+            setCollapsed(true)
+        } else {
+            setCollapsed(false)
+        }
+    },[media])
 
     if (!props.initialized) {
         return <Preloader/>

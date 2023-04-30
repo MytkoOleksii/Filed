@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../../redux/chat-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {AnyAction} from "redux";
+import TextArea from "antd/es/input/TextArea";
 
 
 export type ChatMessageType = {
@@ -135,8 +136,17 @@ const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
     return (
         <div>
             <div>
-                <textarea onKeyDown={pressEnter} onChange={(e) => setMessage(e.currentTarget.value)}
-                          value={message}></textarea> "Shift+enter" - send message
+                <TextArea
+                    showCount
+                    maxLength={100}
+                    style={{ height: 120,maxWidth: 500, resize: 'none' }}
+                    onChange={(e) => setMessage(e.currentTarget.value)}
+                    value={message}
+                    onKeyDown={pressEnter}
+                    placeholder="Enter message"
+                />
+             {/*   <textarea onKeyDown={pressEnter} onChange={(e) => setMessage(e.currentTarget.value)}
+                          value={message}></textarea> */}"Shift+enter" - send message
             </div>
             <div>
 
