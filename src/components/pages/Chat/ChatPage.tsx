@@ -83,7 +83,7 @@ const Messages: React.FC = () => {
 //----------------------------------------//
 
 // Рисует Аватар пользователя и сообщение
-const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
+const Message: React.FC<{ message: ChatMessageType }> = React.memo(({message}) => {
 
     return (
         <div>
@@ -95,7 +95,7 @@ const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
             <hr/>
         </div>
     )
-};
+});
 //--------------------------------------------//
 
 //Рисует поле ввода сообщения и кнопку отправки
@@ -110,6 +110,7 @@ const AddMessagesChatForm: React.FC = () => {
             return
         }
         dispatch(sendMessage(message) as unknown as AnyAction)
+
         setMessage('')
     }
     // Отправка смс по нажатию ентер

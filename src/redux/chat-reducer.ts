@@ -1,12 +1,22 @@
-import {chatAPI, ChatMessageType} from "../API/chat-API";
+import {chatAPI} from "../API/chat-API";
 import {Dispatch} from "react";
 import {BaseThunkType, InferActionsTypes} from "./redux-store";
 import {stopSubmit} from "redux-form";
+import {v1} from 'uuid'
 
 export type StatusType = 'pending'| 'ready' | 'error'
 
+type ChatMessageType = ChatMessageAPIType & {id: string}
+
+export type ChatMessageAPIType = {
+    message: string,
+    photo: string
+    userId: number
+    userName: string
+}
+
 let initialState = {
-    messages: [] as ChatMessageType [],
+    messages: [] as ChatMessageAPIType [],
     status: 'pending' as StatusType,
 
 }
@@ -18,7 +28,8 @@ const chatReducer = (state = initialState, action: ActionsType): InitialStateTyp
         case 'SN/chat/MESSAGES_RECEIVED': {
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.messages] //копируем старые которые были и новые которые пришли
+                messages: [...state.messages, ...action.payload.messages.map(m => ({...m, id: v1() }))]
+                    .filter((m: ChatMessageAPIType, index: number, array: ChatMessageAPIType[]) => index >= array.length - 100) //копируем старые которые были и новые которые пришли
             }
         }
             case 'SN/chat/STATUS_CHANGED': {
@@ -34,7 +45,7 @@ const chatReducer = (state = initialState, action: ActionsType): InitialStateTyp
 };
 export const actionsCreator = {
     // Полученные меседжи
-    setMessagesReceived: (messages: ChatMessageType[]) => ({
+    setMessagesReceived: (messages: ChatMessageAPIType[]) => ({
         type: 'SN/chat/MESSAGES_RECEIVED',
         payload: {messages}
     } as const),
@@ -48,7 +59,7 @@ export const actionsCreator = {
 
 //-------------------------------------- Thunk---------------------------------------------------------//
 
-let newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null;
+let newMessageHandler: ((messages: ChatMessageAPIType[]) => void) | null = null;
 
 //Получает сообщения / приходит новый массив сообщений
 const newMessageHandlerCreator = (dispatch: Dispatch<any>) =>  {
