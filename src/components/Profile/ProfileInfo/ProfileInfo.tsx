@@ -5,7 +5,7 @@ import avatar from "../../../assets/images/user.png";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import ProfileDataForm from "./ProfileDataForm";
 import {ContactsType, ProfileType} from "../../../types/types";
-import {Button} from "antd";
+import {Button, Upload} from "antd";
 
 
 type PropsType = {
@@ -49,7 +49,8 @@ const ProfileInfo: React.FC<PropsType> = function (props) {
                         <div className={teg.avaStatus}>
                             <div className={teg.about}>
                                 <img src={props.profile.photos.large || avatar} className={teg.ava}/>
-                                {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                                {props.isOwner && <input  type={"file"} onChange={onMainPhotoSelected}/>
+                                }
                                 {/*  {props.profile.photos.large // если нету фото загружается аватар
                                     ? <img alt={'avatar'} className={teg.ava} src={props.profile.photos.large}/>
                                     : <img alt={'avatar'} className={teg.ava} src={avatar}/>

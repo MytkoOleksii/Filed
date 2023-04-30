@@ -21,7 +21,7 @@ type ProfileTypeKeys = GetStringKeys<ProfileType>
                 <div>
                    {/* <Button type={"primary"} size={"small"}>Save</Button>*/}
 
-                    <button>Save</button>
+                    <Button htmlType={'submit'} type={"primary"} size={'small'} >Save</Button>
                 </div>
                 {props.error &&  <div className={style.formSummaryError}>{props.error}</div> }
                 <div>

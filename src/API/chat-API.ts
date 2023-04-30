@@ -57,7 +57,6 @@ function createChannel() {
 
 //----------------------------------------------------------//
 
-
 export let chatAPI = {
     start() {
         createChannel();
