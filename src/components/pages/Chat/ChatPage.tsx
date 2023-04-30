@@ -15,6 +15,15 @@ export type ChatMessageType = {
     userName: string
 }
 
+type ScrollType ={
+    setAutoScrollIsActive:  React.Dispatch<React.SetStateAction<boolean>>
+    autoScrollIsActive: boolean
+}
+
+
+
+
+
 const ChatPage: React.FC = () => {
     return (
         <div>
@@ -28,6 +37,8 @@ export default ChatPage;
 
 // Рисует две компоненты
 const Chat: React.FC = () => {
+
+    const [autoScrollIsActive, setAutoScrollIsActive] = useState(false)//вкл/викл перемотки
 
     const dispatch = useDispatch()
 
@@ -43,40 +54,43 @@ const Chat: React.FC = () => {
     return (
         <div>
             {status === 'error' && <div> Ошибка. Перезагрузить страницу. </div>}
-            <Messages/>
-            <AddMessagesChatForm/>
+            <Messages autoScrollIsActive={autoScrollIsActive} setAutoScrollIsActive={setAutoScrollIsActive}/>
+            <AddMessagesChatForm autoScrollIsActive={autoScrollIsActive} setAutoScrollIsActive={setAutoScrollIsActive}/>
         </div>
     )
 };
 //----------------------------------------//
 
 // Принимает массив узеров и сообщений, мапит и рисует компоненту
-const Messages: React.FC = () => {
+const Messages: React.FC <ScrollType>= (props) => {
     const messages = useSelector((state: AppStateType) => state.chat.messages)
     const messagesAnchorRef = useRef<HTMLDivElement>(null)
-    const [autoScrollIsActive, setAutoScrollIsActive] = useState(false)//вкл/викл перемотки
+    /*const [autoScrollIsActive, setAutoScrollIsActive] = useState(false)//вкл/викл перемотки*/
 
+    //Проверяет положение чата и выдает тру или фолс
     const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
         let element = e.currentTarget;
         if(Math.abs((element.scrollHeight - element.scrollTop) - element.clientHeight) < 300) {
-            !autoScrollIsActive && setAutoScrollIsActive  (true)
+            !props.autoScrollIsActive && props.setAutoScrollIsActive(true)
         } else  {
-            autoScrollIsActive &&   setAutoScrollIsActive(false)
+            props.autoScrollIsActive &&   props.setAutoScrollIsActive(false)
         }
     }
     //Если приходят другие сообщения происходит перемотка auto scroll
     useEffect(() => {
-        if (autoScrollIsActive) {// Если автоскрол выключен нету перемотки
+
+        if (props.autoScrollIsActive) {// Если автоскрол выключен нету перемотки
             messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
         }
     }, [messages])
 
     return (
         <div style={{height: '500px', overflowY: 'auto'}} onScroll={scrollHandler}>
-            {messages.map((m, index) => <Message message={m} key={index}/>)}
+            {messages.map((m, index) => <Message message={m} key={m.id}/>)}
             <div ref={messagesAnchorRef}>
 
             </div>
+
         </div>
     )
 };
@@ -99,23 +113,22 @@ const Message: React.FC<{ message: ChatMessageType }> = React.memo(({message}) =
 //--------------------------------------------//
 
 //Рисует поле ввода сообщения и кнопку отправки
-const AddMessagesChatForm: React.FC = () => {
+const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
     const [message, setMessage] = useState('')
     const dispatch = useDispatch()
     const status = useSelector((state: AppStateType) => state.chat.status)
-
 
     const sendMessageHandler = () => {
         if (!message) {
             return
         }
         dispatch(sendMessage(message) as unknown as AnyAction)
-
+        props.setAutoScrollIsActive(true)
         setMessage('')
     }
     // Отправка смс по нажатию ентер
     const pressEnter = (e: any) => {
-        if (e.keyCode == 13) {
+        if (e.shiftKey && e.keyCode == 13 ) {
             sendMessageHandler()
         }
     }
@@ -123,7 +136,7 @@ const AddMessagesChatForm: React.FC = () => {
         <div>
             <div>
                 <textarea onKeyDown={pressEnter} onChange={(e) => setMessage(e.currentTarget.value)}
-                          value={message}></textarea>
+                          value={message}></textarea> "Shift+enter" - send message
             </div>
             <div>
 

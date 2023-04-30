@@ -16,7 +16,7 @@ export type ChatMessageAPIType = {
 }
 
 let initialState = {
-    messages: [] as ChatMessageAPIType [],
+    messages: [] as ChatMessageType [],
     status: 'pending' as StatusType,
 
 }
