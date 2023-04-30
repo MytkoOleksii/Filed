@@ -86,7 +86,7 @@ const Messages: React.FC <ScrollType>= (props) => {
 
     return (
         <div style={{height: '500px', overflowY: 'auto'}} onScroll={scrollHandler}>
-            {messages.map((m, index) => <Message message={m} key={m.id}/>)}
+            {messages.map((m) => <Message message={m} key={m.id}/>)}
             <div ref={messagesAnchorRef}>
 
             </div>
@@ -101,7 +101,7 @@ const Message: React.FC<{ message: ChatMessageType }> = React.memo(({message}) =
 
     return (
         <div>
-            {message.photo ? <img src={message.photo} style={{width: '50px'}}/> :
+            {message.photo ? <img src={message.photo} style={{width: '50px'}} /> :
                 <Avatar size={64} icon={<UserOutlined/>}/>}
             <b>{message.userName}</b>
             <br/>
