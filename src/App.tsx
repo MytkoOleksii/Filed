@@ -29,6 +29,7 @@ import Settings from "./components/Settings/Settings";
 import {Login} from "./components/login/login";
 //import ProfileContainer from "./components/Profile/ProfileContainer";
 import {AppHeader} from "./components/Header/AppHeader";
+import {number} from "yargs";
 //import {ChatPage} from "./components/pages/Chat/ChatPage";
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -82,10 +83,25 @@ const items: MenuItem[] = [
 
 const App = function (props: any) {
 
-    let media = window.innerWidth
-    console.log(media)
 
-    const [collapsed, setCollapsed] = useState(false);
+    let screenSize = window.innerWidth // Размер екрана
+    let valueScreen: boolean
+    window.addEventListener('resize', () => {
+        screenSize = window.innerWidth
+        if(screenSize < 600) {
+            valueScreen = true
+        } else {
+            valueScreen = false
+        }
+        setCollapsed(valueScreen)
+    });
+    // Если размер екрана меньше 600 , тогда меню свернутое
+useEffect(() => {
+    if(screenSize < 600) setCollapsed(true)
+},[])
+
+    // @ts-ignore
+    const [collapsed, setCollapsed] = useState(valueScreen);
     const {
         token: {colorBgContainer},
     } = theme.useToken();
@@ -94,14 +110,6 @@ const App = function (props: any) {
     useEffect(() => {
         props.initializeApp();
     }, [])
-
-    useEffect( () => {
-        if(media < 600) {
-            setCollapsed(true)
-        } else {
-            setCollapsed(false)
-        }
-    },[media])
 
     if (!props.initialized) {
         return <Preloader/>
