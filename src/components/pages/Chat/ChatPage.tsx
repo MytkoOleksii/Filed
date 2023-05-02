@@ -143,7 +143,6 @@ const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
         <div>
             <div style={{display:'flex'}}>
                 <TextArea
-
                     maxLength={100}
                     style={{ height: 80, resize: 'none' }}
                     onChange={(e) => setMessage(e.currentTarget.value)}
@@ -151,7 +150,6 @@ const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
                     onKeyDown={pressEnter}
                     placeholder="Shift+enter - send message"
                 />
-
                 {/*// неможна отправить пока не подключится вебсокит*/}
                <div> <Button icon={<SendOutlined />}
                              size={"large"}
