@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Avatar, Button, Popover} from "antd";
-import {SmileOutlined, UserOutlined} from "@ant-design/icons";
+import {SendOutlined, SmileOutlined, UserOutlined} from "@ant-design/icons";
 
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../../redux/chat-reducer";
@@ -141,25 +141,24 @@ const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
 
     return (
         <div>
-            <div>
+            <div style={{display:'flex'}}>
                 <TextArea
-                    showCount
+
                     maxLength={100}
-                    style={{ height: 120,maxWidth: 500, resize: 'none' }}
+                    style={{ height: 80, resize: 'none' }}
                     onChange={(e) => setMessage(e.currentTarget.value)}
                     value={message}
                     onKeyDown={pressEnter}
-                    placeholder="Enter message"
+                    placeholder="Shift+enter - send message"
                 />
-             {/*   <textarea onKeyDown={pressEnter} onChange={(e) => setMessage(e.currentTarget.value)}
-                          value={message}></textarea> */}"Shift+enter" - send message
-            </div>
-            <div>
-                {/*// неможна отправить пока не подключится вебсокит*/}
-                <Button type={"primary"}
-                        disabled={status !== 'ready'}
-                        onClick={sendMessageHandler}>Send</Button>
 
+                {/*// неможна отправить пока не подключится вебсокит*/}
+               <div> <Button icon={<SendOutlined />}
+                             size={"large"}
+                   type={"primary"}
+                        disabled={status !== 'ready'}
+                        onClick={sendMessageHandler}></Button>
+                   <div>
                 <Popover placement="right"
                     content={  <EmojiPicker
                     onEmojiClick={ (e) => {
@@ -167,8 +166,10 @@ const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
                         setMessage((actual) => actual + e.emoji)
                     }}
                 /> } trigger="hover">
-                    <Button  icon={<SmileOutlined />} type={"primary"}></Button>
+                    <Button size={"large"}  icon={<SmileOutlined />} type={"primary"}></Button>
                 </Popover>
+               </div>
+               </div>
             </div>
         </div>
     )
