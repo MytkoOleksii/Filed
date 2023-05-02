@@ -34,10 +34,10 @@ import {number} from "yargs";
 
 const {Header, Content, Footer, Sider} = Layout;
 //------------------- React.lazy start -----------------------------------------------------------------//
-const DialogsContainer = React.lazy( () => import ('./components/Dialogs/DialogsContainer'));
+const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsContainer'));
 //const DialogsContainer = lazy(() => import ('./components/Dialogs/DialogsContainer'));
 
-const ChatPageContainer = React.lazy ( () => import ("./components/pages/Chat/ChatPage")) ;
+const ChatPageContainer = React.lazy(() => import ("./components/pages/Chat/ChatPage"));
 const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
 //------------------- React.lazy  end -----------------------------------------------------------------//
 
@@ -63,32 +63,31 @@ function getItem(
 const items: MenuItem[] = [
     getItem(<NavLink to="/profile">Profile</NavLink>, '1', <ContactsFilled/>,),
     getItem(<NavLink to="/dialogs">Dialogs</NavLink>, '2', <MessageFilled/>),
-    getItem(<NavLink to="/users">Users</NavLink>, 'sub1', <TeamOutlined/>,[
+    getItem(<NavLink to="/users">Users</NavLink>, 'sub1', <TeamOutlined/>, [
         getItem(<NavLink to="/users">All</NavLink>, '3', <UsergroupAddOutlined/>),
         getItem(<NavLink to="/users?term=&friend=true&page=1">Friend</NavLink>, '4', <UserSwitchOutlined/>),
         getItem(<NavLink to="/users?term=&friend=false&page=1">Unfollow</NavLink>, '5', <UsergroupDeleteOutlined/>),
     ]),
-    getItem(<NavLink to="/chat">Chat</NavLink>, '6', <CommentOutlined />),
-    getItem('Team', 'sub2', <DeploymentUnitOutlined />, [getItem('Team 1', '7'), getItem('Team 2', '8')]),
-    getItem(<NavLink to="/news">News</NavLink>, '9', <NotificationTwoTone />),
+    getItem(<NavLink to="/chat">Chat</NavLink>, '6', <CommentOutlined/>),
+    getItem('Team', 'sub2', <DeploymentUnitOutlined/>, [getItem('Team 1', '7'), getItem('Team 2', '8')]),
+    getItem(<NavLink to="/news">News</NavLink>, '9', <NotificationTwoTone/>),
     getItem(<NavLink to="/music">Music</NavLink>, '10', <CustomerServiceTwoTone/>),
     getItem(<NavLink to="/settings">Settings</NavLink>, '11', <SettingFilled/>, [
-            getItem(<NavLink to="/editprofile">Edit profile</NavLink>, '12', <ToolFilled />),
-            getItem('Friend', '13', <UserSwitchOutlined/>),
-            getItem('Unfollow', '14', <UsergroupDeleteOutlined/>),
-        ]),
+        getItem(<NavLink to="/editprofile">Edit profile</NavLink>, '12', <ToolFilled/>),
+        getItem('Friend', '13', <UserSwitchOutlined/>),
+        getItem('Unfollow', '14', <UsergroupDeleteOutlined/>),
+    ]),
 ];
-
 
 
 const App = function (props: any) {
 
-
-    let screenSize = window.innerWidth // Размер екрана
+//-----------------Сворачивание меню при уменьшении экрана -----------//
+    let screenSize = window.innerWidth // Размер экрана
     let valueScreen: boolean
     window.addEventListener('resize', () => {
         screenSize = window.innerWidth
-        if(screenSize < 600) {
+        if (screenSize < 600) {
             valueScreen = true
         } else {
             valueScreen = false
@@ -96,9 +95,11 @@ const App = function (props: any) {
         setCollapsed(valueScreen)
     });
     // Если размер екрана меньше 600 , тогда меню свернутое
-useEffect(() => {
-    if(screenSize < 600) setCollapsed(true)
-},[])
+    useEffect(() => {
+        if (screenSize < 600) setCollapsed(true)
+    }, [])
+
+    //------------------  END  --------------------------//
 
     // @ts-ignore
     const [collapsed, setCollapsed] = useState(valueScreen);
@@ -127,11 +128,11 @@ useEffect(() => {
                         <AppHeader/>
                     </Header>
                     <Content style={{margin: '5 8px', backgroundColor: '#76b5c7'}}>
-                       {/* <Breadcrumb style={{margin: '16px 0'}}>
+                        {/* <Breadcrumb style={{margin: '16px 0'}}>
                             <Breadcrumb.Item>User</Breadcrumb.Item>
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
                         </Breadcrumb>*/}
-                        <div style={{padding: 1, minHeight: 360,backgroundColor: '#76b5c7'}}>
+                        <div style={{padding: 1, minHeight: 360, backgroundColor: '#76b5c7'}}>
 
                             <Suspense fallback={<div>Loading...</div>}>
                                 <Routes>

@@ -1,12 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Avatar, Button} from "antd";
-import {UserOutlined} from "@ant-design/icons";
+import {Avatar, Button, Popover} from "antd";
+import {SmileOutlined, UserOutlined} from "@ant-design/icons";
 
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../../redux/chat-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {AnyAction} from "redux";
 import TextArea from "antd/es/input/TextArea";
+import EmojiPicker from "emoji-picker-react";
 
 
 export type ChatMessageType = {
@@ -133,6 +134,11 @@ const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
             sendMessageHandler()
         }
     }
+    //------------ emoji  ----------------//
+
+        const [isPicker, setIsPicker] = useState(false) // скрывает показывает блок емоций
+      //  const [currentEmoji, setCurrentEmoji] = useState(null) // обрабатывает емоции
+
     return (
         <div>
             <div>
@@ -149,12 +155,22 @@ const AddMessagesChatForm: React.FC<ScrollType> = (props) => {
                           value={message}></textarea> */}"Shift+enter" - send message
             </div>
             <div>
-
                 {/*// неможна отправить пока не подключится вебсокит*/}
                 <Button type={"primary"}
                         disabled={status !== 'ready'}
                         onClick={sendMessageHandler}>Send</Button>
+
+                <Popover placement="right"
+                    content={  <EmojiPicker
+                    onEmojiClick={ (e) => {
+                        // @ts-ignore
+                        setMessage((actual) => actual + e.emoji)
+                    }}
+                /> } trigger="hover">
+                    <Button  icon={<SmileOutlined />} type={"primary"}></Button>
+                </Popover>
             </div>
         </div>
     )
 };
+
