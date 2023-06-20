@@ -1,32 +1,61 @@
 .nav {
     grid-area: n;
     background-color: lightslategrey;
+    height: 65%;
+    max-height: 290px;
+    width: 100%;
+
 
 }
 
 .item {
     color:  white;
+    border: black solid 1px;
+    margin: 1px;
+    padding: 10px;
+
+
 }
-.item.active {
+.item a.active {
     color: gold;
 }
-.active-link {
+/*.item a.activeLink {
     color: red;
     cursor: default;
+
+}*/
+
+.item a {
+    color: white;
+    text-decoration: none;
+    display: block;
+
 }
 
-.active {
+.item a:focus {
     color: gold;
 }
+.item a:hover {
+    color: red;
+    text-decoration: underline;
+    background: limegreen;
+    text-decoration: none;
+}
+.item:hover{
+    background: limegreen;
+}
 
-.link {
+/*a:visited {
+    color: blue; // Цвет посещённой ссылки
+} */
+
+/*
+a:hover {
+    color: gold; !* Цвет ссылки при наведении *!
+    text-decoration: underline; !* Добавляем подчёркивание *!
+    background: limegreen; !* Цвет фона *!
+}
+a:active {
     color: black;
-}
-
-item a {
-    color: white
-}
-
-.item a.activeLink {
-    color: gold
-}
+    text-decoration: underline;
+}*/

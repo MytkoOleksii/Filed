@@ -1,0 +1,43 @@
+.descriptionBlock {
+    padding:  10px;
+    border: black solid 1px;
+    display: block;
+
+
+}
+.im img{
+    height: 200px;
+    width: 100%;
+}
+.ava {
+    height: 250px;
+    width: 250px;
+}
+
+.about {
+    display:inline-block;
+}
+.avaStatus {
+    position: relative;
+}
+.status {
+    position: absolute;
+    top: 2px;
+    margin-left:  10px;
+}
+.contact {
+    padding-left: 10px;
+}
+/*
+.fl {
+    float: left;
+    width: 40%;
+
+}
+.fr {
+    float: right;
+    width: 30%;
+}
+*/
+
+
